@@ -22,6 +22,7 @@ class RouteParent{
 		
 		// Equivalent du lireChamps utilisé auparavant : 
 		$traitementClass = $this->request->get("traitementClass");
+		//dump($traitementClass);
 		if ($traitementClass != ""){			
 			// echo "il faut traiter le form $traitementClass ! ";		
 			$nomClasse = "\\traitement\\Traitement$traitementClass";

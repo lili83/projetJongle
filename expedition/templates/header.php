@@ -1,12 +1,13 @@
 <?php
 use Symfony\Component\HttpFoundation\Session\Session;
 $objSession = new Session();
-
+//dump($objSession);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>L'expédition</title>
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo $urlRoot; ?>/assets/img/header/logo.png" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $urlRoot; ?>/assets/css/normalize.css">
@@ -29,8 +30,7 @@ $objSession = new Session();
 					<img src="<?php echo $urlRoot; ?>/assets/img/header/logo_miniature.svg">
 			</figure>
 			<?php								
-			// Si l'utilisateur est connecté : on affiche le lien de déconnexion
-			
+			// Si l'utilisateur est connecté : on affiche le lien de déconnexion			
 			if($objSession->get('email') != ""){
 				
 			?>
@@ -55,25 +55,18 @@ $objSession = new Session();
 			<ul class="contain-col">
 				<li><a href="<?php echo $app['url_generator']->generate('accueil')?>">accueil</a></li>
 				<li><a href="<?php echo $app['url_generator']->generate('presentation')?>">présentation</a></li>
-				<li><a href="<?php echo $app['url_generator']->generate('pedagogie')?>">pédagogie</a></li>
+				<li><a href="<?php echo $app['url_generator']->generate('methode')?>">méthode</a></li>
+				<li><a href="<?php echo $app['url_generator']->generate('notation')?>">notation</a></li>
 				<li><a href="<?php echo $app['url_generator']->generate('blog')?>">blog</a></li>
 				<?php 
 				// Si l'utilisateur est connecté : on affiche le lien vers l'espace membre			
-				if(($objSession->get('email') != "") && ($objSession->get('niveau')>=1) &&($objSession->get('niveau')<10))
-				{							
+				if($objSession->get('email') != ""){								
 				?>
 				<li><a href="<?php echo $app['url_generator']->generate('back-office/espace-membre');						
 				?>
 				">espace membre</a></li>
 				<?php 
-				} elseif (($objSession->get('email') != "") && ($objSession->get('niveau')>=10))
-				{
-				?>
-				<li><a href="<?php echo $app['url_generator']->generate('back-office/espace-admin');						
-				?>
-				">espace admin</a></li>
-				<?php
-				}
+				} 
 				?>
 				<li><a href="<?php echo $app['url_generator']->generate('galerie')?>">galerie</a></li>
 				<li><a href="<?php echo $app['url_generator']->generate('evenements')?>">événements</a></li>
@@ -90,7 +83,7 @@ $objSession = new Session();
 					<input type="password" name="password" required placeholder="mot de passe">
 					<a href="#">mot de passe oublié ?</a>
 					<button type="submit">se connecter</button>	
-					<input type="hidden" name="traitementClass" value="Connexion">
+					<input type="hidden" name="ClassTraitement" value="Connexion">
 					<p>vous n'avez pas de compte?</p>
 					<span id="btn-inscription">créer un compte</span>
 					<div id="messageLogin">		
@@ -111,7 +104,7 @@ $objSession = new Session();
 						<input type="password" name="password_confirm" required placeholder="confirmation mot de passe">
 		                <div class="g-recaptcha" data-sitekey="6LcdcywUAAAAAHxX-HN4FaW3zsw-L7KwwvcNl-Mh"></div>
 						<button type="submit">valider inscription</button>	
-						<input type="hidden" name="traitementClass" value="Inscription">
+						<input type="hidden" name="ClassTraitement" value="Inscription">
 						<div id="messageInscription">		
 							<?php  $this->afficherVarGlob("Inscription"."Message"); ?>
 						</div>
