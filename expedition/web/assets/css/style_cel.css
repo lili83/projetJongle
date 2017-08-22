@@ -1,0 +1,187 @@
+ /**
+      __  __            _____  _   _ 
+     |  \/  |    /\    |_   _|| \ | |
+     | \  / |   /  \     | |  |  \| |
+     | |\/| |  / /\ \    | |  | . ` |
+     | |  | | / ____ \  _| |_ | |\  |
+     |_|  |_|/_/    \_\|_____||_| \_| **/
+
+
+/*-----------------------general-----------------------------*/
+#section_presentation_1 h1, #section_galerie_1 h1, #section_evenements_1 h1, #section_evenements_2 h1, #section_detailEvenement h1 {
+	font-size: 10rem;
+	font-weight: normal;
+	text-align: center;
+	font-family: mathleteskinny;
+	position: relative;
+	}
+
+#section_presentation_1 p, #section_galerie_1 p   {
+	font-family:"GeosansLight";
+	text-align: justify;
+	font-size: 3rem;
+	color: black;	
+}
+
+#section_presentation_1 span,  #section_evenements_1 span, #section_evenements_2 span {
+	color: red;
+}
+
+
+/*------------------------------PRESENTATION-------------------------------------------*/
+
+#banniere {	
+	position: relative;
+} 
+
+#banniere #img-after {
+
+}
+
+#banniere:after {
+	content: url("../img/ombre.png");
+	position: absolute;	
+	z-index: 1;
+    top: 99%;
+    left: 7%;
+}
+
+#section_presentation_1 #before:before {
+	content:url("../img/quote_1.svg");
+	position:absolute;
+	width: 4%;
+    left: 0;
+    bottom: 234%;
+}
+
+
+#section_presentation_1 #before, #section_presentation_1 #after {
+	position: relative;
+}
+
+#section_presentation_1 #after:after {
+	content:url("../img/quote_2.svg");
+	position:absolute;
+	width: 4%;
+	left: 91%;
+    bottom: -80%;
+}
+
+
+#section_presentation_1 article {
+	margin-bottom: 10rem;
+}
+
+#section_presentation_1  section .contain {
+	flex-wrap: wrap;
+}
+
+#section_presentation_1  section .contain article {
+	width: 23%;
+}
+
+#section_presentation_1 img {
+	border-radius: 50%;
+	border: solid grey 1px;
+}
+
+#section_presentation_1  section .contain article p {
+		text-align: center;
+		font-family: mathleteskinny;
+		font-size: 6rem;
+		color: black;
+		margin: 1rem;
+}
+
+/*-------------------------------------GALERIE---------------------------------------------------*/
+	
+#section_galerie_1 span {
+	color: red;
+}
+
+#video{
+	flex-wrap: wrap;
+	margin-top: 10rem;
+}
+#section_galerie_1 #gallery {
+	margin-top: 15rem;
+}
+
+
+
+#section_galerie_1 #ul  {
+	justify-content: flex-end;
+	font-size: 2rem;
+	font-family:"GeosansLight";
+	margin-right: 2%;
+}
+
+#section_galerie_1 #ul li{
+	padding-right: 2rem;
+}
+
+.margin {
+	margin: 1rem 0;	
+	text-align: center;
+}
+
+
+#section_galerie_1 #video_solo iframe{
+	width: 100%;
+	height: 63rem;
+	
+}
+
+
+/*---------------------------------evenements--------------------------------*/
+
+#section_evenements_1, #section_evenements_2 {
+	margin-top: 15rem;
+}
+
+#section_detailEvenement h2{
+	font-size: 4rem;
+	color: grey;
+}
+
+#section_evenements_1 div, #section_evenements_2 div {
+	border: black solid 1px;
+	padding: 4rem 2rem;
+}
+
+#section_evenements_1 table , #section_evenements_2 table {
+	width: 100%;
+	margin: 0 auto;
+}
+
+#section_evenements_1 a, #section_evenements_2 a  {
+	color: #1DCCDB;
+}
+
+#section_evenements_1 thead td, #section_evenements_2 thead td {
+	text-transform: uppercase;
+	font-family: 'mathleteskinny';
+	font-size: 4rem;
+	color: grey;
+	font-weight: bold;
+}
+
+#section_evenements_1 td, #section_evenements_2 td {
+	font-family:"GeosansLight";
+	font-size: 1.8rem;
+	padding-right: 2rem;	
+}
+
+#section_evenements_1 a, #section_evenements_2 a  {
+	font-size: 2rem;
+	font-family:"GeosansLight";
+
+}
+
+#section_evenements_1 ul , #section_evenements_2 ul   {
+	float: right;
+}
+
+#section_evenements_1 .color, #section_evenements_2 .color, #tableau-de-bord .color {
+	background-color: ghostwhite;
+}

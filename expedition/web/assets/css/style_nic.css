@@ -1,0 +1,23 @@
+ /**
+      __  __            _____  _   _ 
+     |  \/  |    /\    |_   _|| \ | |
+     | \  / |   /  \     | |  |  \| |
+     | |\/| |  / /\ \    | |  | . ` |
+     | |  | | / ____ \  _| |_ | |\  |
+     |_|  |_|/_/    \_\|_____||_| \_| **/
+
+
+#btn-deconnexion{
+	cursor: pointer;
+	position: relative;
+	color : red;
+}
+
+#btn-deconnexion::before{
+    content: url(../img/header/xcross-black.svg);
+    top: 0;
+    left: -40.5%;
+    position: absolute;
+    z-index: 1;
+    width: 30%;
+}

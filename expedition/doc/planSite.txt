@@ -1,0 +1,40 @@
+PLAN DU SITE
+
+Partie publique	
+
+ACCUEIL 
+Menu: 	Accueil
+	Page de présentation du projet et des membres de l'expédition
+	Page de présentation de la méthode des lancers harmonique + tablatures
+	Partie blog (avec formulaire de connexion à la partie privée)
+	(page évennement: actualité?)
+	Galerie photo vidéo
+	Page de contact
+
+
+Partie privée
+
+PAGE UTILISATEUR
+
+	Information profil de l'utilisateur
+	Liste des articles 
+	Création/Modification d'article en privé
+	
+	Plus pour l'administrateur du site uniquement :
+	
+	Gestion des utilisateur
+	Gestion des commentaires
+	Céation d'évennements
+	Validation d'articles en public
+	Création des catégories d'articles
+
+	
+
+		 
+		
+
+
+
+
+
+
