@@ -80,7 +80,7 @@ CODEHTML;
         $codeHtml .= 
 <<<CODEHTML
         <p>catégories: 
-            <span>';
+            <span>
 CODEHTML;
 
         foreach($resCategoriesArticle as $categorie){								
@@ -204,17 +204,17 @@ CODEHTML;
 
                     <div class="contain">
                         <label for ="resume">Résumé: </label>
-                        <textarea  class="CKEDITOR" name="resume"                                 
+                        <textarea  class="ckeditor" name="resume"                                 
                                 value="{$this->resume}"
                                 placeholder="{$this->resume}">
-                        </textare
+                        </textarea>
                     </div>                
                     
                     <div class="contain">                        
-                        <textarea class="CKEDITOR" name= "contenu"
+                        <textarea class="ckeditor" name= "contenu"
                                     value="{$this->contenu}"
                                     placeholder="{$this->contenu}">
-                        </teaxtarea>
+                        </textarea>
                     </div>                
 
                         <button type="submit">Modifier</button>
