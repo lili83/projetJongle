@@ -54,6 +54,10 @@ $app->get('/blog',"\\route\\Front::blog")
 ->bind('blog')
 ;
 
+$app->get('/blog/page/{numPage}',"\\route\\Front::blog")
+->bind('blog/page')
+;
+
 // ROUTE POUR LA PAGE D'UN ARTICLE
 $app->match('/article/{id}', "\\route\\Front::article")
 ->bind('article')

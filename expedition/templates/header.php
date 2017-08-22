@@ -60,13 +60,20 @@ $objSession = new Session();
 				<li><a href="<?php echo $app['url_generator']->generate('blog')?>">blog</a></li>
 				<?php 
 				// Si l'utilisateur est connecté : on affiche le lien vers l'espace membre			
-				if($objSession->get('email') != ""){								
+				if(($objSession->get('email') != "")&&($objSession->get('niveau') >= 1)&&($objSession->get('niveau') <10)){								
 				?>
 				<li><a href="<?php echo $app['url_generator']->generate('back-office/espace-membre');						
 				?>
 				">espace membre</a></li>
 				<?php 
-				} 
+				} elseif (($objSession->get('email') != "")&&($objSession->get('niveau') >= 10))
+				{
+				?>
+				<li><a href="<?php echo $app['url_generator']->generate('back-office/espace-admin');						
+				?>
+				">espace admin</a></li>
+				<?php
+				}
 				?>
 				<li><a href="<?php echo $app['url_generator']->generate('galerie')?>">galerie</a></li>
 				<li><a href="<?php echo $app['url_generator']->generate('evenements')?>">événements</a></li>
