@@ -33,6 +33,19 @@ $app
 ->bind('deleteUser')
 ;
 
+$app
+->match('/back-office/AfficherProfil', "\\route\\Back::AfficherProfil")
+->bind('AfficherProfil	')
+;
+// ROUTE POUR LA PAGE DU PROFIL DE L'UTILISATEUR
+// $app->get('/users', "\\route\\Back::users")
+// ->bind('users')
+// ;
+// $app->get('/users/{userName}', "\\route\\Back::users")
+// ->bind('users')
+// ;
+
+
 //
 //  GESTION DES ARTICLES
 //
