@@ -6,7 +6,7 @@ if (null !== $objSession->get('email') && $objSession->get('email')!=''){
 	<p>(pour commenter, il faut être connecté)</p>
 	<h2>commentez cet article</h2>
 
-	<form id="commentaire" action="<?php echo $app['url_generator']->generate('commentaire');?>" method="POST">
+	<form id="commentaire" action="" method="POST">
 		<input name="titre" placeholder="votre titre">
 		<textarea name="texte" value="texte" placeholder="votre commentaire" rows="5"></textarea>
 		<button type="submit" <?php if ($email == "") echo "disabled"; ?>> publier</button>

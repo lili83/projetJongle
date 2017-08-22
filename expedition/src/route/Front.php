@@ -192,7 +192,8 @@ class Front extends RouteParent
 	function commentaire(){			
 		
 		$this->urlRedirection = $this->traitementFormHeader()->urlRedirection;		
-		
+		//dump($this->urlRedirection);
+
 		if ($this->urlRedirection == ""){			
 			
 			return $this->construireHtml([	"header", 

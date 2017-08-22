@@ -38,7 +38,7 @@ class Back extends RouteParent{
 	function updateUser($id){
 		
 		$objSession = new Session;
-		dump("coucou");
+		
 		//->verifier qu'il n'y a pas de session ouverte...
 		$objSession->start();
 		$niveau = $objSession->get("niveau");		

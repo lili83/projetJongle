@@ -11,7 +11,7 @@ class TraitementCommentaire
     function __construct ($request)
     {
         $this->request = $request;
-        
+        //dump($this->request);
         global $app;
         $res = $app['db']->executeQuery("  SELECT * 
                                     from user 
@@ -41,11 +41,8 @@ class TraitementCommentaire
             ->lireChamps("id_article")	            	
             ->ajouterNameValeur("id_user", $tabUser["id"])	
             ->ajouterNameValeur("date_envoi", date("Y-m-d H:i:s"))		
-            ->envoyer("Commentaire", "")
-            ->setMessage("Merci pour votre message.");
+            ->envoyer("Commentaire", "");
             $this->urlRedirection = $app["url_generator"]->generate("article",["id" => $id_article]);
         }
-
-        
     }
 }
