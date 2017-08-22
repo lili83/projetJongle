@@ -10,8 +10,7 @@ class Back extends RouteParent{
 		$objSession = new Session;
 
 		//->verifier qu'il n'y a pas de session ouverte...
-		$objSession->start();
-		//dump($objSession);
+		$objSession->start();		
 		$niveau = $objSession->get("niveau");
 		if($niveau >= 1 && $niveau < 10 )
 			return $this->construireHtml(["header", "section-membre-2", "footer"]);		
@@ -20,6 +19,24 @@ class Back extends RouteParent{
 		}
 	}
 
+	//
+	//	MAJ d'un membre
+	//
+	function updateUser($id){
+		
+		$objSession = new Session;
+
+		//->verifier qu'il n'y a pas de session ouverte...
+		$objSession->start();
+		$niveau = $objSession->get("niveau");		
+		$trait = new \traitement\TraitementUpdate($this->request);
+		
+		return $this->construireHtml(["header","section-membre-2", "footer"]);				
+	}
+
+	//
+	//	Affichage de la page admin
+	//
 	function admin(){
 		global $app;
 		// récup du $level depuis la session
@@ -34,6 +51,9 @@ class Back extends RouteParent{
 		}
 	}
 
+	//
+	//	DECONNEXION
+	//
 	function deconnecter()
  	{	 		
  		// DETRUIRE LES INFOS DE SESSION
@@ -54,4 +74,31 @@ class Back extends RouteParent{
         return $app->redirect($app["url_generator"]->generate("accueil")); 
     }
 
+	//
+	//	MAJ d'un article
+	//
+    function articleUpdate($id){
+    	$objSession = new Session;	
+
+		//->verifier qu'il n'y a pas de session ouverte...
+		$objSession->start();
+		$niveau = $objSession->get("niveau");		
+		
+		if($niveau >= 1 && $niveau < 10 ){
+			if (null !== $this->request->get("traitementClass")){
+				$traitement = $this->request->get("traitementClass");
+				if($traitement == "UpdateArticle"){
+					$trait = new \traitement\TraitementUpdate($this->request);
+					dump($trait);
+				} 				
+			}
+			else{				
+				$this->infosDetail["id"] = $id;
+				return $this->construireHtml(["header","section-article_update", "footer"]);
+			}
+		}
+		else{				
+			return $this->redirectToRoute("accueil");
+		}
+    }
 }
