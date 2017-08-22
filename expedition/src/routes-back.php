@@ -11,13 +11,18 @@ $app
 ;
 // ROUTE POUR LA PAGE /back-office/espace-admin
 $app
-->get('/back-office/espace-admin', "\\route\\Back::admin")
+->match('/back-office/espace-admin', "\\route\\Back::admin")
 ->bind('back-office/espace-admin')
 ;
 
 $app
 ->get('/deconnexion', "\\route\\Back::deconnecter")
 ->bind('deconnexion')
+;
+
+$app
+->match('/back-office/AfficherProfil', "\\route\\Back::AfficherProfil")
+->bind('AfficherProfil	')
 ;
 // ROUTE POUR LA PAGE DU PROFIL DE L'UTILISATEUR
 // $app->get('/users', "\\route\\Back::users")

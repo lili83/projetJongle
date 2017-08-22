@@ -34,6 +34,12 @@ class Back extends RouteParent{
 		}
 	}
 
+	function AfficherProfil() {
+		global $app;
+
+		return $this->redirectToRoute("AfficherProfil");
+	}
+
 	function deconnecter()
  	{	 		
  	// DETRUIRE LES INFOS DE SESSION

@@ -226,7 +226,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
         <td>$pseudo</td>
         <td>$nom</td>
         <td>$email</td>
-        <td><a href="">Acceder à la fiche</a></td>
+        <td><a href="" class="fiche-profil" >Acceder à la fiche</a></td>
+        <input type="hidden" class="id" value="$id"/>
     </tr>
 CODEHTML;
                             } else 
@@ -237,17 +238,25 @@ CODEHTML;
         <td>$pseudo</td>
         <td>$nom</td>
         <td>$email</td>
-        <td><a href="">Acceder à la fiche</a></td>
+        <td><a href="" class="fiche-profil">Acceder à la fiche</a></td>
+        <input type="hidden" class="id" value="$id"/>
     </tr>
 CODEHTML;
                             }
                         $index++;
+
                         }                        
                     ?>
                         </tbody>
                     </table>
                 </div>
             </section>
+
+
+
+
+
+
 
             <section>
                 <h2>Profil de <?php echo $pseudo; ?></h2>
@@ -309,19 +318,21 @@ CODEHTML;
                 </form>
             </section>
             <section>
-                <h2>Nouvelle catégorie</h2>
-                <form action="" method="post">
+                <h2>Ajouter une nouvelle catégorie</h2>
+                <form action="" method="POST">
                     <input type="text" name="nom" placeholder="nom de la nouvelle catégorie"/>
                     <button type="submit">Valider</button>
-                    <input type="hidden" name="traitementClass" value="Catégorie"/>
+                    <input type="hidden" name="traitementClass" value="Categorie"/>
                 </form>
+                <div id="messageCategorie">     
+                    <?php  $this->afficherVarGlob("Categorie"."Message"); ?>
+                </div>
             </section>
 
             <section>
                 <h2>Gestion des commentaires</h2>
                 <h3>listes des commentaires</h3>
-                <div>
-                    <table>
+                 <table>
                         <thead>
                             <tr>
                                 <td>Id utilisateur</td>
@@ -363,10 +374,13 @@ CODEHTML;
                     $index++;
                     }
                 ?>
-                        </tbody>
-                    </table>
-                </div>    
+                    </tbody>
+                </table>
             </section>
         </div>
     </section>  
 </section>
+
+
+
+<script type='text/javascript' src='<?php echo $urlRoot; ?>/assets/js/ajax.js'></script>
