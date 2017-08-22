@@ -4,24 +4,39 @@ use Silex\Application;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
-class Back extends RouteParent{
-	
+
+class Back extends RouteParent{		
+
 	function membre(){		
+		
 		$objSession = new Session;
 
 		//->verifier qu'il n'y a pas de session ouverte...
 		$objSession->start();		
 		$niveau = $objSession->get("niveau");
-		if($niveau >= 1 && $niveau < 10 )
-			return $this->construireHtml(["header", "section-membre-2", "footer"]);		
-		 else{				
+
+		if($niveau >= 1 && $niveau < 10 ){
+			if (null !== $this->request->get("traitement")){
+				$traitement = $this->request->get("traitement");
+				if($traitement == "update"){
+					$trait = new \traitement\TraitementUpdate($this->request);					
+					dump($trait);
+				} 				
+			}
+			
+			return $this->construireHtml(["header","section-membre-2", "footer"]);
+			
+		}
+		else{				
 			return $this->redirectToRoute("accueil");
 		}
 	}
 
+
 	//
 	//	MAJ d'un membre
 	//
+
 	function updateUser($id){
 		
 		$objSession = new Session;
@@ -38,12 +53,12 @@ class Back extends RouteParent{
 	//	Affichage de la page admin
 	//
 	function admin(){
-		global $app;
+		$this->request = $request;
 		// récup du $level depuis la session
 		$objSession = new Session;
 		$objSession->start();		
 		// on ne construit que si le visiteur a le niveau suffisant
-		if($objSession->get("niveau") >= 10)
+		if($objSession->get("level") >= 10)
 			return $this->construireHtml(["header", "section-admin", "footer"]);		
 		else{
 			// https://silex.symfony.com/doc/2.0/usage.html#redirects
@@ -73,6 +88,7 @@ class Back extends RouteParent{
         // https://silex.symfony.com/doc/2.0/usage.html#redirects
         return $app->redirect($app["url_generator"]->generate("accueil")); 
     }
+
 
 	//
 	//	MAJ d'un article

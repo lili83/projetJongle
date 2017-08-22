@@ -13,6 +13,7 @@ class TraitementInscription extends TraitementCommun{
 	}
 
 	function inscrire(){			
+		global $app; 
 		$this
 		->traiterForm("Inscription")			
 		->lireEmail("email");
@@ -28,8 +29,7 @@ class TraitementInscription extends TraitementCommun{
 			$objSession = new Session();
 			$objSession->start();
 			$objSession->set("email", $this->tabInfos["email"]);
-			//	Redirection vers l'accueil ou le profil user
-			global $app; 
+			//	Redirection vers l'accueil ou le profil user			
 			$this->urlRedirection = $app["url_generator"]->generate("back-office/espace-membre");
 		}
 		else{

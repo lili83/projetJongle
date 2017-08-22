@@ -19,6 +19,7 @@ class RouteParent{
 		// Utilisation de la classe Request de Symfony pour 
 		// un traitement généraliste des form
 		$this->request = Request::createFromGlobals();
+		
 		// Equivalent du lireChamps utilisé auparavant : 
 		$traitementClass = $this->request->get("traitementClass");
 		if ($traitementClass != ""){			
