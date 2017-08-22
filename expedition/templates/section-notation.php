@@ -23,5 +23,16 @@
 				<li>- elle permet la création d’un répertoire</li>
 			</ul>
 		</article>
+		<aside class="maxWidht" >
+			<h1>devenir membre de l'expédition ?</h1>
+			<p>Rien de plus simple ! Voici une courte partition relativement facile (mais pas trop).
+			Filmez vous en train de la réaliser et en envoyez nous votre video par email. 
+			Voici la partition:
+			</p>
+			<figure>
+				<img src="<?php echo $urlRoot; ?>/assets/img/notation/tabla.svg">
+			</figure>
+			<a href="mailto:admin@expedition@mail.me?subject=Partition membre expedition en vidéo">> envoyer</a>
+		</aside>
 	</section>
 </section>	

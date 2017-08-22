@@ -259,7 +259,7 @@ header nav figure {
 #login form input, form button, form a:nth-child(7),
 #inscription form input, #inscription form button,
 #btn-inscription, #section_contact_1 button,
-#section_contact_1  input, #profil form input, #tableau-de-bord form input {
+#section_contact_1  input, #profil form input, #tableau-de-bord form input, #section_notation aside a {
     width: 100%;
     padding: .5rem 0;
     margin: 1rem 0;
@@ -274,7 +274,7 @@ header nav figure {
     padding: 2rem 0;
 }
  form button, #section_contact_1  button, #inscription form button, #profil form button, #tableau-de-bord section:nth-child(2) form input:nth-child(7), #tableau-de-bord section:nth-child(2) form input:nth-child(8),
- #tableau-de-bord section:nth-child(3) form button{
+ #tableau-de-bord section:nth-child(3) form button, #section_notation aside a{
     border: 1px #1DCCDB solid;
     border-radius: 10px;
     padding: .5rem 0;
@@ -283,7 +283,7 @@ header nav figure {
     transition: all .5s ease-out;
 }
 #login form button:hover, #inscription form button:hover, #section_contact_1 form button:hover, #profil form button:hover, #tableau-de-bord  section:nth-child(2) form input:nth-child(7):hover,
-#tableau-de-bord section:nth-child(3) form button:hover{
+#tableau-de-bord section:nth-child(3) form button:hover, #section_notation aside a:hover{
     background: white;
     color: #1DCCDB;
 }
@@ -1249,6 +1249,35 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
 #section_methode article ul, #section_notation article ul {
     text-align: left;
 }
+#section_notation aside {
+    margin-top: 7rem;
+    padding: 0 5%;
+}
+#section_notation aside figure {
+    width: 100%;
+    animation: none;
+    filter: none;
+    border: 1px solid lightgrey;
+    margin: 0 auto;
+}
+#section_notation aside a {
+    display: block;
+    font-family: mathleteskinny;
+    width: 20%;
+    float: right;
+    position: relative;
+    margin-top: 2rem;
+}
+
+#section_notation aside h1 {
+    text-align: center;
+}
+#section_notation aside p {
+    font-size: 1.8rem;
+    text-align: center;
+    margin: 1rem 0 3rem 0;
+    position: relative;
+}
 /* XXXXXXXXXXXXXXXXXXX SECTIION MEMBRE XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
 
 #section_membre_2 {
@@ -1967,6 +1996,17 @@ footer p::before{
     #section_notation > div {
         padding: 22rem 50%;
     }
+    #section_notation aside a {
+        width: 100%;
+    }
+    #section_notation aside p {
+        text-align: justify;
+        font-size: 1.8rem;    
+    } 
+    #section_notation aside {
+        margin-top: 1rem;
+    }   
+
     /* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX BLOG XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
     #section-blog {
         margin-top: 9rem;
@@ -2262,8 +2302,6 @@ footer p::before{
         padding: 0 2%;
     }
     
-
-
 }    
 
 
