@@ -23,8 +23,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
         $reqInfosUsr = "SELECT * FROM USER WHERE EMAIL = '$email';";
         global $app;        
         $objetStatement = $app['db']->executeQuery($reqInfosUsr);
-        if($res = $objetStatement->fetch()){
-        extract($res);
+        if($res = $objetStatement->fetch()){           
+            extract($res);
+            dump($id);
 ?>              
                     <label>pseudo:</label>
                     <input 
@@ -66,16 +67,14 @@ use Symfony\Component\HttpFoundation\Session\Session;
                     ><?php echo $resume; ?>
                 </textarea>
                 </div> 
-                <!--<input 
+                <input 
                     type="text" 
-                    name=""
-                    value=" <?php 
-                                if(isset($resInfosUsr["pseudo"]) && $resInfosUsr["pseudo"] !="") 
-                                    echo $resInfosUsr["pseudo"]; 
-                            ?>"
-                >-->
+                    name="login"
+                    value=" <?php echo $pseudo;?>"
+                >
                 <button>Modifier</button>
-                <input type="hidden" name="traitementClass" value="update">
+                <input type="hidden" name="id" value="<?php echo $id;?>">
+                <input type="hidden" name="traitementClass" value="Update">
             </form>
 <?php
         } 

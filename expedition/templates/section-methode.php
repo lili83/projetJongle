@@ -12,10 +12,10 @@
 			<p>Cette méthode se base sur l’étude de partitions qui « sonnent », permettant de travailler des phrases cohérentes et motivantes. Des points techniques sont abordés pas à pas et insérés directement dans les partitions, ces points techniques deviennent des outils permettant de réaliser des partitions et non plus des « figures » isolées.
 			</p>
 
-			<p> Ces partitions peuvent être apprises, partagées et peuvent devenir un répertoire utile pour s’amuser et progresser, seul ou à plusieurs.
+			<p>Ces partitions peuvent être apprises, partagées et peuvent devenir un répertoire utile pour s’amuser et progresser, seul ou à plusieurs.
 			</p>
 
-			<p>Cette méthode est enseigné à l’Académie Fratellini, au CIAM et au CNAC.  Différents stages sont organisés tout au long de l’année ( en savoir plus ? vers un lien de contact ?) Plusieurs rencontres sont organisées un fois par mois au 104 ( en savoir plus ? )
+			<p>Cette méthode est enseigné à l’Académie Fratellini, au CIAM et au CNAC. Différents stages sont organisés tout au long de l’année ( en savoir plus ? vers un lien de contact ?) Plusieurs rencontres sont organisées un fois par mois au 104 ( en savoir plus ? )
 			</p>
 		</article>
 	</section>	

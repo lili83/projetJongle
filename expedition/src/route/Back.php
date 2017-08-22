@@ -16,12 +16,12 @@ class Back extends RouteParent{
 		$niveau = $objSession->get("niveau");
 
 		if($niveau >= 1 && $niveau < 10 ){
-			if (null !== $this->request->get("traitement")){
-				$traitement = $this->request->get("traitement");
-				if($traitement == "update"){
-					$trait = new \traitement\TraitementUpdate($this->request);					
-				} 				
-			}
+			// if (null !== $this->request->get("traitement")){
+			// 	$traitement = $this->request->get("traitement");
+			// 	if($traitement == "update"){
+			// 		$trait = new \traitement\TraitementUpdate($this->request);					
+			// 	} 				
+			// }
 					
 			return $this->construireHtml(["header","section-membre-2", "footer"]);			
 		}
@@ -38,13 +38,13 @@ class Back extends RouteParent{
 	function updateUser($id){
 		
 		$objSession = new Session;
-
+		dump("coucou");
 		//->verifier qu'il n'y a pas de session ouverte...
 		$objSession->start();
 		$niveau = $objSession->get("niveau");		
 		$trait = new \traitement\TraitementUpdate($this->request);
 		
-		return $this->construireHtml(["header","section-membre-2", "footer"]);				
+		return $this->construireHtml(["header","section-membre_update", "footer"]);				
 	}
 
 	
@@ -52,7 +52,6 @@ class Back extends RouteParent{
 
 	function AfficherProfil() {
 		global $app;
-
 		return $this->redirectToRoute("AfficherProfil");
 	}
 
@@ -88,29 +87,22 @@ class Back extends RouteParent{
 		$objSession->start();
 		$niveau = $objSession->get("niveau");		
 		
-		 if($niveau >= 1 && $niveau < 10 ){
-			if (null !== $this->request->get("traitementClass")){
-				$traitement = $this->request->get("traitementClass");
-				
-				if($traitement == "UpdateArticle"){
-					$trait = new \traitement\TraitementUpdate($this->request);				
-				} 				
-			}
-			else{				
-		
-				$this->infosDetail["id"] = $id;				
-				return $this->construireHtml([	
-												"header",
-												"section-article", 
-												"section-article_2", 
-												"section-article_3", 
-												"footer"]);
-			}
+		if($niveau >= 1 ){			
+			$trait = new \traitement\TraitementUpdate($this->request);							 				
+			$this->infosDetail["id"] = $id;
+			return $this->construireHtml([	"header",
+											"section-article_update", 
+											"footer"]);		
 		}
-		else{				
-			return $this->redirectToRoute("accueil");
-		}
-    }
+		else{						
+			$this->infosDetail["id"] = $id;				
+			return $this->construireHtml([	"header",
+											"section-article", 
+											"section-article_2", 
+											"section-article_3", 
+											"footer"]);		
+    	}
+	}
 
 	//
 	//	Affichage de la page admin
