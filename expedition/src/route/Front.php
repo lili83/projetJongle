@@ -8,9 +8,11 @@ class Front extends RouteParent
 
 	//	traitement des formulaires de le header (connexion et inscription)
 	function traitementFormHeader(){
+		//dump("coucou");
 		if(isset(	$this->request->request)
 				&& 	$this->request->request->get('traitementClass')!=""){
-			$traitement = $this->request->request->get('traitementClass');						
+			$traitement = $this->request->request->get('traitementClass');	
+			//dump($this->request);
 			switch($traitement){
 				// formulaire de connexion			
 				case "Connexion":{				
@@ -165,7 +167,7 @@ class Front extends RouteParent
 *******************************************************************************
 */
 	function connexion(){		
-
+		// dump($this->traitementFormHeader());
 		$this->urlRedirection = $this->traitementFormHeader()->urlRedirection;		
 
 		if ($this->urlRedirection == "")			

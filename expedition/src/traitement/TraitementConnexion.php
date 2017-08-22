@@ -52,7 +52,7 @@ class TraitementConnexion extends TraitementCommun{
 
 				//	Redirection vers l'accueil ou le profil user
 				global $app; 
-				if(intval($niveau) == 1){														
+				if(intval($niveau) >= 1){														
 					$this->urlRedirection = $app["url_generator"]->generate("back-office/espace-membre");					
 				}
 				if ($niveau>=10){	

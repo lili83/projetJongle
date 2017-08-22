@@ -1,7 +1,7 @@
 <?php
 use Symfony\Component\HttpFoundation\Session\Session;
 $objSession = new Session();
-//dump($objSession);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -83,7 +83,7 @@ $objSession = new Session();
 					<input type="password" name="password" required placeholder="mot de passe">
 					<a href="#">mot de passe oublié ?</a>
 					<button type="submit">se connecter</button>	
-					<input type="hidden" name="ClassTraitement" value="Connexion">
+					<input type="hidden" name="traitementClass" value="Connexion">
 					<p>vous n'avez pas de compte?</p>
 					<span id="btn-inscription">créer un compte</span>
 					<div id="messageLogin">		
@@ -104,7 +104,7 @@ $objSession = new Session();
 						<input type="password" name="password_confirm" required placeholder="confirmation mot de passe">
 		                <div class="g-recaptcha" data-sitekey="6LcdcywUAAAAAHxX-HN4FaW3zsw-L7KwwvcNl-Mh"></div>
 						<button type="submit">valider inscription</button>	
-						<input type="hidden" name="ClassTraitement" value="Inscription">
+						<input type="hidden" name="traitementClass" value="Inscription">
 						<div id="messageInscription">		
 							<?php  $this->afficherVarGlob("Inscription"."Message"); ?>
 						</div>
