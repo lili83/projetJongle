@@ -1141,7 +1141,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
 #section_methode .maxWidht, #section_notation .maxWidht {
     margin-bottom: 5rem;
 }
-
+#section_methode article:nth-child(3) p:last-child a{
+    text-decoration: underline;
+    color: white;
+    font-family: GeosansLight;
+}
 #section_methode > div {
     background: #7eeae1;
         background: -moz-linear-gradient(left, #7eeae1 0%, #59c7db 100%);
@@ -1165,6 +1169,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     top: 24.5rem;
     z-index: -1;
     right: 0;   
+}
+#section_notation object {
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid grey;
 }
  
 #section_methode h1, #section_notation h1 {
@@ -1494,7 +1503,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     overflow: scroll;
 }
 
-
+#section_presentation_1 section:nth-child(2) p{
+    text-align: center;
+    margin-bottom: 4rem;
+}
+#section_presentation_1 section:nth-child(2) h1 {
+    margin: 4rem 0 0 0;
+}
+#section_presentation_1 section:nth-child(2){
+    margin-top: 7rem;
+}
 
 #section_galerie_1 h1{
     font-size: 8rem;

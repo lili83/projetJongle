@@ -14,8 +14,7 @@
 
 			<p>Ces partitions peuvent être apprises, partagées et peuvent devenir un répertoire utile pour s’amuser et progresser, seul ou à plusieurs.
 			</p>
-
-			<p>Cette méthode est enseigné à l’Académie Fratellini, au CIAM et au CNAC. Différents stages sont organisés tout au long de l’année ( en savoir plus ? vers un lien de contact ?) Plusieurs rencontres sont organisées un fois par mois au 104 ( en savoir plus ? )
+			<p>Cette méthode est enseigné à <a href="http://www.academie-fratellini.com/" target="blank">l’Académie Fratellini</a>, au <a href="http://ciam-aix.wixsite.com/artsenmouvement" target="blank">CIAM</a> et au <a href="http://www.cnac.fr/" target="blank">CNAC</a>.  Différents stages sont organisés tout au long de l’année. Plusieurs rencontres sont organisées une fois par mois au <a href="http://www.104.fr/" target="blank">104</a>.
 			</p>
 		</article>
 	</section>	
