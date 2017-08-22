@@ -22,7 +22,7 @@ class Back extends RouteParent{
 					$trait = new \traitement\TraitementUpdate($this->request);					
 				} 				
 			}
-			dump("sortie Back::membre");			
+					
 			return $this->construireHtml(["header","section-membre-2", "footer"]);			
 		}
 		else{				
@@ -87,8 +87,8 @@ class Back extends RouteParent{
 		//->verifier qu'il n'y a pas de session ouverte...
 		$objSession->start();
 		$niveau = $objSession->get("niveau");		
-		dump($niveau);
-		if($niveau >= 1 && $niveau < 10 ){
+		
+		 if($niveau >= 1 && $niveau < 10 ){
 			if (null !== $this->request->get("traitementClass")){
 				$traitement = $this->request->get("traitementClass");
 				
@@ -97,7 +97,7 @@ class Back extends RouteParent{
 				} 				
 			}
 			else{				
-				dump("sortie Back::articleUpdate");
+		
 				$this->infosDetail["id"] = $id;				
 				return $this->construireHtml([	
 												"header",
