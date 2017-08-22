@@ -30,11 +30,14 @@ $app->get('/presentation',"\\route\\Front::presentation")
 ->bind('presentation')
 ;
 
-// ROUTE POUR LA PAGE DE METHODOLOGIE
-$app->get('/pedagogie',"\\route\\Front::pedagogie")
-->bind('pedagogie')
+// ROUTE POUR LA PAGE DE NOTATION
+$app->get('/notation',"\\route\\Front::notation")
+->bind('notation')
 ;
-
+// ROUTE POUR LA PAGE DE METHODE
+$app->get('/methode',"\\route\\Front::methode")
+->bind('methode')
+;
 // ROUTE POUR LA PAGE DE GALERIE
 $app->get('/galerie',"\\route\\Front::galerie")
 ->bind('galerie')
@@ -54,11 +57,6 @@ $app->get('/blog',"\\route\\Front::blog")
 // ROUTE POUR LA PAGE D'UN ARTICLE
 $app->match('/article/{id}', "\\route\\Front::article")
 ->bind('article')
-;
-
-// ROUTE le post d'un commentaire
-$app->post('/commentaire', "\\route\\Front::commentaire")
-->bind('commentaire')
 ;
 
 // ROUTE POUR LA PAGE D'INSCRIPTION D'UN UTILISATEUR

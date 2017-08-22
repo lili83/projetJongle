@@ -7,10 +7,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class TraitementUpdate
     extends TraitementCommun
 {
-
     public $route;
-    // METHODES
-    // CONSTRUCTEUR
+    
     function __construct ($request)
     {
         global $app;
@@ -44,7 +42,7 @@ class TraitementUpdate
             switch($traitement){                
                 case 'UpdateUser':{
                     $this
-                        ->traiterForm("update")            
+                        ->traiterForm("UpdateUser")
                         ->lireChamps("nom")
                         ->lireChamps("prenom")
                         ->lireChamps("pseudo")
@@ -56,7 +54,7 @@ class TraitementUpdate
                }
                case 'UpdateArticle':{                   
                     $this
-                        ->traiterForm("update")            
+                        ->traiterForm("UpdateArticle")            
                         ->lireChamps("titre")
                         ->lireChamps("resume")
                         ->lireChamps("contenu")                                                 

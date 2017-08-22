@@ -20,12 +20,10 @@ class Back extends RouteParent{
 				$traitement = $this->request->get("traitement");
 				if($traitement == "update"){
 					$trait = new \traitement\TraitementUpdate($this->request);					
-					dump($trait);
 				} 				
 			}
-			
-			return $this->construireHtml(["header","section-membre-2", "footer"]);
-			
+			dump("sortie Back::membre");			
+			return $this->construireHtml(["header","section-membre-2", "footer"]);			
 		}
 		else{				
 			return $this->redirectToRoute("accueil");
@@ -49,22 +47,7 @@ class Back extends RouteParent{
 		return $this->construireHtml(["header","section-membre-2", "footer"]);				
 	}
 
-	//
-	//	Affichage de la page admin
-	//
-	function admin(){
-		$this->request = $request;
-		// récup du $level depuis la session
-		$objSession = new Session;
-		$objSession->start();		
-		// on ne construit que si le visiteur a le niveau suffisant
-		if($objSession->get("level") >= 10)
-			return $this->construireHtml(["header", "section-admin", "footer"]);		
-		else{
-			// https://silex.symfony.com/doc/2.0/usage.html#redirects
-            return $this->redirectToRoute($app["url_generator"]->generate("accueil"));
-		}
-	}
+	
 
 
 	function AfficherProfil() {
@@ -104,22 +87,45 @@ class Back extends RouteParent{
 		//->verifier qu'il n'y a pas de session ouverte...
 		$objSession->start();
 		$niveau = $objSession->get("niveau");		
-		
+		dump($niveau);
 		if($niveau >= 1 && $niveau < 10 ){
 			if (null !== $this->request->get("traitementClass")){
 				$traitement = $this->request->get("traitementClass");
+				
 				if($traitement == "UpdateArticle"){
-					$trait = new \traitement\TraitementUpdate($this->request);
-					dump($trait);
+					$trait = new \traitement\TraitementUpdate($this->request);				
 				} 				
 			}
 			else{				
-				$this->infosDetail["id"] = $id;
-				return $this->construireHtml(["header","section-article_update", "footer"]);
+				dump("sortie Back::articleUpdate");
+				$this->infosDetail["id"] = $id;				
+				return $this->construireHtml([	
+												"header",
+												"section-article", 
+												"section-article_2", 
+												"section-article_3", 
+												"footer"]);
 			}
 		}
 		else{				
 			return $this->redirectToRoute("accueil");
 		}
     }
+
+	//
+	//	Affichage de la page admin
+	//
+	function admin(){
+		global $app;
+		// récup du $level depuis la session
+		$objSession = new Session;
+		$objSession->start();		
+		// on ne construit que si le visiteur a le niveau suffisant
+		if($objSession->get("niveau") >= 10)
+			return $this->construireHtml(["header", "section-admin", "footer"]);		
+		else{
+			// https://silex.symfony.com/doc/2.0/usage.html#redirects
+            return $this->redirectToRoute($app["url_generator"]->generate("accueil"));
+		}
+	}
 }

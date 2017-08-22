@@ -74,8 +74,12 @@ class Front extends RouteParent
 		return $this->construireHtml(["header", "section-presentation", "footer"]);
 	}
 
-	function pedagogie(){			
-		return $this->construireHtml(["header", "section-pedagogie", "footer"]);
+	function notation(){			
+		return $this->construireHtml(["header", "section-notation", "footer"]);
+	}
+
+	function methode(){			
+		return $this->construireHtml(["header", "section-methode", "footer"]);
 	}
 
 /*
