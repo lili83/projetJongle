@@ -42,7 +42,7 @@ class TraitementCommun{
 		// $colUnique est utilisé pour vérifier l'unicité  d'un champ
 		//	...
 		global $app;
-
+		
 		$app['db']->insert("$nomTable", $this->tabInfos);
 		return $this;
 	}

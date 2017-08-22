@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
         $objetStatement = $app['db']->executeQuery($reqInfosUsr);
         if($res = $objetStatement->fetch()){           
             extract($res);
-            dump($id);
+            // dump($id);
 ?>              
                     <label>pseudo:</label>
                     <input 

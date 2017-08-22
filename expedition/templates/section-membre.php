@@ -95,7 +95,7 @@ use Doctrine\DBAL\Connection;
 						?>"
 			>
 			<button>Modifier</button>
-			<input type="hidden" name="traitementClass" value="Update">
+			<input type="hidden" name="traitementClass" value="updateUser">
 		</form>
 	</article>
 </section>

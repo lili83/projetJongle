@@ -48,8 +48,7 @@ class TraitementUpdate
                         ->lireChamps("pseudo")
                         ->lireChamps("resume")                                            	
                         ->ajouterNameValeur("date_modification", date("Y-m-d H:i:s"))		
-                        ->mettreAJour("user", $this->request->request->get("id"))
-                        ->setMessage("Merci pour votre message.");                      
+                        ->mettreAJour("user", $this->request->request->get("id"));                        
                     break;
                }
                case 'UpdateArticle':{                   
@@ -59,8 +58,7 @@ class TraitementUpdate
                         ->lireChamps("resume")
                         ->lireChamps("contenu")                                                 
                         ->ajouterNameValeur("date_modification", date("Y-m-d H:i:s"))		
-                        ->mettreAJour("article", $this->request->request->get("id"))
-                        ->setMessage("Merci pour votre message.");                                            
+                        ->mettreAJour("article", $this->request->request->get("id"));                                            
                         $this->route = "article";
                     break;
                 }
