@@ -36,7 +36,7 @@ class Back extends RouteParent{
 
 	function deconnecter()
  	{	 		
- 	// DETRUIRE LES INFOS DE SESSION
+ 		// DETRUIRE LES INFOS DE SESSION
         // ON VA CREER UN OBJET DE LA CLASSE Session
         // NE PAS OUBLIER use Symfony\Component\HttpFoundation\Session\Session;
         $objetSession = new Session;
