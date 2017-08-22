@@ -51,7 +51,6 @@ CODEHTML;
 CODEHTML;
 		}
 	$index++;	
-
 	}
 ?>
 
@@ -94,7 +93,6 @@ CODEHTML;
 		$routeUrl = $app["url_generator"]->generate("detailEvenement", ["id"=>$id]);
 		$dateModif= date("d-m-Y", strtotime($date));
 		
-
 	if ($index%2 == 0) {
 		echo 	
 <<<CODEHTML
@@ -121,7 +119,6 @@ CODEHTML;
 		}
 	$index++;	
 	}
-
 ?>
 
 		 	</tbody>
@@ -135,7 +132,6 @@ CODEHTML;
 			$urlPage = $app["url_generator"]->generate("evenements/page", ["numPage" => $i]);
 			echo "<li><a href=$urlPage>$i</a></li>";
 		}
-
     ?>
     </ul>	
 </section>

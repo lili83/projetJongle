@@ -5,6 +5,35 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class Front extends RouteParent
 {
+
+	//	traitement des formulaires de le header (connexion et inscription)
+	function traitementFormHeader(){
+		if(isset(	$this->request->request)
+				&& 	$this->request->request->get('traitementClass')!=""){
+			$traitement = $this->request->request->get('traitementClass');						
+			switch($traitement){
+				// formulaire de connexion			
+				case "Connexion":{				
+					return new \traitement\TraitementConnexion($this->request);												
+				}
+				
+				// formulaire d'inscription
+				case "Inscription": {				
+					return new \traitement\TraitementInscription($this->request);
+				}
+
+				// formulaire d'envoi de commentaire
+				case "Commentaire": {											
+					return new \traitement\TraitementCommentaire($this->request);
+				}
+
+				// formulaire de mise à jour d'un article
+				case "UpdateArticle": {
+					return new \traitement\TraitementUpdate($this->request);				
+				}
+			}
+		}
+	}
 /*
 *******************************************************************************
 *******************************************************************************
@@ -45,18 +74,8 @@ class Front extends RouteParent
 		return $this->construireHtml(["header", "section-presentation", "footer"]);
 	}
 
-	/*
 	function pedagogie(){			
 		return $this->construireHtml(["header", "section-pedagogie", "footer"]);
-	}
-	*/
-	
-	function notation(){			
-		return $this->construireHtml(["header", "section-notation", "footer"]);
-	}
-
-	function methode(){			
-		return $this->construireHtml(["header", "section-methode", "footer"]);
 	}
 
 /*
@@ -67,47 +86,46 @@ class Front extends RouteParent
 *******************************************************************************
 */
 	function blog($numPage = 1){
-		$this->traitementFormHeader();
+		//$this->traitementFormHeader();
 		$this->infosDetail["numPage"] = $numPage;
 		return $this->construireHtml(["header", "section-blog", "footer"]);
 	}
 
 	function article($id){
-		$this->traitementFormHeader();
-		$this->infosDetail["id"] = $id;			
-		return $this->construireHtml(["header", "section-article","section-article_2", "section-article_3", "footer"]);
+		$this->urlRedirection = $this->traitementFormHeader();
+		if ($this->urlRedirection!=""){
+			global $app;
+            return $app->redirect($this->urlRedirection);
+		}
+		else{
+			$this->infosDetail["id"] = $id;				
+			return $this->construireHtml(["header", "section-article","section-article_2", "section-article_3", "footer"]);
+		}
+	}
+
+	function articleUpdate($id){
+		$this->urlRedirection = $this->traitementFormHeader();		
+		
+		if ($this->urlRedirection!=""){		
+			$this->infosDetail["id"] = $id;				
+			return $this->construireHtml(["header", "section-article", "footer"]);
+		}
+		else{
+			$this->infosDetail["id"] = $id;				
+			return $this->construireHtml(["header", "section-article_update", "footer"]);
+		}
 	}
 
 	//
 	//	Photos publiques
 	//
-
-	
-
 	function galerie($numPage = 1){	
 		$this->traitementFormHeader();	
 		$this->infosDetail["numPage"] = $numPage;		
 		return $this->construireHtml(["header", "section-galerie", "footer"]);
 	}
 
-	//	traitement des formulaires de le header (connexion et inscription)
-	function traitementFormHeader(){		
-		if(isset(	$this->request->request)
-				&& 	$this->request->request->get('ClassTraitement')!=""){
-			$traitement = $this->request->request->get('ClassTraitement');			
-			
-			// formulaire de connexion			
-			if ($traitement == "Connexion"){				
-				return new \traitement\TraitementConnexion($this->request);												
-			}
-			
-			// formulaire d'inscription
-			elseif($traitement == "Inscription"){				
-				return new \traitement\TraitementInscription($this->request);
-			}
-
-		}
-	}
+	
 
 /*
 *******************************************************************************
@@ -120,7 +138,7 @@ class Front extends RouteParent
 	function inscription(){			
 		// Verification des données entrées
 		$this->urlRedirection = $this->traitementFormHeader()->urlRedirection;
-		dump($this->urlRedirection);
+		
 		if ($this->urlRedirection == "")		
 	
 			return $this->construireHtml([	"header", 
@@ -142,9 +160,8 @@ class Front extends RouteParent
 **	Connexion d'un utilisateur
 *******************************************************************************
 */
-
 	function connexion(){		
-		
+
 		$this->urlRedirection = $this->traitementFormHeader()->urlRedirection;		
 
 		if ($this->urlRedirection == "")			
@@ -156,11 +173,33 @@ class Front extends RouteParent
 											"footer"
 										]);	
 		else{
-
 			global $app;
             return $app->redirect($this->urlRedirection);
 		}		
 	}
+
+/*
+*******************************************************************************
+**	Envoi d'un commentaire
+*******************************************************************************
+*/
+	function commentaire(){			
+		
+		$this->urlRedirection = $this->traitementFormHeader()->urlRedirection;		
+		
+		if ($this->urlRedirection == ""){			
+			
+			return $this->construireHtml([	"header", 
+											"section-membre-2", 
+											"footer"
+										]);	
+		}
+		else{
+			global $app;
+            return $app->redirect($this->urlRedirection);
+		}		
+	}
+	
 	
 }
 

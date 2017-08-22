@@ -9,7 +9,7 @@ class TraitementCommun{
 	public $isInscrit = false;
 	public $urlRedirection = "";
 
-	function __construct($request){
+	function __construct($request){		
 		$this->request = $request;
 	}
 
@@ -44,6 +44,14 @@ class TraitementCommun{
 		global $app;
 
 		$app['db']->insert("$nomTable", $this->tabInfos);
+		return $this;
+	}
+
+	function mettreAJour($nomTable, $id){
+		global $app;		
+		$app['db']->update("$nomTable", 
+							$this->tabInfos,
+							["id"=>$id]);
 		return $this;
 	}
 

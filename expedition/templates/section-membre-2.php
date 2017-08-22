@@ -1,5 +1,8 @@
 <?php 
 use Symfony\Component\HttpFoundation\Session\Session;
+require_once("..\src\class\Article.php");
+
+global $app;
  ?>
 <section id="section_membre_2" class="contain-col maxWidht">
 	<div class="contain">
@@ -8,31 +11,39 @@ use Symfony\Component\HttpFoundation\Session\Session;
 		<span id="btn-blog-membres">Blog membres</span>	
 		<span id="btn-charte">charte</span>	
 	</div>
-	<section id="contenu">
-		<div id="profil">
-			<form action="" method="post">
-				<div class="contain">
+
 <?php  
+
+	/**
+	*******************************************************************************
+	*******************************************************************************	
+	**	INFOS DU MEMBRE	
+	*******************************************************************************
+	*******************************************************************************	
+	**/
 	// Informations fournies par l'utilisateur
 	// Si connecté, il peut les modifier à son gré
-	// ** tests de sécurité : session started, email verified, id user and email and passwordhashed match 
-
-	//if (isset($_SESSION["email"]) && ($_SESSION["email"] != ""))
 	if($objSession->get('email') != ""){
 		
 		$email = $objSession->get('email');
-		$reqInfosUsr = "SELECT * FROM USER WHERE EMAIL = '$email';";
-		global $app;		
+		$reqInfosUsr = "SELECT * FROM USER WHERE EMAIL = '$email'";
+		
 		$objetStatement = $app['db']->executeQuery($reqInfosUsr);
-		if($res = $objetStatement->fetch()){
-
-		extract($res);
-?>				
+		if($infosUser = $objetStatement->fetch()){			
+			extract($infosUser);
+			$user = new User($infosUser);
+?>		
+	
+	<section id="contenu">
+		<div id="profil">
+			<form action="<?php echo $app['url_generator']->generate('updateUser', ["id" => $user->id]); ?>" method="POST">
+				<input type="hidden" name="id" value="<?php echo $user->id; ?>">
+				<div class="contain">			
 					<label>pseudo:</label>
 					<input 
 						type="text" 
 						name="pseudo" 
-						value="<?php echo $pseudo; ?>"
+						value="<?php echo $user->pseudo; ?>"
 					>
 				</div>
 				<div class="contain">
@@ -40,7 +51,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 					<input 
 						type="email" 
 						name="email"
-						value="<?php echo $email; ?>"
+						value="<?php echo $user->email; ?>"
 						>
 				</div>
 				<div class="contain">
@@ -48,7 +59,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 					<input 
 						type="text" 
 						name="nom"
-						value="<?php echo $nom; ?>"
+						value="<?php echo $user->nom; ?>"
 					>
 				</div>
 				<div class="contain">
@@ -56,7 +67,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 					<input 
 						type="text" 
 						name="prenom"
-						value="<?php echo $prenom; ?>"
+						value="<?php echo $user->prenom; ?>"
 					>
 				</div>
 				<div class="contain-col">
@@ -65,151 +76,105 @@ use Symfony\Component\HttpFoundation\Session\Session;
 						type="text" 
 						name="resume"
 						rows="5"
-					><?php echo $resume; ?>
-				</textarea>
+					><?php echo $user->resume; ?></textarea>
 				</div> 
-				<!--<input 
-					type="text" 
-					name=""
-					value="	<?php 
-								if(isset($resInfosUsr["pseudo"]) && $resInfosUsr["pseudo"] !="") 
-									echo $resInfosUsr["pseudo"]; 
-							?>"
-				>-->
 				<button>Modifier</button>
-				<input type="hidden" name="traitement" value="update">
+				<input type="hidden" name="traitementClass" value="UpdateUser">
 			</form>
+		</div>	
+
+
+		<div id="mes-articles">	
+			<section class="contain-col">
 <?php
 		} 
 	}
+	/*
+	*******************************************************************************
+	*******************************************************************************	
+	**	RECUPERATION DES ARTICLES DU MEMBRE
+	*******************************************************************************
+	*******************************************************************************
+	*/
+	$reqArticlesUsr = "SELECT * from article where id_user= $id";
+	$objetStatement = $app['db']->executeQuery($reqArticlesUsr);	
+	
+	if($resArticles = $objetStatement->fetchAll()){	
+		foreach($resArticles as $tabArticle){						
+			$article = new Article($tabArticle, $user, $urlRoot);						
+			echo $article->getHtmlMini();
+		}
+	}				
 ?>
-		</div>
-		<div id="mes-articles">
-			<section class="contain-col">
-				<article class="contain">
-					<div>
-						<figure>
-							<img src="<?php echo $urlRoot; ?>/assets/img/test-blog.jpg" alt="photo de la recherche">
-						</figure>
-						<p>catégories: <span>danse, spectacle</span></p>
-					</div>
-					<div class="contain-col">
-						<div class="contain">
-							<h2>la balle noire</h2>
-							<p>publié le 19/07/17 par <span>sidonie</span></p>
-						</div>
-						<p>Et quia Montius inter dilancinantium manus spiritum efflaturus Epigonum et Eusebium nec professionem nec dignitatem ostendens aliquotiens increpabat, qui sint hi magna quaerebatur industria, et nequid intepesceret, Epigonus e Lycia philosophus ducitur et Eusebius ab Emissa Pittacas cognomento dilancinantium manus spiritum efflaturus Epigonum et Eusebium nec professionem nec dignitatem ostendens aliquotiens increpabat...
-						</p>
-						<a href="#">> lire article</a>
-					</div>
-				</article>
 			</section>
 		</div>
+
+<?php
+	/*
+	*******************************************************************************
+	*******************************************************************************
+	**	AFFICHAGE DES ARTICLES DES AUTRES MEMBRES
+	*******************************************************************************
+	*******************************************************************************
+	*/
+?>
 		<div id="blog-membres">
 			<div class="contain">
 				<h1>nos recherches privées</h1>
 				<form action="" method="GET" class="contain">
 					<select id="select" name="categorie" required>
 		                <option value="categorie">catégories</option>
-		                <option value="spectacle">spectacle</option>
-		                <option value="danse">danse</option>
-		                <option value="jongle">jongle</option>
-		                <option value="musique">musique</option>
+<?php
+	//	Récupération des catégories en BD
+	$reqCategories = "select * from categorie";
+	$objetStatement = $app['db']->executeQuery($reqCategories);
+	if($categories = $objetStatement->fetchAll()){
+		foreach($categories as $categorie){
+			echo '<option id="'.$categorie['id'].'" value="'.$categorie['nom'].'">'.$categorie['nom'].'</option>';
+		}
+	}
+?>
 		            </select>
 		            <button type="submit">> rechercher</button>
-		            <input type="hidden" name="TraitementClass" value="Categories">
+		            <input type="hidden" name="traitementClass" value="Categories">
 				</form>
 			</div>
+
 			<section class="contain-col">
-				<article class="contain">
-					<div>
-						<figure>
-							<img src="<?php echo $urlRoot; ?>/assets/img/test-blog.jpg" alt="photo de la recherche">
-						</figure>
-						<p>catégories: <span>danse, spectacle</span></p>
-					</div>
-					<div class="contain-col">
-						<div class="contain">
-							<h2>la balle noire</h2>
-							<p>publié le 19/07/17 par <span>sidonie</span></p>
-						</div>
-						<p>Et quia Montius inter dilancinantium manus spiritum efflaturus Epigonum et Eusebium nec professionem nec dignitatem ostendens aliquotiens increpabat, qui sint hi magna quaerebatur industria, et nequid intepesceret, Epigonus e Lycia philosophus ducitur et Eusebius ab Emissa Pittacas cognomento dilancinantium manus spiritum efflaturus Epigonum et Eusebium nec professionem nec dignitatem ostendens aliquotiens increpabat...
-						</p>
-						<a href="#">> lire article</a>
-					</div>
-				</article>
 
-				<article class="contain">
-					<div>
-						<figure>
-							<img src="<?php echo $urlRoot; ?>/assets/img/test-blog2.jpg" alt="photo de la recherche">
-						</figure>
-						<p>catégories: <span>jongle, spectacle</span></p>
-					</div>
-					<div class="contain-col">
-						<div class="contain">
-							<h2>l’homme en bleu marine qui jongle</h2>
-							<p>publié le 02/01/17 par <span>marc</span></p>
-						</div>
-						<p>Et quia Montius inter dilancinantium manus spiritum efflaturus Epigonum et Eusebium nec professionem nec dignitatem ostendens aliquotiens increpabat, qui sint hi magna quaerebatur industria, et nequid intepesceret, Epigonus e Lycia philosophus ducitur et Eusebius ab Emissa Pittacas cognomento dilancinantium manus spiritum efflaturus Epigonum et Eusebium nec professionem nec dignitatem ostendens aliquotiens increpabat...
-						</p>
-						<a href="#">> lire article</a>
-					</div>
-				</article>
-
-				<article class="contain">
-					<div>
-						<figure>
-							<img src="<?php echo $urlRoot; ?>/assets/img/test-blog3.jpg" alt="photo de la recherche">
-						</figure>
-						<p>catégories: <span>jongle, spectacle</span></p>
-					</div>
-					<div class="contain-col">
-						<div class="contain">
-							<h2>les objets volants</h2>
-							<p>publié le 30/05/17 par <span>mia</span></p>
-						</div>
-						<p>Et quia Montius inter dilancinantium manus spiritum efflaturus Epigonum et Eusebium nec professionem nec dignitatem ostendens aliquotiens increpabat, qui sint hi magna quaerebatur industria, et nequid intepesceret, Epigonus e Lycia philosophus ducitur et Eusebius ab Emissa Pittacas cognomento dilancinantium manus spiritum efflaturus Epigonum et Eusebium nec professionem nec dignitatem ostendens aliquotiens increpabat...
-						</p>
-						<a href="#">> lire article</a>
-					</div>
-				</article>
-
-				<article class="contain">
-					<div>
-						<figure>
-							<img src="<?php echo $urlRoot; ?>/assets/img/test-blog4.jpg" alt="photo de la recherche">
-						</figure>
-						<p>catégories: <span>jongle, spectacle</span></p>
-					</div>
-					<div class="contain-col">
-						<div class="contain">
-							<h2>un mec de dos moche</h2>
-							<p>publié le 07/03/17 par <span>christophe</span></p>
-						</div>
-						<p>Et quia Montius inter dilancinantium manus spiritum efflaturus Epigonum et Eusebium nec professionem nec dignitatem ostendens aliquotiens increpabat, qui sint hi magna quaerebatur industria, et nequid intepesceret, Epigonus e Lycia philosophus ducitur et Eusebius ab Emissa Pittacas cognomento dilancinantium manus spiritum efflaturus Epigonum et Eusebium nec professionem nec dignitatem ostendens aliquotiens increpabat...
-						</p>
-						<a href="#">> lire article</a>
-					</div>
-				</article>
-			</section>	
+<?php
+	//	Récupération des articles
+	$reqArticles = "select * from article";
+	$objetStatement = $app['db']->executeQuery($reqArticles);
+	if($tabArticles = $objetStatement->fetchAll()){
+		
+		foreach($tabArticles as $infosArticle){			
+			$article = new Article($infosArticle,"", $urlRoot);			
+			echo $article->getHtmlMini($urlRoot);
+		}
+				
+?>
+			</section>
 		</div>
+<?php 
+	}
+?>
 
 		<div id="charte">
 			<div class="contain-col">
 				<h1>Charte du blog</h1>
 				<article>
-					<p>Bienvenue sur l’éditeur du blog de l’expédition !</p>
-					<p>Pour commencer, nous vous proposons ce guide de rédaction. Avant de poster, <strong>pense</strong> ! Il est préférable de se demander si cet article sera :
+					<p>Bienvenue sur l’éditeur du blog de l’expédition !</p>
+					<p>Pour commencer, nous vous proposons ce guide de rédaction. Avant de poster, <strong>pense</strong> ! Il est préférable de se demander si cet article sera :
 					</p>
 					<p>Positif. Le but est d’aller de l’avant, des textes positifs ne peuvent que soutenir votre idée.</p>
-					<p>Exact. Prenez le temps de vérifier vos sources, voire de les publier à la fin de vos articles.</p>
-					<p>Nécessaire. Votre point de vue est novateur et permet d’aider des jongleurs ? alors écrivez !</p>
+					<p>Exact. Prenez le temps de vérifier vos sources, voire de les publier à la fin de vos articles.</p>
+					<p>Nécessaire. Votre point de vue est novateur et permet d’aider des jongleurs ? alors écrivez !</p>
 					<p>Sage. Une idée est toujours plus percutante quand elle a pu être testé et muri par le temps.</p>
 					<p>Enrichissant. Nous avons tous à y gagner, autant le lecteur que l’auteur.</p>
 					<p>Pour le reste, nous comptons sur la motivation, la créativité et la bienveillance de chacun pour améliorer le contenu en privé. Vous êtes invités à aider les autres auteurs à rédiger leurs articles en les commentant dans la partie privée. Posez des questions, demandez des précisions, indiquez des coquilles ou des fautes de frappe. Cela peut être un bon moyen d’aider entre deux créations d’article.
 					</p>
-					<p>En espérant que cette aventure vous amuse autant que nous,  bonnes recherches :) </p>
+					<p>En espérant que cette aventure vous amuse autant que nous,  bonnes recherches :) </p>
 					<p>Seul, on va plus vite, ensemble va plus loin...</p>
 				</article>
 			</div>

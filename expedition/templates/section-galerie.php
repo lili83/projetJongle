@@ -7,12 +7,9 @@
 <?php 
 	$reqEvenements = "SELECT lien_url, id FROM media WHERE type='video' ORDER BY id DESC LIMIT 0, 1" ;
 	$objStmnt = $app['db']->executeQuery($reqEvenements, []);
-
 	$tabLigne = $objStmnt->fetch();
 	extract($tabLigne);
-
-	$idSolo= $id;	
-
+	$idSolo = $id;	
 	echo
 <<<CODEHTML
 <iframe width="560" height="315"  src="$lien_url" frameborder="0" allowfullscreen></iframe>
@@ -23,13 +20,10 @@ CODEHTML;
 
 		<div id="video" class="contain">
 <?php
-
 	$nbEvenements = 4;	
 	$indexDepart = $nbEvenements * ($this->lireValeur("numPage")-1 );		
 	$nbResultats = $app['db']->fetchColumn("SELECT COUNT(*) FROM media  WHERE type='video'", []);	
-
 	$reqEvenements= "SELECT lien_url FROM media WHERE type= 'video' AND id != $id LIMIT $indexDepart, $nbEvenements" ;
-
 	$objStmnt = $app['db']->executeQuery($reqEvenements, []);
 	while($tabLigne = $objStmnt->fetch())
 	{

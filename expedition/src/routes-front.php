@@ -29,20 +29,12 @@ $app->get('/contact',"\\route\\Front::contact")
 $app->get('/presentation',"\\route\\Front::presentation")
 ->bind('presentation')
 ;
-/*
+
 // ROUTE POUR LA PAGE DE METHODOLOGIE
 $app->get('/pedagogie',"\\route\\Front::pedagogie")
 ->bind('pedagogie')
 ;
-*/
-// ROUTE POUR LA PAGE DE NOTATION
-$app->get('/notation',"\\route\\Front::notation")
-->bind('notation')
-;
-// ROUTE POUR LA PAGE DE METHODE
-$app->get('/methode',"\\route\\Front::methode")
-->bind('methode')
-;
+
 // ROUTE POUR LA PAGE DE GALERIE
 $app->get('/galerie',"\\route\\Front::galerie")
 ->bind('galerie')
@@ -58,23 +50,15 @@ $app->get('/galerie/page/{numPage}', "\\route\\Front::galerie")
 $app->get('/blog',"\\route\\Front::blog")
 ->bind('blog')
 ;
-// Route pour la pagination du blog
-$app->get('/blog/page/{numPage}', "\\route\\Front::blog")
-->bind('blog/page')
-;
-
-
-// Routes vers les 
-$app->get('/articles', "\\route\\Front::blog")
-->bind('articles')
-;
-$app->get('/article', "\\route\\Front::blog")
-->bind('article')
-;
 
 // ROUTE POUR LA PAGE D'UN ARTICLE
-$app->get('/article/{id}', "\\route\\Front::article")
+$app->match('/article/{id}', "\\route\\Front::article")
 ->bind('article')
+;
+
+// ROUTE le post d'un commentaire
+$app->post('/commentaire', "\\route\\Front::commentaire")
+->bind('commentaire')
 ;
 
 // ROUTE POUR LA PAGE D'INSCRIPTION D'UN UTILISATEUR

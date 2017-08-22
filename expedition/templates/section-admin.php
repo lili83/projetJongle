@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
     // Informations fournies par l'utilisateur
     // Si connecté, il peut les modifier à son gré
     // ** tests de sécurité : session started, email verified, id user and email and passwordhashed match 
-
     //if (isset($_SESSION["email"]) && ($_SESSION["email"] != ""))
     if($objSession->get('email') != ""){
         
@@ -25,7 +24,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
         global $app;        
         $objetStatement = $app['db']->executeQuery($reqInfosUsr);
         if($res = $objetStatement->fetch()){
-
         extract($res);
 ?>              
                     <label>pseudo:</label>
@@ -217,7 +215,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
                         while($tabLigne = $objStmnt->fetch())
                         {
                             extract($tabLigne);
-
                             if ($index%2 == 0) 
                             {
                                 echo 
@@ -244,7 +241,6 @@ CODEHTML;
 CODEHTML;
                             }
                         $index++;
-
                         }                        
                     ?>
                         </tbody>
@@ -344,7 +340,6 @@ CODEHTML;
                 <?php
                     $reqEvenements = "SELECT * FROM commentaire";
                     $objStmnt = $app['db']->executeQuery($reqEvenements, []);
-
                     while($tabLigne = $objStmnt->fetch()) 
                     {
                         extract($tabLigne);
@@ -357,7 +352,6 @@ CODEHTML;
             <td>$texte</td>
             <td><a href="">Supprimer</a></td>
         </tr>
-
 CODEHTML;
                         } else
                         {
@@ -368,7 +362,6 @@ CODEHTML;
             <td>$texte</td>
             <td><a href="">Supprimer</a></td>
         </tr>
-
 CODEHTML;
                         }
                     $index++;
