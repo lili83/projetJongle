@@ -116,6 +116,7 @@ CODEHTML;
 
         $codeHtmlDetail = 
 <<<CODEHTML
+                <a href="{$app['url_generator']->generate("articleUpdate", ["id" => $this->id])}"> Modifier l'article </a>
                 <article class="contain-col">
                     <div class="contain">
                         <div>
@@ -130,7 +131,7 @@ CODEHTML;
 <<<CODEHTML
                         <figure>
                             <img src="{$this->urlRoot}{$this->user->urlPhoto}" alt="Photo de profil">
-                        </figure>;
+                        </figure>
 CODEHTML;
 
         }
@@ -141,16 +142,16 @@ CODEHTML;
         $codeHtmlDetail .= 
 <<<CODEHTML
                         </div>
-                        <a href="{$app['url_generator']->generate("articleUpdate", ["id" => $this->id])}"> Modifier l'article </a>
+                       
                     </div
-
+                    <span>
                     <div id="second">
                         <h3>résumé article</h3>
                         <p>{$this->resume}</p>
                     </div>                
-                    
+                    </span>
                     <article>
-                    {$this->contenu}
+                        <p>{$this->contenu}</p>
                     </article>
                 </article>
 CODEHTML;
@@ -188,7 +189,7 @@ CODEHTML;
                                 placeholde="{$this->urlRoot}{$this->user->urlPhoto}">                            
                         <figure>
                             <img src="{$this->urlRoot}{$this->user->urlPhoto}" alt="Photo de profil">
-                        </figure>;
+                        </figure>
 CODEHTML;
 
         }
@@ -202,16 +203,16 @@ CODEHTML;
                     </div
 
                     <div class="contain">
-                        <label for ="resume">Résumé: 
-                        <textarea  name="resume"                                 
-                                value="{$this->resume}
+                        <label for ="resume">Résumé: </label>
+                        <textarea  class="CKEDITOR" name="resume"                                 
+                                value="{$this->resume}"
                                 placeholder="{$this->resume}">
                         </textare
                     </div>                
                     
                     <div class="contain">                        
-                        <textarea  name= "contenu"
-                                    value="{$this->contenu}
+                        <textarea class="CKEDITOR" name= "contenu"
+                                    value="{$this->contenu}"
                                     placeholder="{$this->contenu}">
                         </teaxtarea>
                     </div>                

@@ -1,6 +1,6 @@
 <?php 
 use Symfony\Component\HttpFoundation\Session\Session;
-require_once("..\src\class\Article.php");
+require_once("../src/class/Article.php");
 
 global $app;
  ?>

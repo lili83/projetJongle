@@ -988,7 +988,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     bottom: -2.7rem;
     opacity: .5;
 }
-#section-article #second p, #section-article article:nth-child(2) p{
+#section-article p{
     font-size: 1.8rem;
     text-align: justify;
     margin: 0 0 2rem 0;
