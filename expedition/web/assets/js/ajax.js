@@ -1,14 +1,4 @@
 
-
-
-function getBaseUrl() {
-    var re = new RegExp(/^.*\//);
-    return re.exec(window.location.href);
-}
-
-
-
-
 //Je récupère l'id du lien et je crée un évènement
 document.querySelector('.fiche-profil').addEventListener('click', function(){
         var id= document.querySelector('.id').value;
@@ -16,7 +6,7 @@ document.querySelector('.fiche-profil').addEventListener('click', function(){
         //je crée une requete pour récupérer mes données
         var requete = new XMLHttpRequest();
         
-        var root= getBaseUrl();
+        
         //j'utilise .open pour préciser que je veux récupérer les données dans le fichier AfficherProfil
         requete.open('GET', 'AfficherProfil');
                 
