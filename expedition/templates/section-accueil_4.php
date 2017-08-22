@@ -3,7 +3,7 @@
 		<figure id="figure-3">
 			<img src="<?php echo $urlRoot; ?>/assets/img/accueil/image_accueil_3.png">
 		</figure>
-		<span>03</span>
+		<span>02</span>
 		<div></div>
 		<article id="article-3">
 			<h2>La méthode...</h2>

@@ -1,6 +1,4 @@
 <section id="section_detailEvenement" class="maxWidht">
-	<div>
-
 <?php 	
 	extract($this->infosDetail);
 	$objStmnt = $app['db']->executeQuery("SELECT * FROM evenement WHERE id = '$id'");
@@ -10,17 +8,15 @@
 		echo
 <<<CODEHTML
 	<article>
-		<h2>$titre</h2>
-		<p>$lieu</p>
-		<p>$dateModif</p>		
+		<h2>$lieu</h2>
+		<h5>$dateModif</h5>		
 		<p>Description: $description<p>
 	</article>
 CODEHTML;
 
 	}
  ?>
- 	</div>
 
- 	<a id="retour" href="<?php echo $app['url_generator']->generate('evenements')?>">Retour</a>
+ <a href="<?php echo $app['url_generator']->generate('evenements')?>">Retour</a>
  </section>
 

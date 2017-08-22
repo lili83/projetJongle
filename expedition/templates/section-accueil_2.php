@@ -7,7 +7,7 @@
 		<div ></div>
 		<article id="article-1">
 			<h2>Qui sommes-nous ?</h2>
-			<p>L'expédition est un projet favorisant la recherche et le développement de la jonglerie. Pour cela, elle incite les jongleurs curieux, motivés, et désireux de travailler en groupe à se centrer sur 3 axes:
+			<p>L’expédition est un projet artistique favorisant la recherche et le développement de la jonglerie.  Pour cela, elle incite les jongleurs curieux, motivés, et désireux de travailler en groupe à se centrer sur 3 axes:
 			</p>
 			<ul>
 				<li>- la méthode des lancers harmoniques</li>

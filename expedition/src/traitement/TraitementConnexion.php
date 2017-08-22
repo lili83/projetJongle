@@ -37,10 +37,15 @@ class TraitementConnexion extends TraitementCommun{
 				extract($infosUser);
 				
 				// Démarrage ou reprise de la session 
-				$objSession = new Session;				
-				$objSession->start();
+				$objSession = new Session;	
+				
+				// if ($objSession->isStarted())
+				// 	$objSession = $this->request->getSession();
+				// else					
+				// 	$objSession->start();
 				
 				// Mémorisation des infos utilisateur
+				$objSession->set('id', $id);
 				$objSession->set("email", $email);
 				$objSession->set("pseudo", $pseudo);
 				$objSession->set("niveau", $niveau);
