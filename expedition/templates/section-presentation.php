@@ -25,6 +25,7 @@
 		<!-- trombinoscope de l'équipe -->
 		<section>
 			<h1 ><span>L'expédition...</span> C'est qui?</h1>
+			<p>l’expédition regroupe des artistes formés au rythme comme des jongleurs, des vidéastes, des danseurs ou des musiciens.</p>
 			<!-- plus tard: à récupérer de la data base -->
 			<div class="contain">
 				<article>				    
