@@ -39,9 +39,7 @@ class TraitementConnexion extends TraitementCommun{
 				// Démarrage ou reprise de la session 
 				$objSession = new Session;	
 				
-				// if ($objSession->isStarted())
-				// 	$objSession = $this->request->getSession();
-				// else					
+				// if (!$objSession->isStarted())										
 				// 	$objSession->start();
 				
 				// Mémorisation des infos utilisateur
@@ -66,6 +64,8 @@ class TraitementConnexion extends TraitementCommun{
 		else{
 			$this->setMessage("Erreur d'email");						
 		}
+		
+		return $this->urlRedirection;
 	}
 
 	//

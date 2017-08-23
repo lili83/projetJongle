@@ -44,18 +44,20 @@ class Back extends RouteParent{
 
 	function deconnecter()
  	{	 		
+		 
  		// DETRUIRE LES INFOS DE SESSION
         // ON VA CREER UN OBJET DE LA CLASSE Session
         // NE PAS OUBLIER use Symfony\Component\HttpFoundation\Session\Session;
-        $objetSession = new Session;
+        $objSession = new Session;
         // REPRENDRE UNE SESSION EXISTANTE 
         // OU DEMARRER UNE NOUVELLE SESSION
-        $objetSession->start();
+        //$objetSession->start();
         // DETRUIRE LES INFOS
-        $objetSession->set("email", "");
-        $objetSession->set("level", "");
-        $objetSession->set("login", "");
-        
+        $objSession->set("email", "");
+        $objSession->set("niveau", "");
+        $objSession->set("pseudo", "");
+        $objSession->set("id", "");
+		$objSession = null;
         // REDIRIGER VERS LA PAGE /login
         global $app;       
         // https://silex.symfony.com/doc/2.0/usage.html#redirects

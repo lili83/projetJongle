@@ -9,7 +9,6 @@ class TraitementCategories extends TraitementCommun{
 		$this
 			->traiterForm("Categories")			
 			->lireChamps("categorie");
-		return $this->tabInfos["categorie"];				
-			
+		return $this->tabInfos["categorie"];						
 	}
 }
