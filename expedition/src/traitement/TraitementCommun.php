@@ -8,19 +8,19 @@ class TraitementCommun{
 	public $isConnected = false;
 	public $isInscrit = false;
 	public $urlRedirection = "";
+	
 
 	function __construct($request){		
 		$this->request = $request;
 	}
 
-	function lireChamps($nomChamps){	
+	function lireChamps($nomChamps){		
 		$this->tabInfos["$nomChamps"] = $this->request->get("$nomChamps");
-		return $this;
+		return $this;		
 	}
 	
-	function lireEmail($email){
-		// Mais manque la vérification de l'email
-		return $this->lireChamps($email);
+	function lireEmail($email){		
+		return $this->lireChamps($email);		
 	}
 	
 	function lirePassword($password, $nomCol){
@@ -34,7 +34,7 @@ class TraitementCommun{
 	function emailExists(){
 		global $app;
 		$email = $this->tabInfos["email"];
-		$req = "SELECT COUNT(*) FROM user WHERE email LIKE '$email'";		
+		$req = "SELECT COUNT(*) FROM user WHERE email LIKE '$email'";	
 		return $this->isInscrit = ($app['db']->fetchColumn($req) > 0);		
 	}
 
@@ -57,15 +57,14 @@ class TraitementCommun{
 
 	
 
-
 	function traiterForm($traitement){
 		$this->traitement = $traitement;
 		return $this;
 	}
 
 	function setMessage($msg){		
-		$nomVarErreur = $this->traitement."Message";
-		$GLOBALS["$nomVarErreur"] = $msg;
+		$nomVarErreur = $this->traitement."Message";				
+		$GLOBALS["$nomVarErreur"] = $msg;		
 		return $this;
 	}
 
