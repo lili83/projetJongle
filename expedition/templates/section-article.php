@@ -1,11 +1,21 @@
-<section id="section-article_update" class="maxWidht contain-col">
-<a id="firsta" href="<?php echo rtrim($this->request->headers->get('referer'),'/update'); ?>"> retour aux articles</a>
+<?php 
+	$retour = '';
+	if($objSession->get("niveau")>=10){
+		 $retour = $app['url_generator']->generate("back-office/espace-admin"); 
+	}
+	if($objSession->get("niveau")>0 && $objSession->get("niveau") <10){
+		 $retour = $app["url_generator"]->generate("back-office/espace-membre");
+	}
+?>
+
+<section id="section-article" class="maxWidht">
+<a id="firsta" href="<?php echo $retour;?>"> retour aux articles</a>
 <?php 		
 	require_once("../src/class/article.php");	
 	
 	$pseudo = $objSession->get("pseudo");
 	$niveau = $objSession->get("niveau");
-
+	dump($objSession);
 	extract($this->infosDetail);
 	
 		

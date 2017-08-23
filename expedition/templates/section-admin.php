@@ -1,7 +1,9 @@
 <?php 
 use Symfony\Component\HttpFoundation\Session\Session;
 require_once("..\src\class\Article.php");
-dump($this->request->getPathInfo());
+use traitement\TraitementCategories;
+require_once("../src/traitement/TraitementCategories.php");
+
 ?>
 <section id="section_membre_2" class="contain-col maxWidht">
     <div class="contain">
@@ -86,13 +88,13 @@ dump($this->request->getPathInfo());
 <?php
 		} 
 	}
-	/*
-	*******************************************************************************
-	*******************************************************************************	
-	**	RECUPERATION DES ARTICLES DU MEMBRE
-	*******************************************************************************
-	*******************************************************************************
-	*/
+/*
+*******************************************************************************
+*******************************************************************************	
+**	RECUPERATION DES ARTICLES DU MEMBRE
+*******************************************************************************
+*******************************************************************************
+*/
 	$reqArticlesUsr = "SELECT * from article where id_user= $id";
 	$objetStatement = $app['db']->executeQuery($reqArticlesUsr);	
 	
@@ -106,14 +108,15 @@ dump($this->request->getPathInfo());
 ?>
 			</section>
 		</div>
-        <?php
-	/*
-	*******************************************************************************
-	*******************************************************************************
-	**	AFFICHAGE DES ARTICLES DES AUTRES MEMBRES
-	*******************************************************************************
-	*******************************************************************************
-	*/
+
+<?php
+/*
+*******************************************************************************
+*******************************************************************************
+**	AFFICHAGE DES ARTICLES DES AUTRES MEMBRES
+*******************************************************************************
+*******************************************************************************
+*/
 ?>
 		<div id="blog-membres">
 			<div class="contain">
@@ -137,11 +140,30 @@ dump($this->request->getPathInfo());
 				</form>
 			</div>
 
+
+
 			<section class="contain-col">
+
 
 <?php
 	//	Récupération des articles
-	$reqArticles = "select * from article";
+
+    //  Si une catégorie a été selectionnée, on ne prend que les articles 
+    //  de cette catégorie
+    $traitementCategories = new TraitementCategories($this->request);	
+	$categorie= $traitementCategories->tabInfos['categorie'];
+    $reqArticles = "";
+	if (isset($categorie) && $categorie != "categorie")
+	{
+		$reqArticles = "SELECT article.*, categorie.nom FROM article, categoriearticle, categorie
+						WHERE categoriearticle.id_article = article.id
+						AND categoriearticle.id_categorie = categorie.id
+						AND categorie.nom = '$categorie'";
+    }
+    else{
+	    $reqArticles = "select * from article";
+    }
+
 	$objetStatement = $app['db']->executeQuery($reqArticles);
 	if($tabArticles = $objetStatement->fetchAll()){
 		
@@ -155,8 +177,15 @@ dump($this->request->getPathInfo());
 		</div>
 <?php 
 	}
-?>
 
+/*
+*******************************************************************************
+*******************************************************************************
+**	AFFICHAGE DES ARTICLES DES AUTRES MEMBRES
+*******************************************************************************
+*******************************************************************************
+*/
+?>
         <div id="tableau-de-bord">
             <section>
                 <h2>Gestion des utilisateurs</h2>

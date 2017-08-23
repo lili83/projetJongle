@@ -29,12 +29,12 @@ class Article
         
          //  Si l'utilisateur n'est pas renseigné : on le recherche         
          if ($user == ""){            
-            $reqAuteur = "
-            SELECT * 
-            FROM user JOIN article 
-            ON article.id_user = user.id 
-            WHERE article.id= $this->id";	
-            
+            $reqAuteur = 
+<<<CODESQL
+SELECT * FROM user JOIN article ON article.id_user = user.id WHERE article.id= {$this->id}
+CODESQL;
+
+            $tabUser = $app['db']->executeQuery($reqAuteur)->fetch();
             $this->user = new User($app['db']->executeQuery($reqAuteur)->fetch());
             
         }
@@ -67,12 +67,21 @@ class Article
     <div>
 CODEHTML;
 
-        if (isset($this->user->urlPhoto) && $this->user->urlPhoto != ""){            
+       if (isset($this->user->urlPhoto) && $this->user->urlPhoto != ""){
             $codeHtml .= 
 <<<CODEHTML
-        <figure>
-            <img src="{$this->urlRoot}{$this->user->urlPhoto}" alt="Photo de profil">
-        </figure>
+                        <figure>
+                            <img src="{$this->urlRoot}{$this->user->urlPhoto}" alt="Photo de profil">
+                        </figure>
+CODEHTML;
+
+        }
+        else{
+         $codeHtml .= 
+<<<CODEHTML
+                        <figure>
+                            <img src="{$this->urlRoot}/assets/img/presentation/article_none.jpg" alt="Photo de profil">
+                        </figure>
 CODEHTML;
 
         }
@@ -113,10 +122,7 @@ CODEHTML;
 
     function getHtmlDetail($pseudo, $niveau){
         global $app;
-        
-        $codeHtmlDetail = "";
-        //  Si le visiteur de l'article est son auteur ou qu'il est admin,  
-        //  il peut modifier l'article
+        $codeHtmlDetail="";
         if ($this->user->pseudo == $pseudo || $niveau >= 10)
             $codeHtmlDetail = 
 <<<CODEHTML
@@ -143,28 +149,38 @@ CODEHTML;
 CODEHTML;
 
         }
+        else
+         $codeHtmlDetail .= 
+<<<CODEHTML
+                        <figure>
+                            <img src="{$this->urlRoot}/assets/img/presentation/article_none.jpg" alt="Photo de profil">
+                        </figure>
+CODEHTML;
+
         // On ajoute à l'URL des éventuelles images de l'article 
         // le vrai chemin du dossier des photos        
         $this->contenu = str_replace('<img src="', '<img src="'.$this->urlRoot, $this->contenu); 
         
         $codeHtmlDetail .= 
 <<<CODEHTML
-                        </div>                        
-                    </div>
-
+                        </div>
+                       
+                    </div
+                    <span>
                     <div id="second">
                         <h3>résumé article</h3>
                         <p>{$this->resume}</p>
                     </div>                
-                    
+                    </span>
                     <article>
-                    {$this->contenu}
+                        <p>{$this->contenu}</p>
                     </article>
                 </article>
 CODEHTML;
 
         return $codeHtmlDetail;
     }
+   
 
     //
     //  Récupération du code HTML du formulaire de modification de l'article
