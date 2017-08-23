@@ -1,8 +1,8 @@
 <?php 
 use Symfony\Component\HttpFoundation\Session\Session;
 require_once("..\src\class\Article.php");
-
 global $app;
+
  ?>
 <section id="section_membre_2" class="contain-col maxWidht">
 	<div class="contain">
@@ -36,7 +36,7 @@ global $app;
 	
 	<section id="contenu">
 		<div id="profil">
-			<form action="<?php echo $app['url_generator']->generate('updateUser', ["id" => $user->id]); ?>" method="POST">
+			<form action="" method="POST">
 				<input type="hidden" name="id" value="<?php echo $user->id; ?>">
 				<div class="contain">			
 					<label>pseudo:</label>
@@ -79,7 +79,13 @@ global $app;
 					><?php echo $user->resume; ?></textarea>
 				</div> 
 				<button>Modifier</button>
-				<input type="hidden" name="traitementClass" value="UpdateUser">
+				<input type="hidden" name="traitementClass" value="
+				<?php 
+					if ($niveau>=10) 
+						echo "updateAdmin";
+					else
+						echo "updateUser";
+				?>">
 			</form>
 		</div>	
 

@@ -14,14 +14,15 @@ class Back extends RouteParent{
 		//->verifier qu'il n'y a pas de session ouverte...
 		$objSession->start();		
 		$niveau = $objSession->get("niveau");
+		dump($this->request);
 
 		if($niveau >= 1 && $niveau < 10 ){
-			// if (null !== $this->request->get("traitement")){
-			// 	$traitement = $this->request->get("traitement");
-			// 	if($traitement == "update"){
-			// 		$trait = new \traitement\TraitementUpdate($this->request);					
-			// 	} 				
-			// }
+			if (null !== $this->request->get("traitementClass")){
+				$traitement = $this->request->get("traitementClass");
+				if($traitement == "updateUser"){
+					$trait = new \traitement\TraitementUpdate($this->request);					
+				} 				
+			}
 					
 			return $this->construireHtml(["header","section-membre-2", "footer"]);			
 		}
@@ -36,20 +37,12 @@ class Back extends RouteParent{
 	//
 
 	function updateUser($id){
-		
-		$objSession = new Session;
-		
-		//->verifier qu'il n'y a pas de session ouverte...
-		$objSession->start();
-		$niveau = $objSession->get("niveau");		
-		$trait = new \traitement\TraitementUpdate($this->request);
-		
-		return $this->construireHtml(["header","section-membre_update", "footer"]);				
+		dump("coucou");				
+		$trait = new \traitement\TraitementUpdate($this->request);		
+		return $this->construireHtml(["header","section-membre-2", "footer"]);				
 	}
 
 	
-
-
 	function AfficherProfil() {
 		global $app;
 		return $this->redirectToRoute("AfficherProfil");
@@ -80,8 +73,8 @@ class Back extends RouteParent{
 	//
 	//	MAJ d'un article
 	//
-    function articleUpdate($id){
-    	$objSession = new Session;	
+	function articleUpdate($id){
+		$objSession = new Session;	
 
 		//->verifier qu'il n'y a pas de session ouverte...
 		$objSession->start();
@@ -101,7 +94,30 @@ class Back extends RouteParent{
 											"section-article_2", 
 											"section-article_3", 
 											"footer"]);		
-    	}
+		}
+	}
+	
+
+	//
+	//	Envoi d'un commentaire
+	//
+	function commentaire(){			
+		// formulaire d'envoi de commentaire
+		
+		$traitement = new \traitement\TraitementCommentaire($this->request);
+		$this->urlRedirection = $traitement->urlRedirection;		
+		
+		if ($this->urlRedirection == ""){			
+			
+			return $this->construireHtml([	"header", 
+											"section-membre-2", 
+											"footer"
+										]);	
+		}
+		else{
+			global $app;
+			return $app->redirect($this->urlRedirection);
+		}		
 	}
 
 	//
@@ -113,11 +129,20 @@ class Back extends RouteParent{
 		$objSession = new Session;
 		$objSession->start();		
 		// on ne construit que si le visiteur a le niveau suffisant
-		if($objSession->get("niveau") >= 10)
+		if($objSession->get("niveau") >= 10){			
+			if (null !== $this->request->get("traitementClass")){
+				$traitement = $this->request->get("traitementClass");
+				if($traitement == "updateAdmin"){
+					
+					$trait = new \traitement\TraitementUpdate($this->request);
+				} 				
+			}
+				
 			return $this->construireHtml(["header", "section-admin", "footer"]);		
+		}
 		else{
 			// https://silex.symfony.com/doc/2.0/usage.html#redirects
             return $this->redirectToRoute($app["url_generator"]->generate("accueil"));
-		}
+		}		
 	}
 }

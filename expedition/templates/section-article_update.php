@@ -55,16 +55,19 @@
 ?>
 
             <div class="contain">                        
-                <textarea name="contenu" value="contenu" rows="50" cols="120">
+                <textarea name="contenu" id="contenu" value="contenu" rows="50" cols="120">
                 	<?php echo $article->contenu; ?>
             	</textarea>
+				 <script>
+					CKEDITOR.replace('contenu');
+				</script>
             </div>                
 			<div>
         		<button type="submit">Modifier</button>
             	<button type="reset">Annuler</button>
 			</div>
 			<input type="hidden" name="id" value="<?php echo $article->id;?>">
-            <input type="hidden" name="traitementClass" value="UpdateArticle">
+            <input type="hidden" name="traitementClass" value="updateArticle">
         </form>
 
 	</article>	

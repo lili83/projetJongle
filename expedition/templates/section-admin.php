@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
         $objetStatement = $app['db']->executeQuery($reqInfosUsr);
         if($res = $objetStatement->fetch()){           
             extract($res);
-            // dump($id);
+            //dump($id);
 ?>              
                     <label>pseudo:</label>
                     <input 
@@ -74,7 +74,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
                 >
                 <button>Modifier</button>
                 <input type="hidden" name="id" value="<?php echo $id;?>">
-                <input type="hidden" name="traitementClass" value="Update">
+                <input type="hidden" name="traitementClass" value="updateAdmin">
             </form>
 <?php
         } 

@@ -211,9 +211,13 @@ CODEHTML;
                     
                     <div class="contain">                        
                         <textarea  name= "contenu"
+                                    id = "contenu"
                                     value="{$this->contenu}
                                     placeholder="{$this->contenu}">
                         </teaxtarea>
+                        <script>
+                            CKEDITOR.replace('contenu');
+                        </script>
                     </div>                
 
                         <button type="submit">Modifier</button>

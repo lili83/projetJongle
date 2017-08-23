@@ -18,6 +18,7 @@ $objSession = new Session();
 	<link rel='stylesheet' href='<?php echo $urlRoot; ?>/unitegallery/css/unite-gallery.css' type='text/css' />
 	<link rel='stylesheet' href='<?php echo $urlRoot; ?>/unitegallery/themes/default/ug-theme-default.css' type='text/css' /> 
 	<link rel='stylesheet' href='<?php echo $urlRoot; ?>/unitegallery/themes/video/skin-right-thumb.css' type='text/css' />
+	<script src="<?php echo $urlRoot; ?>/assets/js/ckeditor/ckeditor.js"></script>
 	<!-- linkp layer video 
 	<link href="http://vjs.zencdn.net/6.2.4/video-js.css" rel="stylesheet">-->
 </head>

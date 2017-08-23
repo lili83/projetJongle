@@ -15,10 +15,11 @@ $app
 ->match('/back-office/espace-admin', "\\route\\Back::admin")
 ->bind('back-office/espace-admin')
 ;
+
 //
 //  GESTION DES MEMBRES 
 // 
-
+//  Route pour la modification d'un membre
 $app
 ->match('/back-office/espace-membre/{id}/update', "\\route\\Back::updateUser")
 ->bind('updateUser')
@@ -36,12 +37,13 @@ $app
 
 $app
 ->match('/back-office/AfficherProfil', "\\route\\Back::AfficherProfil")
-->bind('AfficherProfil	')
+->bind('AfficherProfil')
 ;
 
 //
 //  GESTION DES ARTICLES
 //
+
 // Route pour la creation d'un article
 $app->match('/article/create ',"\\route\\Back::articleCreate")
 ->bind('articleCreate')
