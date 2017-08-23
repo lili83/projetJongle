@@ -16,6 +16,7 @@ class Back extends RouteParent{
 		$niveau = $objSession->get("niveau");
 		// dump($this->request);
 
+<<<<<<< HEAD
 		if($niveau >= 1 && $niveau < 10 ){
 			if (null !== $this->request->get("traitementClass")){
 				$traitement = $this->request->get("traitementClass");
@@ -24,6 +25,16 @@ class Back extends RouteParent{
 				} 				
 			}
 					
+=======
+		if($niveau >= 0 && $niveau < 10 ){
+			// if (null !== $this->request->get("traitement")){
+			// 	$traitement = $this->request->get("traitement");
+			// 	if($traitement == "update"){
+			// 		$trait = new \traitement\TraitementUpdate($this->request);					
+			// 	} 				
+			// }
+			$this->infosDetail["numPage"] = $numPage;		
+>>>>>>> master
 			return $this->construireHtml(["header","section-membre-2", "footer"]);			
 		}
 		else{				
@@ -42,6 +53,14 @@ class Back extends RouteParent{
 		return $this->construireHtml(["header","section-membre-2", "footer"]);				
 	}
 
+	//
+	//	Creation d'article par un membre
+	//
+
+	function newArticle($id){
+				
+		return $this->construireHtml(["header","section-creation-article", "footer"]);				
+	}
 	
 	function AfficherProfil() {
 		global $app;
@@ -123,12 +142,13 @@ class Back extends RouteParent{
 	//
 	//	Affichage de la page admin
 	//
-	function admin(){
+	function admin($numPage=1){
 		global $app;
 		// récup du $level depuis la session
 		$objSession = new Session;
 		$objSession->start();		
 		// on ne construit que si le visiteur a le niveau suffisant
+<<<<<<< HEAD
 		if($objSession->get("niveau") >= 10){			
 			if (null !== $this->request->get("traitementClass")){
 				$traitement = $this->request->get("traitementClass");
@@ -138,6 +158,10 @@ class Back extends RouteParent{
 				} 				
 			}
 				
+=======
+		if($objSession->get("niveau") >= 10) {
+			$this->infosDetail["numPage"] = $numPage;
+>>>>>>> master
 			return $this->construireHtml(["header", "section-admin", "footer"]);		
 		}
 		else{

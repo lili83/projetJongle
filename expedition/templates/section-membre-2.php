@@ -1,15 +1,31 @@
 <?php 
 use Symfony\Component\HttpFoundation\Session\Session;
+<<<<<<< HEAD
 require_once("..\src\class\Article.php");
+=======
+require_once("../src/class/Article.php");
+require_once ("../src/traitement/TraitementCategories.php");
+use traitement\TraitementCategories;
+
+
+>>>>>>> master
 global $app;
 
  ?>
 <section id="section_membre_2" class="contain-col maxWidht">
 	<div class="contain">
 		<span id="btn-profil">Mon profil</span>
+
+<?php
+if($objSession->get('niveau')>0) {
+
+?>
 		<span id="btn-mes-articles">Mes articles</span>
 		<span id="btn-blog-membres">Blog membres</span>	
-		<span id="btn-charte">charte</span>	
+		<span id="btn-charte">charte</span>
+<?php
+	}
+?>	
 	</div>
 
 <?php  
@@ -24,7 +40,6 @@ global $app;
 	// Informations fournies par l'utilisateur
 	// Si connecté, il peut les modifier à son gré
 	if($objSession->get('email') != ""){
-		
 		$email = $objSession->get('email');
 		$reqInfosUsr = "SELECT * FROM USER WHERE EMAIL = '$email'";
 
@@ -88,13 +103,24 @@ global $app;
 				?>">
 			</form>
 		</div>	
-
-
-		<div id="mes-articles">	
-			<section class="contain-col">
 <?php
 		} 
 	}
+echo 
+<<<CODEHTML
+<script type="text/javascript">
+var ongletProfil = "profil";
+</script>
+CODEHTML;
+if($objSession->get('niveau')>0) {
+
+
+?>
+
+		<div id="mes-articles">	
+			<section class="contain-col">
+			<a id="crea" href="<?php echo $app['url_generator']->generate('newArticle', ["id" => $user->id]); ?>">> Créer un article</a>
+<?php
 	/*
 	*******************************************************************************
 	*******************************************************************************	
@@ -102,6 +128,7 @@ global $app;
 	*******************************************************************************
 	*******************************************************************************
 	*/
+
 	$reqArticlesUsr = "SELECT * from article where id_user= $id";
 	$objetStatement = $app['db']->executeQuery($reqArticlesUsr);	
 	
@@ -123,7 +150,9 @@ global $app;
 	*******************************************************************************
 	*******************************************************************************
 	*/
+			
 ?>
+
 		<div id="blog-membres">
 			<div class="contain">
 				<h1>nos recherches privées</h1>
@@ -149,22 +178,145 @@ global $app;
 			<section class="contain-col">
 
 <?php
-	//	Récupération des articles
-	$reqArticles = "select * from article";
-	$objetStatement = $app['db']->executeQuery($reqArticles);
-	if($tabArticles = $objetStatement->fetchAll()){
-		
-		foreach($tabArticles as $infosArticle){			
-			$article = new Article($infosArticle,"", $urlRoot);			
-			echo $article->getHtmlMini($urlRoot);
+	//	Récupération des articles par catégories
+	$traitementCategories = new TraitementCategories($this->request);
+	$categorie= $traitementCategories->tabInfos['categorie'];
+	if (!isset($categorie)) {
+		// arrive sur la page
+		// onglet charte
+echo 
+<<<CODEHTML
+<script type="text/javascript">
+var ongletActif = "";
+</script>
+CODEHTML;
+		$nbArticles = 3;
+		$indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);		
+		$nbResultats = $app['db']->fetchColumn("SELECT COUNT(*) FROM article", []);
+		$objStmnt = $app['db']->executeQuery("SELECT * FROM ARTICLE LIMIT $indexDepart, $nbArticles", []);	
+		$reqArticles = "select * from article";
+		$objetStatement = $app['db']->executeQuery($reqArticles);
+		if($tabArticles = $objetStatement->fetchAll()){		
+			foreach($tabArticles as $infosArticle){			
+				$article = new Article($infosArticle,"", $urlRoot);		
+				echo $article->getHtmlMini($urlRoot);
+			}
 		}
-				
+
 ?>
-			</section>
-		</div>
-<?php 
+		<nav>	
+			<ul>
+<?php
+	//calculer le nombre de pag même si elle ne sont pas complètes avec ceil 
+	$nombreDePages=ceil($nbResultats/$nbArticles);		
+	for($i=1 ; $i <= $nombreDePages; $i++) {		
+		$urlPage = $app["url_generator"]->generate("back-office/espace-membre/page", ["numPage" => $i]);		
+		$uri        = $_SERVER["REQUEST_URI"];
+    	$recherche  = parse_url($uri, PHP_URL_QUERY);
+		echo "<li><a href='$urlPage?$recherche'>$i</a></li>";
 	}
 ?>
+			</ul>
+		</nav>
+<?php
+
+	} else {
+		// recherche
+		if ($categorie!= "categorie"){
+			// rechercher filtrée
+			// onglet membre
+echo 
+<<<CODEHTML
+<script type="text/javascript">
+var ongletActif = "blog-membres";
+</script>
+CODEHTML;
+			$nbArticles = 3;
+			$indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);		
+			$nbResultats = $app['db']->fetchColumn("SELECT COUNT(*) FROM article, categoriearticle, categorie
+						WHERE categoriearticle.id_article = article.id
+						AND categoriearticle.id_categorie = categorie.id
+						AND categorie.nom = '$categorie'", []);
+
+			$objStmnt = $app['db']->executeQuery("SELECT * FROM article, categoriearticle, categorie
+						WHERE categoriearticle.id_article = article.id
+						AND categoriearticle.id_categorie = categorie.id
+						AND categorie.nom = '$categorie' 
+						LIMIT $indexDepart, $nbArticles", []);
+	
+
+			$reqArticles = "SELECT * FROM article, categoriearticle, categorie
+						WHERE categoriearticle.id_article = article.id
+						AND categoriearticle.id_categorie = categorie.id
+						AND categorie.nom = '$categorie'";
+			$objetStatement = $app['db']->executeQuery($reqArticles);
+			if($tabArticles = $objetStatement->fetchAll()){
+		
+				foreach($tabArticles as $infosArticle){			
+					$article = new Article($infosArticle,"", $urlRoot);			
+					echo $article->getHtmlMini($urlRoot);
+				}
+			}
+?>
+		<nav>	
+			<ul>
+<?php
+	//calculer le nombre de pag même si elle ne sont pas complètes avec ceil 
+	$nombreDePages=ceil($nbResultats/$nbArticles);		
+	for($i=1 ; $i <= $nombreDePages; $i++) {		
+		$urlPage = $app["url_generator"]->generate("back-office/espace-membre/page", ["numPage" => $i]);
+		$uri        = $_SERVER["REQUEST_URI"];
+    	$recherche  = parse_url($uri, PHP_URL_QUERY);
+		echo "<li><a href='$urlPage?$recherche'>$i</a></li>";
+		}
+?>
+			</ul>
+		</nav>
+<?php
+		} else {
+			// recherche toutes categories
+			// onglet membre
+echo 
+<<<CODEHTML
+<script type="text/javascript">
+var ongletActif = "blog-membres";
+</script>
+CODEHTML;
+		$nbArticles = 3;
+		$indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);		
+		$nbResultats = $app['db']->fetchColumn("SELECT COUNT(*) FROM article", []);
+		$objStmnt = $app['db']->executeQuery("SELECT * FROM ARTICLE LIMIT $indexDepart, $nbArticles", []);	
+		$reqArticles = "select * from article";
+		$objetStatement = $app['db']->executeQuery($reqArticles);
+		if($tabArticles = $objetStatement->fetchAll()){		
+			foreach($tabArticles as $infosArticle){			
+				$article = new Article($infosArticle,"", $urlRoot);		
+				echo $article->getHtmlMini($urlRoot);
+			}
+		}
+?>
+		<nav>	
+			<ul>
+<?php
+	//calculer le nombre de pag même si elle ne sont pas complètes avec ceil 
+	$nombreDePages=ceil($nbResultats/$nbArticles);		
+	for($i=1 ; $i <= $nombreDePages; $i++) {		
+		$urlPage = $app["url_generator"]->generate("back-office/espace-membre/page", ["numPage" => $i]);
+		$uri        = $_SERVER["REQUEST_URI"];
+    	$recherche  = parse_url($uri, PHP_URL_QUERY);
+		echo "<li><a href='$urlPage?$recherche'>$i</a></li>";
+		}
+?>
+			</ul>
+		</nav>	
+<?php
+		}
+	}				
+?>
+			</section>						
+		</div>
+<!-- *********************************************************************************************************************************************************************************CHARTE*****************************************************************************************************************************************
+ -->
 
 		<div id="charte">
 			<div class="contain-col">
@@ -185,5 +337,8 @@ global $app;
 				</article>
 			</div>
 		</div>
+<?php
+	}
+?>
 	</section>	
 </section>

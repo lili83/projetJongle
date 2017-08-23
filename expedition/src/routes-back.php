@@ -24,6 +24,11 @@ $app
 ->match('/back-office/espace-membre/{id}/update', "\\route\\Back::updateUser")
 ->bind('updateUser')
 ;
+//  Route pour la création d'un nouvel article par un membre
+$app
+->match('/back-office/espace-membre/{id}/new_article', "\\route\\Back::newArticle")
+->bind('newArticle')
+;
 //  Route pour la création d'un membre
 $app
 ->match('/back-office/espace-membre/create', "\\route\\Back::createUser")
@@ -33,6 +38,18 @@ $app
 $app
 ->match('/back-office/espace-membre/{id}/delete', "\\route\\Back::deleteUser")
 ->bind('deleteUser')
+;
+
+// Route pour la pagination
+$app
+->match('/back-office/espace-membre/page/{numPage}', "\\route\\Back::membre")
+->bind('back-office/espace-membre/page')
+;
+
+// Route pour la pagination
+$app
+->match('/back-office/espace-admin/page/{numPage}', "\\route\\Back::admin")
+->bind('back-office/espace-admin/page')
 ;
 
 $app

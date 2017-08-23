@@ -38,7 +38,7 @@
                     }); 
             }); 
         
-        </script>
+</script>
 <!--------------------------fin unitegallery---------------------------------->
 
 
@@ -57,8 +57,24 @@
                  	$('#div-magique').hide();
                  }
              });
-         });
-    </script>  
+         });    
 </script>
+
+<script type="text/javascript" language="javascript">
+         $(function () {
+            if(ongletActif== "blog-membres"){
+                $('#btn-blog-membres').trigger("click");
+                console.log("coucou");
+            }
+         });    
+
+         $(function () {
+            if(ongletProfil== "profil"){
+                $('#btn-profil').trigger("click");
+                console.log("coucou");
+            }
+         });
+</script>
+
 </body>
 </html>

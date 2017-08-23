@@ -14,7 +14,7 @@
 		</form>
 		
 		<div id="messageContact">		
-		<?php  $this->afficherVarGlob("Contact"."Message"); ?>
+		<span><?php  $this->afficherVarGlob("Contact"."Message"); ?></span>
 		</div>
 	
 </section>

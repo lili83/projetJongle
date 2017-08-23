@@ -26,7 +26,11 @@
 		<aside class="maxWidht" >
 			<h1>devenir membre de l'expédition ?</h1>
 			<p>Rien de plus simple ! Voici une courte partition relativement facile (mais pas trop).
+<<<<<<< HEAD
 			Filmez vous en train de la réaliser et en envoyez nous votre video par email. 
+=======
+			Filmez vous en train de la réaliser et envoyez nous par email votre vidéo.
+>>>>>>> master
 			Voici la partition:
 			</p>
 			<figure>

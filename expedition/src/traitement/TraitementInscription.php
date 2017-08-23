@@ -22,7 +22,7 @@ class TraitementInscription extends TraitementCommun{
 			->lireChamps("pseudo")
 			->lirePassword("password", "password_crypt")	
 			->ajouterNameValeur("date_inscription", date("Y-m-d H:i:s"))		
-			->ajouterNameValeur("niveau", 1)
+			->ajouterNameValeur("niveau", 0)
 			->envoyer("user", "email")
 			->setMessage("Inscription réussie. Bienvenue !");
 

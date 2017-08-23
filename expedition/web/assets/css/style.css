@@ -103,10 +103,10 @@ button:focus, a:focus, input:focus, textarea:focus, select:focus {
 img{
     max-width: 100%;
 }
-form input, #profil form label, #tableau-de-bord form label, #section-article_update label{
+form input, #profil form label, #tableau-de-bord form label, #section-article_update label, #section-creation-article label{
     font-family: mathleteskinny;
 }
-form button, #firsta{
+form button, #firsta, #crea{
     font-family: mathletebulky;
 }
 #btn-login, #btn-inscription, #btn-menu, #btn-connexion, #btn-deconnexion, #btn-close,
@@ -135,7 +135,7 @@ p, #section_accueil_2 ul li, #section_notation article ul, #section_methode arti
     top: 0.15rem;
 }
 #section-blog, #section_galerie_1, #section-article, #section_contact_1, #section_membre_2
-, #section_notation, #section_methode, #section-article_update{
+, #section_notation, #section_methode, #section-article_update, #section-creation-article{
     margin-top: 15rem;
 }
 
@@ -260,9 +260,13 @@ header nav figure {
 #inscription form input, #inscription form button,
 #btn-inscription, #section_contact_1 button,
 <<<<<<< HEAD
+<<<<<<< HEAD
 #section_contact_1  input, #profil form input, #tableau-de-bord form input, #section_notation aside a {
 =======
 #section_contact_1  input, #profil form input, #tableau-de-bord form input, #section_notation aside a, #section-article_3 form input, #section-article_update input {
+>>>>>>> master
+=======
+#section_contact_1  input, #profil form input, #tableau-de-bord form input, #section_notation aside a, #section-article_3 form input, #section-article_update input, #section-creation-article input {
 >>>>>>> master
     width: 100%;
     padding: .5rem 0;
@@ -272,9 +276,13 @@ header nav figure {
     border: 0;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 #login form input, #inscription form input, #section_contact_1 input, #profil form input, #tableau-de-bord form input {
 =======
 #login form input, #inscription form input, #section_contact_1 input, #profil form input, #tableau-de-bord form input, #section-article_3 form input, #section-article_update input {
+>>>>>>> master
+=======
+#login form input, #inscription form input, #section_contact_1 input, #profil form input, #tableau-de-bord form input, #section-article_3 form input, #section-article_update input, #section-creation-article input {
 >>>>>>> master
     border-bottom: 1px darkgrey solid;
 }
@@ -282,7 +290,7 @@ header nav figure {
     padding: 2rem 0;
 }
  form button, #section_contact_1  button, #inscription form button, #profil form button, #tableau-de-bord section:nth-child(2) form input:nth-child(7), #tableau-de-bord section:nth-child(2) form input:nth-child(8),
- #tableau-de-bord section:nth-child(3) form button, #section_notation aside a, #firsta{
+ #tableau-de-bord section:nth-child(3) form button, #section_notation aside a, #firsta, #crea{
     border: 1px #1DCCDB solid;
     border-radius: 10px;
     padding: .5rem 0;
@@ -291,7 +299,7 @@ header nav figure {
     transition: all .5s ease-out;
 }
 #login form button:hover, #inscription form button:hover, #section_contact_1 form button:hover, #profil form button:hover, #tableau-de-bord  section:nth-child(2) form input:nth-child(7):hover,
-#tableau-de-bord section:nth-child(3) form button:hover, #section_notation aside a:hover, #firsta:hover{
+#tableau-de-bord section:nth-child(3) form button:hover, #section_notation aside a:hover, #firsta:hover, #crea:hover{
     background: white;
     color: #1DCCDB;
 }
@@ -939,7 +947,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     padding: 2rem;
     margin-top: 2rem;
 }
-#section-article a, #firsta {
+#section-article a, #firsta, #crea {
     background: #1DCCDB;
     border: 1px solid #1DCCDB;
     color: white;
@@ -950,7 +958,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     border-radius: 10px;
     transition: all .5s ease-out;
 }
-#section-article a:hover, #section-article_update button:hover {
+#section-article a:hover, #section-article_update button:hover, #section-creation-article button:hover {
     color: #1DCCDB;
     background: white;
 }
@@ -1136,18 +1144,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     padding: 0;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 #firsta {
+=======
+#firsta, #crea {
+>>>>>>> master
     width: 15%;
 }
-#section-article_update button {
+#section-article_update button, #section-creation-article button {
     width: 45%;
 }
-#section-article_update section{
+#section-article_update section , #section-creation-article section{
     padding: 2rem;
     border: 1px solid darkgray;
 }
-#section-article_update input {
+#section-article_update input, #section-creation-article input {
     width: 93%;
     margin: 0;
     padding: 0;
@@ -1387,7 +1399,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     color: black;
     font-size: 3rem;
 }
-#profil label, #tableau-de-bord label , #section-article_update label{
+#profil label, #tableau-de-bord label , #section-article_update label, #section-creation-article label{
     font-size: 3rem;
     margin:0;
 }
@@ -1467,6 +1479,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     right: 17%;
     width: 2%;
 }
+#crea{
+    width: 20%;
+    margin-bottom: 3rem;
+}    
 /* XXXXXXXXXXXXXXXXXXX SECTIION ADMIN XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
 #tableau-de-bord section:nth-child(2) div:nth-child(6) {
     flex-direction: row;
@@ -1560,10 +1576,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     color: grey;
     font-weight: 500;
 }  
-#cke_CKEditor2{
+#cke_CKEditor2,#CKEditor3{
     width: 100%;
 }
-#section-article_update #div2{
+#section-article_update #div2, #section-creation-article #div2{
     margin: 6rem 0;
 }
 /**

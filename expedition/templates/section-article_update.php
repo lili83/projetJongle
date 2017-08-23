@@ -28,7 +28,7 @@
 							placeholder="<?php echo $article->titre;?>">
 				</div>
             
-            <div id="div2" class="contain-col">
+            <div id="div2" class="contain">
                 <label for ="resume">resumé: </label>
 					<input 	type="text" 
 							name = "resume"
@@ -59,7 +59,10 @@
             	<script>
 	                // Replace the <textarea id="editor1"> with a CKEditor
 	                // instance, using default configuration.
-	                CKEDITOR.replace( 'CKEditor2' );
+	                CKEDITOR.replace( 'CKEditor2', {
+    filebrowserBrowseUrl: '/browser/browse.php',
+    filebrowserUploadUrl: '/uploader/upload.php'
+});
             	</script>
 >>>>>>> master
             </div>                

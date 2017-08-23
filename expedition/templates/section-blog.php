@@ -40,6 +40,7 @@ use traitement\TraitementCategories;
 		</form>
 	</div>
 	<section class="contain-col">
+<<<<<<< HEAD
 		<article class="contain">
 			<div>
 				<figure>
@@ -114,15 +115,101 @@ use traitement\TraitementCategories;
 	</section>
 	<nav>	
 	<ul>
+=======
+<?php
+	//	Récupération des articles
+	$traitementCategories = new TraitementCategories($this->request);	
+	$categorie= $traitementCategories->tabInfos['categorie'];
+	if (isset($categorie) && $categorie != "categorie")
+	{
+		//requete triée par catégorie
+		$nbArticles = 3;
+		$indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);		
+
+		$nbResultats = $app['db']->fetchColumn("SELECT COUNT(*) FROM article, categoriearticle, categorie
+						WHERE categoriearticle.id_article = article.id
+						AND categoriearticle.id_categorie = categorie.id
+						AND categorie.nom = '$categorie'", []);
+
+		$objStmnt = $app['db']->executeQuery("SELECT * FROM article, categoriearticle, categorie
+						WHERE categoriearticle.id_article = article.id
+						AND categoriearticle.id_categorie = categorie.id
+						AND categorie.nom = '$categorie' 
+			LIMIT $indexDepart, $nbArticles", []);
+
+		$reqArticles = "SELECT * FROM article, categoriearticle, categorie
+						WHERE categoriearticle.id_article = article.id
+						AND categoriearticle.id_categorie = categorie.id
+						AND categorie.nom = '$categorie'";
+		$objetStatement = $app['db']->executeQuery($reqArticles);
+		if($tabArticles = $objetStatement->fetchAll()){
+		
+			foreach($tabArticles as $infosArticle){			
+				$article = new Article($infosArticle,"", $urlRoot);			
+				echo $article->getHtmlMini($urlRoot);
+			}
+		}
+?>
+		<nav>	
+			<ul>
 <?php
 	//calculer le nombre de pag même si elle ne sont pas complètes avec ceil 
 	$nombreDePages=ceil($nbResultats/$nbArticles);		
 	for($i=1 ; $i <= $nombreDePages; $i++) {		
 		$urlPage = $app["url_generator"]->generate("blog/page", ["numPage" => $i]);
-		echo "<li><a href=$urlPage>$i</a></li>";
+		$uri        = $_SERVER["REQUEST_URI"];
+    	$recherche  = parse_url($uri, PHP_URL_QUERY);
+		echo "<li><a href='$urlPage?$recherche'>$i</a></li>";
 	}
 ?>
+			</ul>
+		</nav>			
+<?php
+	} else
+
+	{    
+
+		$nbArticles = 3;
+		$indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);		
+		$nbResultats = $app['db']->fetchColumn("SELECT COUNT(*) FROM article", []);
+
+		$objStmnt = $app['db']->executeQuery("SELECT * FROM ARTICLE LIMIT $indexDepart, $nbArticles", []);	
+
+		//requete avec tous les articles
+		$reqArticles = "select * from article";
+		$objetStatement = $app['db']->executeQuery($reqArticles);
+		if($tabArticles = $objetStatement->fetchAll()){
+		
+			foreach($tabArticles as $infosArticle){			
+				$article = new Article($infosArticle,"", $urlRoot);			
+				echo $article->getHtmlMini($urlRoot);
+			}
+		}
+?>
+		<nav>	
+			<ul>
+>>>>>>> master
+<?php
+	//calculer le nombre de pag même si elle ne sont pas complètes avec ceil 
+	$nombreDePages=ceil($nbResultats/$nbArticles);		
+	for($i=1 ; $i <= $nombreDePages; $i++) {		
+		$urlPage = $app["url_generator"]->generate("blog/page", ["numPage" => $i]);
+		$uri        = $_SERVER["REQUEST_URI"];
+    	$recherche  = parse_url($uri, PHP_URL_QUERY);
+		echo "<li><a href='$urlPage?$recherche'>$i</a></li>";
+		}
+?>
+<<<<<<< HEAD
 	</ul>
 </nav>
+=======
+			</ul>
+		</nav>
+<?php
+	}		
+?>
+	</section>
+	
+>>>>>>> master
 </section>
 

@@ -61,7 +61,11 @@ $objSession = new Session();
 				<li><a href="<?php echo $app['url_generator']->generate('blog')?>">blog</a></li>
 				<?php 
 				// Si l'utilisateur est connecté : on affiche le lien vers l'espace membre			
+<<<<<<< HEAD
 				if($objSession->get('email') != ""){								
+=======
+				if(($objSession->get('email') != "")&&($objSession->get('niveau') >= 0)&&($objSession->get('niveau') <10)){								
+>>>>>>> master
 				?>
 				<li><a href="<?php echo $app['url_generator']->generate('back-office/espace-membre');						
 				?>
