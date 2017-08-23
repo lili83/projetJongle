@@ -50,7 +50,10 @@
             	<script>
 	                // Replace the <textarea id="editor1"> with a CKEditor
 	                // instance, using default configuration.
-	                CKEDITOR.replace( 'CKEditor2' );
+	                CKEDITOR.replace( 'CKEditor2', {
+    filebrowserBrowseUrl: '/browser/browse.php',
+    filebrowserUploadUrl: '/uploader/upload.php'
+});
             	</script>
             </div>                
 			<div class="contain">
