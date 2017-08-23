@@ -65,6 +65,13 @@
                 console.log("coucou");
             }
          });    
+
+         $(function () {
+            if(ongletProfil== "profil"){
+                $('#btn-profil').trigger("click");
+                console.log("coucou");
+            }
+         });
 </script>
 
 </body>

@@ -15,7 +15,7 @@ class Back extends RouteParent{
 		$objSession->start();		
 		$niveau = $objSession->get("niveau");
 
-		if($niveau >= 1 && $niveau < 10 ){
+		if($niveau >= 0 && $niveau < 10 ){
 			// if (null !== $this->request->get("traitement")){
 			// 	$traitement = $this->request->get("traitement");
 			// 	if($traitement == "update"){
