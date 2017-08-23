@@ -182,7 +182,7 @@ CODEHTML;
         if (isset($this->user->urlPhoto) && $this->user->urlPhoto != ""){
             $codeHtmlDetail .= 
 <<<CODEHTML
-                        <label for="urlPhoto">Lien vers la photo:
+                        <label for="urlPhoto">Lien vers la photo:</label>
                         <input  type="text" 
                                 name= "urlPhoto"
                                 value="{$this->urlRoot}{$this->user->urlPhoto}" 
@@ -204,14 +204,14 @@ CODEHTML;
 
                     <div class="contain">
                         <label for ="resume">Résumé: </label>
-                        <textarea  class="ckeditor" name="resume"                                 
+                        <textarea name="resume"                                 
                                 value="{$this->resume}"
                                 placeholder="{$this->resume}">
                         </textarea>
                     </div>                
                     
                     <div class="contain">                        
-                        <textarea class="ckeditor" name= "contenu"
+                        <textarea name= "contenu"
                                     value="{$this->contenu}"
                                     placeholder="{$this->contenu}">
                         </textarea>
