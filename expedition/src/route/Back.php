@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class Back extends RouteParent{		
 
-	function membre(){		
+	function membre($numPage=1){		
 		
 		$objSession = new Session;
 
@@ -22,7 +22,7 @@ class Back extends RouteParent{
 			// 		$trait = new \traitement\TraitementUpdate($this->request);					
 			// 	} 				
 			// }
-					
+			$this->infosDetail["numPage"] = $numPage;		
 			return $this->construireHtml(["header","section-membre-2", "footer"]);			
 		}
 		else{				
@@ -107,14 +107,16 @@ class Back extends RouteParent{
 	//
 	//	Affichage de la page admin
 	//
-	function admin(){
+	function admin($numPage=1){
 		global $app;
 		// récup du $level depuis la session
 		$objSession = new Session;
 		$objSession->start();		
 		// on ne construit que si le visiteur a le niveau suffisant
-		if($objSession->get("niveau") >= 10)
+		if($objSession->get("niveau") >= 10) {
+			$this->infosDetail["numPage"] = $numPage;
 			return $this->construireHtml(["header", "section-admin", "footer"]);		
+		}
 		else{
 			// https://silex.symfony.com/doc/2.0/usage.html#redirects
             return $this->redirectToRoute($app["url_generator"]->generate("accueil"));
