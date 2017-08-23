@@ -13,7 +13,8 @@ class TraitementContact extends TraitementCommun{
 			->lireChamps("nom")
 			->lireChamps("message")	
 			->ajouterNameValeur("date", date("Y-m-d H:i:s"))		
-			->envoyer("Contact", "")
-			->setMessage("Merci pour votre message.");
+			->envoyer("Contact", "");
+
+			->setMessage($this->tabMessages);
 	}
 }
