@@ -34,6 +34,18 @@ $app
 ->bind('deleteUser')
 ;
 
+// Route pour la pagination
+$app
+->match('/back-office/espace-membre/page/{numPage}', "\\route\\Back::membre")
+->bind('back-office/espace-membre/page')
+;
+
+// Route pour la pagination
+$app
+->match('/back-office/espace-admin/page/{numPage}', "\\route\\Back::admin")
+->bind('back-office/espace-admin/page')
+;
+
 $app
 ->match('/back-office/AfficherProfil', "\\route\\Back::AfficherProfil")
 ->bind('AfficherProfil	')
