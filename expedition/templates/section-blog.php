@@ -1,5 +1,5 @@
 <?php 
-	require_once("..\src\class\Article.php");
+	require_once("../src/class/Article.php");
 
 	$nbArticles = 3;
 	$indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);		

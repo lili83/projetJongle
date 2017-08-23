@@ -1,5 +1,5 @@
-<section id="section-article" class="maxWidht">
-<a href="<?php echo rtrim($this->request->headers->get('referer'),'/update'); ?>"> retour aux articles</a>
+<section id="section-article_update" class="maxWidht contain-col">
+<a id="firsta" href="<?php echo rtrim($this->request->headers->get('referer'),'/update'); ?>"> retour aux articles</a>
 <?php 		
 	require_once("../src/class/article.php");
 	
@@ -13,40 +13,28 @@
 
 	if (isset($article)){
 ?>	
-	<section id="contenu">
+	<section>
 	<article class="contain-col">
 	
         <form 	action = "<?php //echo $app['url_generator']->generate('articleUpdate', ['id' => $article->id]); ?>" 
         		method = "POST">
             
             
-				<div class="contain-col">
-				<input 	type="text" 
-						name = "titre"
-						value="<?php echo $article->titre; ?>" 
-						placeholder="<?php echo $article->titre;?>">
+				<div class="contain">
+					<label for ="titre">titre: </label>
+					<input 	type="text" 
+							name = "titre"
+							value="<?php echo $article->titre; ?>" 
+							placeholder="<?php echo $article->titre;?>">
 				</div>
             
-            
-<?php
-		
-        if (isset($article->user->urlPhoto) && $article->user->urlPhoto != ""){    
-?>
-				<div class="contain-col">			                                   
-			        <figure>
-			            <img src="<?php echo $article->urlRoot.$article->user->urlPhoto; ?> " alt="Photo de profil">
-			        </figure>
-				</div>
-			
-<?php		
-		}
-?>
-            <div class="contain">
-                <label for ="resume">Résumé: 
-                <textarea name="resume" value="resume"  cols="120">                                	
-            		<?php echo $article->resume; ?>
-                </textarea>
-            </div>                
+            <div id="div2" class="contain-col">
+                <label for ="resume">resumé: </label>
+					<input 	type="text" 
+							name = "resume"
+							value="<?php echo $article->resume; ?>" 
+							placeholder="<?php echo $article->resume;?>">
+				</div>               
 
 <?php        
 			// On ajoute à l'URL des éventuelles images de l'article 
@@ -54,12 +42,18 @@
 			$article->contenu = str_replace('<img src="', '<img src="'.$article->urlRoot, $article->contenu);         
 ?>
 
-            <div class="contain">                        
-                <textarea name="contenu" value="contenu" rows="50" cols="120">
+            <div class="contain-col"> 
+            	<label for ="contenu">contenu: </label>                       
+                <textarea id="CKEditor2" name="contenu" value="contenu">
                 	<?php echo $article->contenu; ?>
             	</textarea>
+            	<script>
+	                // Replace the <textarea id="editor1"> with a CKEditor
+	                // instance, using default configuration.
+	                CKEDITOR.replace( 'CKEditor2' );
+            	</script>
             </div>                
-			<div>
+			<div class="contain">
         		<button type="submit">Modifier</button>
             	<button type="reset">Annuler</button>
 			</div>
@@ -71,5 +65,5 @@
 <?php		
 	}
 ?>
-
+	</section>
  </section>
