@@ -55,6 +55,8 @@ class TraitementCommun{
 		return $this;
 	}
 
+	
+
 
 	function traiterForm($traitement){
 		$this->traitement = $traitement;

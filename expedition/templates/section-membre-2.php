@@ -1,6 +1,11 @@
 <?php 
 use Symfony\Component\HttpFoundation\Session\Session;
+<<<<<<< HEAD
 require_once("..\src\class\Article.php");
+=======
+require_once("../src/class/Article.php");
+
+>>>>>>> master
 global $app;
 
  ?>

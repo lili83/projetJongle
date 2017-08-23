@@ -259,7 +259,7 @@ header nav figure {
 #login form input, form button, form a:nth-child(7),
 #inscription form input, #inscription form button,
 #btn-inscription, #section_contact_1 button,
-#section_contact_1  input, #profil form input, #tableau-de-bord form input, #section_notation aside a {
+#section_contact_1  input, #profil form input, #tableau-de-bord form input, #section_notation aside a, #section-article_3 form input {
     width: 100%;
     padding: .5rem 0;
     margin: 1rem 0;
@@ -267,7 +267,7 @@ header nav figure {
     font-size: 3rem;
     border: 0;
 }
-#login form input, #inscription form input, #section_contact_1 input, #profil form input, #tableau-de-bord form input {
+#login form input, #inscription form input, #section_contact_1 input, #profil form input, #tableau-de-bord form input, #section-article_3 form input {
     border-bottom: 1px darkgrey solid;
 }
 #inscription .g-recaptcha {
@@ -988,7 +988,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     bottom: -2.7rem;
     opacity: .5;
 }
-#section-article #second p, #section-article article:nth-child(2) p{
+#section-article p{
     font-size: 1.8rem;
     text-align: justify;
     margin: 0 0 2rem 0;
@@ -1107,6 +1107,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     padding: 1rem 0 0 1%;
     font-size: 1.8rem;
 }
+#section-article_3 form input {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid lightgray;
+    width: 70%;
+}
 #section-article_3 p {
     float: right;
     font-size: 2rem;
@@ -1127,6 +1132,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     float: right;
     padding: 0;
 }
+
 /* XXXXXXXXXXXXXXXXXXX SECTIION CONTACT 1 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
 
 #section_contact_1 textarea, #profil textarea, #tableau-de-bord textarea {
@@ -1141,7 +1147,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
 #section_methode .maxWidht, #section_notation .maxWidht {
     margin-bottom: 5rem;
 }
-
+#section_methode article:nth-child(3) p:last-child a{
+    text-decoration: underline;
+    color: white;
+    font-family: GeosansLight;
+}
 #section_methode > div {
     background: #7eeae1;
         background: -moz-linear-gradient(left, #7eeae1 0%, #59c7db 100%);
@@ -1165,6 +1175,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     top: 24.5rem;
     z-index: -1;
     right: 0;   
+}
+#section_notation object {
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid grey;
 }
  
 #section_methode h1, #section_notation h1 {
@@ -1494,7 +1509,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     overflow: scroll;
 }
 
-
+#section_presentation_1 section:nth-child(2) p{
+    text-align: center;
+    margin-bottom: 4rem;
+}
+#section_presentation_1 section:nth-child(2) h1 {
+    margin: 4rem 0 0 0;
+}
+#section_presentation_1 section:nth-child(2){
+    margin-top: 7rem;
+}
 
 #section_galerie_1 h1{
     font-size: 8rem;

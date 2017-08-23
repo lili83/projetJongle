@@ -80,7 +80,7 @@ CODEHTML;
         $codeHtml .= 
 <<<CODEHTML
         <p>catégories: 
-            <span>';
+            <span>
 CODEHTML;
 
         foreach($resCategoriesArticle as $categorie){								
@@ -116,6 +116,7 @@ CODEHTML;
 
         $codeHtmlDetail = 
 <<<CODEHTML
+                <a href="{$app['url_generator']->generate("articleUpdate", ["id" => $this->id])}"> Modifier l'article </a>
                 <article class="contain-col">
                     <div class="contain">
                         <div>
@@ -130,7 +131,7 @@ CODEHTML;
 <<<CODEHTML
                         <figure>
                             <img src="{$this->urlRoot}{$this->user->urlPhoto}" alt="Photo de profil">
-                        </figure>;
+                        </figure>
 CODEHTML;
 
         }
@@ -141,16 +142,16 @@ CODEHTML;
         $codeHtmlDetail .= 
 <<<CODEHTML
                         </div>
-                        <a href="{$app['url_generator']->generate("articleUpdate", ["id" => $this->id])}"> Modifier l'article </a>
+                       
                     </div
-
+                    <span>
                     <div id="second">
                         <h3>résumé article</h3>
                         <p>{$this->resume}</p>
                     </div>                
-                    
+                    </span>
                     <article>
-                    {$this->contenu}
+                        <p>{$this->contenu}</p>
                     </article>
                 </article>
 CODEHTML;
@@ -181,14 +182,14 @@ CODEHTML;
         if (isset($this->user->urlPhoto) && $this->user->urlPhoto != ""){
             $codeHtmlDetail .= 
 <<<CODEHTML
-                        <label for="urlPhoto">Lien vers la photo:
+                        <label for="urlPhoto">Lien vers la photo:</label>
                         <input  type="text" 
                                 name= "urlPhoto"
                                 value="{$this->urlRoot}{$this->user->urlPhoto}" 
                                 placeholde="{$this->urlRoot}{$this->user->urlPhoto}">                            
                         <figure>
                             <img src="{$this->urlRoot}{$this->user->urlPhoto}" alt="Photo de profil">
-                        </figure>;
+                        </figure>
 CODEHTML;
 
         }
@@ -202,14 +203,15 @@ CODEHTML;
                     </div
 
                     <div class="contain">
-                        <label for ="resume">Résumé: 
-                        <textarea  name="resume"                                 
-                                value="{$this->resume}
+                        <label for ="resume">Résumé: </label>
+                        <textarea name="resume"                                 
+                                value="{$this->resume}"
                                 placeholder="{$this->resume}">
-                        </textare
+                        </textarea>
                     </div>                
                     
                     <div class="contain">                        
+<<<<<<< HEAD
                         <textarea  name= "contenu"
                                     id = "contenu"
                                     value="{$this->contenu}
@@ -218,6 +220,12 @@ CODEHTML;
                         <script>
                             CKEDITOR.replace('contenu');
                         </script>
+=======
+                        <textarea name= "contenu"
+                                    value="{$this->contenu}"
+                                    placeholder="{$this->contenu}">
+                        </textarea>
+>>>>>>> master
                     </div>                
 
                         <button type="submit">Modifier</button>

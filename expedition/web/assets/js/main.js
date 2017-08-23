@@ -1,4 +1,3 @@
-
 // FONCTIONS
 
 // fonction qui permet d'afficher un element au click
