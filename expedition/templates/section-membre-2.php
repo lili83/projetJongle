@@ -10,9 +10,17 @@ global $app;
 <section id="section_membre_2" class="contain-col maxWidht">
 	<div class="contain">
 		<span id="btn-profil">Mon profil</span>
+
+<?php
+if($objSession->get('niveau')>0) {
+
+?>
 		<span id="btn-mes-articles">Mes articles</span>
 		<span id="btn-blog-membres">Blog membres</span>	
-		<span id="btn-charte">charte</span>	
+		<span id="btn-charte">charte</span>
+<?php
+	}
+?>	
 	</div>
 
 <?php  
@@ -85,13 +93,23 @@ global $app;
 				<input type="hidden" name="traitementClass" value="UpdateUser">
 			</form>
 		</div>	
+<?php
+		} 
+	}
+echo 
+<<<CODEHTML
+<script type="text/javascript">
+var ongletProfil = "profil";
+</script>
+CODEHTML;
+if($objSession->get('niveau')>0) {
 
+
+?>
 
 		<div id="mes-articles">	
 			<section class="contain-col">
 <?php
-		} 
-	}
 	/*
 	*******************************************************************************
 	*******************************************************************************	
@@ -99,6 +117,7 @@ global $app;
 	*******************************************************************************
 	*******************************************************************************
 	*/
+
 	$reqArticlesUsr = "SELECT * from article where id_user= $id";
 	$objetStatement = $app['db']->executeQuery($reqArticlesUsr);	
 	
@@ -307,5 +326,8 @@ CODEHTML;
 				</article>
 			</div>
 		</div>
+<?php
+	}
+?>
 	</section>	
 </section>

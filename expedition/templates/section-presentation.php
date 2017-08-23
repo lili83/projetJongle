@@ -30,7 +30,7 @@
 			<div class="contain">
 			<?php 
 	// A définir comment ?	 	
-	$reqUser = "SELECT * FROM user" ;
+	$reqUser = "SELECT * FROM user WHERE niveau>0" ;
 	$objStmnt = $app['db']->executeQuery($reqUser, []);
 	while($tabLigne = $objStmnt->fetch())
 	{
