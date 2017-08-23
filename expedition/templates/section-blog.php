@@ -1,4 +1,5 @@
 <?php 
+<<<<<<< HEAD
 	$nbArticles = 3;
 	$indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);		
 	$nbResultats = $app['db']->fetchColumn("SELECT COUNT(*) FROM article", []);
@@ -14,6 +15,12 @@
 		<a href="$routeUrl">lien</a>
 	</article>
 CODEHTML;
+=======
+
+require_once("../src/class/Article.php");
+require_once ("../src/traitement/TraitementCategories.php");
+use traitement\TraitementCategories;
+>>>>>>> master
 
 	}
 ?>
