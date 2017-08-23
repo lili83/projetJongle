@@ -1,4 +1,5 @@
 <?php 
+
 require_once("../src/class/Article.php");
 require_once ("../src/traitement/TraitementCategories.php");
 use traitement\TraitementCategories;	

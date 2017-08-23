@@ -103,10 +103,10 @@ button:focus, a:focus, input:focus, textarea:focus, select:focus {
 img{
     max-width: 100%;
 }
-form input, #profil form label, #tableau-de-bord form label{
+form input, #profil form label, #tableau-de-bord form label, #section-article_update label{
     font-family: mathleteskinny;
 }
-form button{
+form button, #firsta{
     font-family: mathletebulky;
 }
 #btn-login, #btn-inscription, #btn-menu, #btn-connexion, #btn-deconnexion, #btn-close,
@@ -135,7 +135,7 @@ p, #section_accueil_2 ul li, #section_notation article ul, #section_methode arti
     top: 0.15rem;
 }
 #section-blog, #section_galerie_1, #section-article, #section_contact_1, #section_membre_2
-, #section_notation, #section_methode{
+, #section_notation, #section_methode, #section-article_update{
     margin-top: 15rem;
 }
 
@@ -256,10 +256,10 @@ header nav figure {
     position: absolute;
     z-index: 3;
  } 
-#login form input, form button, form a:nth-child(7),
+#login form input, form button,#firsta,  /*form a:nth-child(7),*/
 #inscription form input, #inscription form button,
 #btn-inscription, #section_contact_1 button,
-#section_contact_1  input, #profil form input, #tableau-de-bord form input, #section_notation aside a, #section-article_3 form input {
+#section_contact_1  input, #profil form input, #tableau-de-bord form input, #section_notation aside a, #section-article_3 form input, #section-article_update input {
     width: 100%;
     padding: .5rem 0;
     margin: 1rem 0;
@@ -267,14 +267,14 @@ header nav figure {
     font-size: 3rem;
     border: 0;
 }
-#login form input, #inscription form input, #section_contact_1 input, #profil form input, #tableau-de-bord form input, #section-article_3 form input {
+#login form input, #inscription form input, #section_contact_1 input, #profil form input, #tableau-de-bord form input, #section-article_3 form input, #section-article_update input {
     border-bottom: 1px darkgrey solid;
 }
 #inscription .g-recaptcha {
     padding: 2rem 0;
 }
  form button, #section_contact_1  button, #inscription form button, #profil form button, #tableau-de-bord section:nth-child(2) form input:nth-child(7), #tableau-de-bord section:nth-child(2) form input:nth-child(8),
- #tableau-de-bord section:nth-child(3) form button, #section_notation aside a{
+ #tableau-de-bord section:nth-child(3) form button, #section_notation aside a, #firsta{
     border: 1px #1DCCDB solid;
     border-radius: 10px;
     padding: .5rem 0;
@@ -283,7 +283,7 @@ header nav figure {
     transition: all .5s ease-out;
 }
 #login form button:hover, #inscription form button:hover, #section_contact_1 form button:hover, #profil form button:hover, #tableau-de-bord  section:nth-child(2) form input:nth-child(7):hover,
-#tableau-de-bord section:nth-child(3) form button:hover, #section_notation aside a:hover{
+#tableau-de-bord section:nth-child(3) form button:hover, #section_notation aside a:hover, #firsta:hover{
     background: white;
     color: #1DCCDB;
 }
@@ -931,7 +931,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     padding: 2rem;
     margin-top: 2rem;
 }
-#section-article a {
+#section-article a, #firsta {
     background: #1DCCDB;
     border: 1px solid #1DCCDB;
     color: white;
@@ -942,7 +942,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     border-radius: 10px;
     transition: all .5s ease-out;
 }
-#section-article a:hover {
+#section-article a:hover, #section-article_update button:hover {
     color: #1DCCDB;
     background: white;
 }
@@ -1132,6 +1132,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     float: right;
     padding: 0;
 }
+#firsta {
+    width: 15%;
+}
+#section-article_update button {
+    width: 45%;
+}
+#section-article_update section{
+    padding: 2rem;
+    border: 1px solid darkgray;
+}
+#section-article_update input {
+    width: 93%;
+    margin: 0;
+    padding: 0;
+}
+
 
 /* XXXXXXXXXXXXXXXXXXX SECTIION CONTACT 1 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
 
@@ -1374,7 +1390,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     color: black;
     font-size: 3rem;
 }
-#profil label, #tableau-de-bord label {
+#profil label, #tableau-de-bord label , #section-article_update label{
     font-size: 3rem;
     margin:0;
 }
@@ -1556,6 +1572,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2fcc8', end
     color: grey;
     font-weight: 500;
 }  
+#cke_CKEditor2{
+    width: 100%;
+}
+#section-article_update #div2{
+    margin: 6rem 0;
+}
 /**
       ______  ____    ____  _______  ______  _____  
      |  ____|/ __ \  / __ \|__   __||  ____||  __ \ 
