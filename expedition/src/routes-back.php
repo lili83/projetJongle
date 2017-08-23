@@ -23,6 +23,11 @@ $app
 ->match('/back-office/espace-membre/{id}/update', "\\route\\Back::updateUser")
 ->bind('updateUser')
 ;
+//  Route pour la création d'un nouvel article par un membre
+$app
+->match('/back-office/espace-membre/{id}/new_article', "\\route\\Back::newArticle")
+->bind('newArticle')
+;
 //  Route pour la création d'un membre
 $app
 ->match('/back-office/espace-membre/create', "\\route\\Back::createUser")

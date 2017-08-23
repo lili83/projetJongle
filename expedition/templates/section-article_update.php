@@ -28,7 +28,7 @@
 							placeholder="<?php echo $article->titre;?>">
 				</div>
             
-            <div id="div2" class="contain-col">
+            <div id="div2" class="contain">
                 <label for ="resume">resumé: </label>
 					<input 	type="text" 
 							name = "resume"

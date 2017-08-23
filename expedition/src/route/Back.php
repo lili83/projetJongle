@@ -47,6 +47,14 @@ class Back extends RouteParent{
 		return $this->construireHtml(["header","section-membre_update", "footer"]);				
 	}
 
+	//
+	//	Creation d'article par un membre
+	//
+
+	function newArticle($id){
+				
+		return $this->construireHtml(["header","section-creation-article", "footer"]);				
+	}
 	
 
 

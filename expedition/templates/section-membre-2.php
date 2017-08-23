@@ -27,7 +27,6 @@ global $app;
 	// Informations fournies par l'utilisateur
 	// Si connecté, il peut les modifier à son gré
 	if($objSession->get('email') != ""){
-		
 		$email = $objSession->get('email');
 		$reqInfosUsr = "SELECT * FROM USER WHERE EMAIL = '$email'";
 		
@@ -89,6 +88,7 @@ global $app;
 
 		<div id="mes-articles">	
 			<section class="contain-col">
+			<a id="crea" href="<?php echo $app['url_generator']->generate('newArticle', ["id" => $user->id]); ?>">> Créer un article</a>
 <?php
 		} 
 	}
