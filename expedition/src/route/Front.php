@@ -1,14 +1,14 @@
 <?php 
 namespace route;
 use src\traitement;
-use Symfony\Component\HttpFoundation\Session\Session;	
+
 
 class Front extends RouteParent
 {
 
 	//	traitement des formulaires de le header (connexion et inscription)
 	function traitementFormHeader(){
-		dump("coucou");
+		//dump("coucou");
 		if(isset(	$this->request->request)
 				&& 	$this->request->request->get('traitementClass')!=""){
 			$traitement = $this->request->request->get('traitementClass');	

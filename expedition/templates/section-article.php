@@ -1,13 +1,14 @@
-<section id="section-article" class="maxWidht">
-<a href="<?php echo $app['url_generator']->generate("back-office/espace-membre"); ?>#mes-articles">retour aux articles</a>
-
+<section id="section-article_update" class="maxWidht contain-col">
+<a id="firsta" href="<?php echo rtrim($this->request->headers->get('referer'),'/update'); ?>"> retour aux articles</a>
 <?php 		
 	require_once("../src/class/article.php");	
 	
 	$pseudo = $objSession->get("pseudo");
 	$niveau = $objSession->get("niveau");
 
-	extract($this->infosDetail);	
+	extract($this->infosDetail);
+	
+		
 	$requeteArticle = "
 	SELECT * 
 	FROM ARTICLE 

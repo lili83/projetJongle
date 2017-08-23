@@ -1,58 +1,22 @@
 <?php 
 namespace route;
-use Silex\Application;
-
-use Symfony\Component\HttpFoundation\Request;
+use src\traitement;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class Back extends RouteParent{		
 
-	function membre(){		
-		
-		$objSession = new Session;
-
-		//->verifier qu'il n'y a pas de session ouverte...
-		$objSession->start();		
-		$niveau = $objSession->get("niveau");
-		// dump($this->request);
-
-<<<<<<< HEAD
-		if($niveau >= 1 && $niveau < 10 ){
-			if (null !== $this->request->get("traitementClass")){
-				$traitement = $this->request->get("traitementClass");
-				if($traitement == "updateUser"){
-					$trait = new \traitement\TraitementUpdate($this->request);					
-				} 				
-			}
-					
-=======
-		if($niveau >= 0 && $niveau < 10 ){
-			// if (null !== $this->request->get("traitement")){
-			// 	$traitement = $this->request->get("traitement");
-			// 	if($traitement == "update"){
-			// 		$trait = new \traitement\TraitementUpdate($this->request);					
-			// 	} 				
-			// }
-			$this->infosDetail["numPage"] = $numPage;		
->>>>>>> master
-			return $this->construireHtml(["header","section-membre-2", "footer"]);			
-		}
-		else{				
-			return $this->redirectToRoute("accueil");
-		}
+	function membre($numPage=1){						
+		if (null !== $this->request->get("traitementClass")){
+			$traitement = $this->request->get("traitementClass");
+			if($traitement == "updateUser"){
+				$trait = new \traitement\TraitementUpdate($this->request);					
+			} 				
+		}					
+		$this->infosDetail["numPage"] = $numPage;
+		return $this->construireHtml(["header","section-membre-2", "footer"]);					
 	}
 
-
-	//
-	//	MAJ d'un membre
-	//
-
-	function updateUser($id){
-		dump("coucou");				
-		$trait = new \traitement\TraitementUpdate($this->request);		
-		return $this->construireHtml(["header","section-membre-2", "footer"]);				
-	}
-
+	
 	//
 	//	Creation d'article par un membre
 	//
@@ -61,6 +25,16 @@ class Back extends RouteParent{
 				
 		return $this->construireHtml(["header","section-creation-article", "footer"]);				
 	}
+
+	//
+	//	MAJ d'un membre
+	//
+
+	function updateUser($id){					
+		$trait = new \traitement\TraitementUpdate($this->request);		
+		return $this->construireHtml(["header","section-membre-2", "footer"]);				
+	}
+
 	
 	function AfficherProfil() {
 		global $app;
@@ -98,7 +72,7 @@ class Back extends RouteParent{
 		//->verifier qu'il n'y a pas de session ouverte...
 		$objSession->start();
 		$niveau = $objSession->get("niveau");		
-		
+		dump($niveau);
 		if($niveau > 1 ){			
 			$trait = new \traitement\TraitementUpdate($this->request);							 				
 			$this->infosDetail["id"] = $id;
@@ -140,6 +114,27 @@ class Back extends RouteParent{
 	}
 
 	//
+	//	Supression d'un commentaire
+	//
+	function deleteCommentaire(){			
+		// formulaire d'envoi de commentaire		
+		$this->request->query->set("traitementClass","delete");
+		$traitement = new \traitement\TraitementCommentaire($this->request);
+		$this->urlRedirection = $traitement->urlRedirection;		
+		if ($this->urlRedirection == ""){
+			return $this->construireHtml([	"header", 
+											"section-admin", 
+											"footer"
+										]);		
+					
+		}
+		else{
+			global $app;
+			return $app->redirect($this->urlRedirection);
+		}		
+	}
+
+	//
 	//	Affichage de la page admin
 	//
 	function admin($numPage=1){
@@ -148,8 +143,9 @@ class Back extends RouteParent{
 		$objSession = new Session;
 		$objSession->start();		
 		// on ne construit que si le visiteur a le niveau suffisant
-<<<<<<< HEAD
-		if($objSession->get("niveau") >= 10){			
+		if($objSession->get("niveau") >= 10){
+
+			$this->infosDetail["numPage"] = $numPage;			
 			if (null !== $this->request->get("traitementClass")){
 				$traitement = $this->request->get("traitementClass");
 				if($traitement == "updateAdmin"){
@@ -158,10 +154,6 @@ class Back extends RouteParent{
 				} 				
 			}
 				
-=======
-		if($objSession->get("niveau") >= 10) {
-			$this->infosDetail["numPage"] = $numPage;
->>>>>>> master
 			return $this->construireHtml(["header", "section-admin", "footer"]);		
 		}
 		else{

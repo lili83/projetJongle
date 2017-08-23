@@ -3,7 +3,6 @@
 		<p>&copy;l'expedition - tous droits réservés</p>
 	</footer>
 
-<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 
 
 <script type="text/javascript" src="<?php echo $urlRoot; ?>/assets/js/main.js"></script>
@@ -38,7 +37,7 @@
                     }); 
             }); 
         
-</script>
+        </script>
 <!--------------------------fin unitegallery---------------------------------->
 
 
@@ -57,24 +56,8 @@
                  	$('#div-magique').hide();
                  }
              });
-         });    
-</script>
-
-<script type="text/javascript" language="javascript">
-         $(function () {
-            if(ongletActif== "blog-membres"){
-                $('#btn-blog-membres').trigger("click");
-                console.log("coucou");
-            }
-         });    
-
-         $(function () {
-            if(ongletProfil== "profil"){
-                $('#btn-profil').trigger("click");
-                console.log("coucou");
-            }
          });
+    </script>  
 </script>
-
 </body>
 </html>

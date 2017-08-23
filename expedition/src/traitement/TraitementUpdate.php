@@ -16,7 +16,7 @@ class TraitementUpdate
         $niveau = $objSession->get("niveau");
         $this->route = "";
         $this->request =$request;
-        //dump($this->request);
+        
         // ON VERIFIE SI LE LEVEL EST SUFFISANT
         if ($niveau >= 10){
             $traitement = $this->request->get('traitementClass');            
@@ -36,8 +36,7 @@ class TraitementUpdate
                     $this->route = "espace-admin";
                     break;
                }
-            }
-            
+            }            
         }
         else if ($niveau >0 && $niveau < 10){
             $traitement = $this->request->get('traitementClass');            

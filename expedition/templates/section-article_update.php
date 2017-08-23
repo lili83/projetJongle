@@ -26,31 +26,21 @@
 							name = "titre"
 							value="<?php echo $article->titre; ?>" 
 							placeholder="<?php echo $article->titre;?>">
-				</div>
+				</div>            
             
-            <div id="div2" class="contain">
+				<div id="div2" class="contain-col">
                 <label for ="resume">resumé: </label>
 					<input 	type="text" 
 							name = "resume"
 							value="<?php echo $article->resume; ?>" 
 							placeholder="<?php echo $article->resume;?>">
-				</div>               
-
+				</div>                       
 <?php        
 			// On ajoute à l'URL des éventuelles images de l'article 
 			// le vrai chemin du dossier des photos        
 			$article->contenu = str_replace('<img src="', '<img src="'.$article->urlRoot, $article->contenu);         
 ?>
 
-<<<<<<< HEAD
-            <div class="contain">                        
-                <textarea name="contenu" id="contenu" value="contenu" rows="50" cols="120">
-                	<?php echo $article->contenu; ?>
-            	</textarea>
-				 <script>
-					CKEDITOR.replace('contenu');
-				</script>
-=======
             <div class="contain-col"> 
             	<label for ="contenu">contenu: </label>                       
                 <textarea id="CKEditor2" name="contenu" value="contenu">
@@ -59,17 +49,16 @@
             	<script>
 	                // Replace the <textarea id="editor1"> with a CKEditor
 	                // instance, using default configuration.
-	                CKEDITOR.replace( 'CKEditor2', {
-    filebrowserBrowseUrl: '/browser/browse.php',
-    filebrowserUploadUrl: '/uploader/upload.php'
-});
-            	</script>
->>>>>>> master
-            </div>                
-			<div class="contain">
+	                CKEDITOR.replace( 'CKEditor2' );
+				</script>  
+             
+			</div>
+			
+			<div class="contain"s>
         		<button type="submit">Modifier</button>
             	<button type="reset">Annuler</button>
 			</div>
+
 			<input type="hidden" name="id" value="<?php echo $article->id;?>">
             <input type="hidden" name="traitementClass" value="updateArticle">
         </form>
@@ -78,5 +67,5 @@
 <?php		
 	}
 ?>
-	</section>
+
  </section>

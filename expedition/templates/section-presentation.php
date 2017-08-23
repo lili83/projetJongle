@@ -27,24 +27,54 @@
 			<h1 ><span>L'expédition...</span> C'est qui?</h1>
 			<!-- plus tard: à récupérer de la data base -->
 			<div class="contain">
-			<?php 
-	// A définir comment ?	 	
-	$reqUser = "SELECT * FROM user WHERE niveau>0" ;
-	$objStmnt = $app['db']->executeQuery($reqUser, []);
-	while($tabLigne = $objStmnt->fetch())
-	{
-		extract($tabLigne);
-		
-		echo 	
-<<<CODEHTML
 				<article>				    
-						<img src="{$urlRoot}{$url_photo}" alt="photo de $pseudo">
-						<p>$pseudo</p>					
+						<img src="<?php echo $urlRoot ?>/assets/img/presentation/profil_8.jpg" alt="photo de Christophe">
+						<p>Christophe</p>					
 				</article>
-CODEHTML;
-	}
-?>
-					
+				<article>					
+						<img src="<?php echo $urlRoot ?>/assets/img/presentation/profil_1.jpg" alt="photo de Hervé">
+						<p>Hervé</p>						
+				</article>				 
+				<article>					
+						<img src="<?php echo $urlRoot ?>/assets/img/presentation/profil_5.jpg" alt="photo de Sidonie">
+						<p>Sidonie</p>					
+				</article>
+				<article>					
+						<img src="<?php echo $urlRoot ?>/assets/img/presentation/profil_4.jpg" alt="photo de Géraldine">
+						<p>Géraldine</p>					
+				</article>
+				<article>					
+						<img src="<?php echo $urlRoot ?>/assets/img/presentation/profil_10.jpg" alt="photo de Jean">
+						<p>Jean</p>				
+				</article>
+				<article>						
+						<img src="<?php echo $urlRoot ?>/assets/img/presentation/profil_6.jpg" alt="photo de Mia">
+						<p>Mia</p>					
+				</article>
+				<article>					
+						<img src="<?php echo $urlRoot ?>/assets/img/presentation/profil_2.jpg" alt="photo de Long">
+						<p>Long</p>					
+				</article>
+				<article>					
+						<img src="<?php echo $urlRoot ?>/assets/img/presentation/profil_12.jpg" alt="photo de Bruno">
+						<p>Bruno</p>					
+				</article>
+				<article>					
+						<img src="<?php echo $urlRoot ?>/assets/img/presentation/profil_9.jpg" alt="photo de Marie">
+						<p>Marie</p>					
+				</article>
+				<article>					
+						<img src="<?php echo $urlRoot ?>/assets/img/presentation/profil_3.jpg" alt="photo de Colin">
+						<p>Colin</p>					
+				</article>
+				<article>					
+						<img src="<?php echo $urlRoot ?>/assets/img/presentation/profil_11.jpg" alt="photo de Marc">
+						<p>Marc</p>					
+				</article>
+				<article>					
+						<img src="<?php echo $urlRoot ?>/assets/img/presentation/profil_7.jpg" alt="photo de Sophie">
+						<p>Sophie</p>					
+				</article>
 			</div>
 		</section>
 </section>

@@ -80,7 +80,7 @@ CODEHTML;
         $codeHtml .= 
 <<<CODEHTML
         <p>catégories: 
-            <span>'
+            <span>
 CODEHTML;
 
         foreach($resCategoriesArticle as $categorie){								
@@ -108,7 +108,7 @@ CODEHTML;
     }
 
     //
-    //  Récupération du code HTML du détail de l'article pour son affichage
+    //  Récupération du code HTML du détail de l'article
     //
 
     function getHtmlDetail($pseudo, $niveau){
@@ -150,7 +150,7 @@ CODEHTML;
         $codeHtmlDetail .= 
 <<<CODEHTML
                         </div>                        
-                    </div
+                    </div>
 
                     <div id="second">
                         <h3>résumé article</h3>
@@ -179,7 +179,7 @@ CODEHTML;
                 
                 <form action = "{$app['url_generator']->generate('userUpdate')}" method = "POST">
                     
-                    <div class="contain">
+                    <div> class="contain">
                         <div>
                             <input type="text" value="{$this->titre}" placeholde="{$this->titre}">                            
                         </div>
@@ -207,9 +207,9 @@ CODEHTML;
         $codeHtmlDetail .= 
 <<<CODEHTML
                         </div>                        
-                    </div
+                    </div>
 
-                    <div class="contain">
+                    <div> class="contain">
                         <label for ="resume">Résumé:</label> 
                         <textarea  name="resume"                                 
                                 value="{$this->resume}
@@ -217,7 +217,7 @@ CODEHTML;
                         </textarea>
                     </div>                
                     
-                    <div class="contain">                        
+                    <div> class="contain">                        
                         <textarea  name= "contenu"
                                     id = "contenu"
                                     value="{$this->contenu}

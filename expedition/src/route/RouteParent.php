@@ -1,5 +1,4 @@
 <?php 
-
 namespace route;
 
 use Silex\Application;
