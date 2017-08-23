@@ -1,7 +1,11 @@
 <?php 
+<<<<<<< HEAD
 require_once("../src/class/Article.php");
 require_once ("../src/traitement/TraitementCategories.php");
 use traitement\TraitementCategories;
+=======
+	require_once("../src/class/Article.php");
+>>>>>>> Gabriel-nth-child(3)
 
 $nbArticles = 3;
 $indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);		
