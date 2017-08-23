@@ -95,12 +95,18 @@ if($objSession->get('niveau')>0) {
 <?php
 		} 
 	}
+
+$niveauUser= $objSession->get('niveau');
+if($niveauUser==0) {
 echo 
 <<<CODEHTML
 <script type="text/javascript">
 var ongletProfil = "profil";
 </script>
 CODEHTML;
+}
+
+
 if($objSession->get('niveau')>0) {
 
 
