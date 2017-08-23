@@ -1,11 +1,6 @@
 <?php 
 use Symfony\Component\HttpFoundation\Session\Session;
-<<<<<<< HEAD
 require_once("..\src\class\Article.php");
-=======
-require_once("../src/class/Article.php");
-
->>>>>>> master
 global $app;
 
  ?>
@@ -32,7 +27,7 @@ global $app;
 		
 		$email = $objSession->get('email');
 		$reqInfosUsr = "SELECT * FROM USER WHERE EMAIL = '$email'";
-		
+
 		$objetStatement = $app['db']->executeQuery($reqInfosUsr);
 		if($infosUser = $objetStatement->fetch()){			
 			extract($infosUser);
@@ -88,7 +83,7 @@ global $app;
 				<?php 
 					if ($niveau>=10) 
 						echo "updateAdmin";
-					else
+					elseif ($niveau>1 && $niveau<10) 
 						echo "updateUser";
 				?>">
 			</form>

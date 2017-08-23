@@ -16,7 +16,7 @@ class TraitementUpdate
         $niveau = $objSession->get("niveau");
         $this->route = "";
         $this->request =$request;
-        dump($this->request);
+        //dump($this->request);
         // ON VERIFIE SI LE LEVEL EST SUFFISANT
         if ($niveau >= 10){
             $traitement = $this->request->get('traitementClass');            
@@ -29,7 +29,7 @@ class TraitementUpdate
                         ->lireChamps("nom")
                         ->lireChamps("prenom")
                         ->lireChamps("pseudo")
-                        //->lireChamps("urlPhoto")
+                        //->lireChamps("imgProfil")
                         ->lireChamps("resume")                        
                         ->ajouterNameValeur("date_modification", date("Y-m-d H:i:s"))		
                         ->mettreAJour("user", $this->request->request->get("id"));                        
@@ -50,6 +50,7 @@ class TraitementUpdate
                         ->lireChamps("nom")
                         ->lireChamps("prenom")
                         ->lireChamps("pseudo")
+                        //->lireChamps("imgProfil")
                         ->lireChamps("resume")                                            	
                         ->ajouterNameValeur("date_modification", date("Y-m-d H:i:s"))		
                         ->mettreAJour("user", $this->request->request->get("id"));                        

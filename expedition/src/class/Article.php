@@ -80,7 +80,7 @@ CODEHTML;
         $codeHtml .= 
 <<<CODEHTML
         <p>catégories: 
-            <span>
+            <span>'
 CODEHTML;
 
         foreach($resCategoriesArticle as $categorie){								
@@ -108,15 +108,23 @@ CODEHTML;
     }
 
     //
-    //  Récupération du code HTML du détail de l'article
+    //  Récupération du code HTML du détail de l'article pour son affichage
     //
 
-    function getHtmlDetail(){
+    function getHtmlDetail($pseudo, $niveau){
         global $app;
-
-        $codeHtmlDetail = 
+        
+        $codeHtmlDetail = "";
+        //  Si le visiteur de l'article est son auteur ou qu'il est admin,  
+        //  il peut modifier l'article
+        if ($this->user->pseudo == $pseudo || $niveau >= 10)
+            $codeHtmlDetail = 
 <<<CODEHTML
                 <a href="{$app['url_generator']->generate("articleUpdate", ["id" => $this->id])}"> Modifier l'article </a>
+CODEHTML;
+
+        $codeHtmlDetail .= 
+<<<CODEHTML
                 <article class="contain-col">
                     <div class="contain">
                         <div>
@@ -141,17 +149,16 @@ CODEHTML;
         
         $codeHtmlDetail .= 
 <<<CODEHTML
-                        </div>
-                       
+                        </div>                        
                     </div
-                    <span>
+
                     <div id="second">
                         <h3>résumé article</h3>
                         <p>{$this->resume}</p>
                     </div>                
-                    </span>
+                    
                     <article>
-                        <p>{$this->contenu}</p>
+                    {$this->contenu}
                     </article>
                 </article>
 CODEHTML;
@@ -203,15 +210,14 @@ CODEHTML;
                     </div
 
                     <div class="contain">
-                        <label for ="resume">Résumé: </label>
-                        <textarea name="resume"                                 
-                                value="{$this->resume}"
+                        <label for ="resume">Résumé:</label> 
+                        <textarea  name="resume"                                 
+                                value="{$this->resume}
                                 placeholder="{$this->resume}">
                         </textarea>
                     </div>                
                     
                     <div class="contain">                        
-<<<<<<< HEAD
                         <textarea  name= "contenu"
                                     id = "contenu"
                                     value="{$this->contenu}
@@ -220,12 +226,6 @@ CODEHTML;
                         <script>
                             CKEDITOR.replace('contenu');
                         </script>
-=======
-                        <textarea name= "contenu"
-                                    value="{$this->contenu}"
-                                    placeholder="{$this->contenu}">
-                        </textarea>
->>>>>>> master
                     </div>                
 
                         <button type="submit">Modifier</button>
@@ -237,6 +237,5 @@ CODEHTML;
 CODEHTML;
 
         return $codeHtmlDetail;
-    }
-               
+    }               
 }

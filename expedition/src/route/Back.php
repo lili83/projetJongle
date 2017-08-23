@@ -14,7 +14,7 @@ class Back extends RouteParent{
 		//->verifier qu'il n'y a pas de session ouverte...
 		$objSession->start();		
 		$niveau = $objSession->get("niveau");
-		dump($this->request);
+		// dump($this->request);
 
 		if($niveau >= 1 && $niveau < 10 ){
 			if (null !== $this->request->get("traitementClass")){
@@ -80,7 +80,7 @@ class Back extends RouteParent{
 		$objSession->start();
 		$niveau = $objSession->get("niveau");		
 		
-		if($niveau >= 1 ){			
+		if($niveau > 1 ){			
 			$trait = new \traitement\TraitementUpdate($this->request);							 				
 			$this->infosDetail["id"] = $id;
 			return $this->construireHtml([	"header",
