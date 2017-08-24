@@ -4,7 +4,8 @@ require_once("../src/class/Article.php");
 require_once ("../src/traitement/TraitementCategories.php");
 use traitement\TraitementCategories;
 
- ?>
+
+?>
 <section id="section_membre_2" class="contain-col maxWidht">
     <div class="contain">
         <span id="btn-profil">Mon profil</span>
@@ -27,9 +28,9 @@ use traitement\TraitementCategories;
         $reqInfosUsr = "SELECT * FROM USER WHERE EMAIL = '$email';";
         global $app;        
         $objetStatement = $app['db']->executeQuery($reqInfosUsr);
-        if($res = $objetStatement->fetch()){           
-            extract($res);
-            // dump($id);
+        if($infosUser = $objetStatement->fetch()){           
+            extract($infosUser);
+            $user = new User($infosUser);
 ?>              
                     <label>pseudo:</label>
                     <input 
@@ -85,25 +86,28 @@ use traitement\TraitementCategories;
     }
 ?>
         </div>
-        <div id="mes-articles">
+        <div id="mes-articles"> 
             <section class="contain-col">
-                <article class="contain">
-                    <div>
-                        <figure>
-                            <img src="<?php echo $urlRoot; ?>/assets/img/test-blog.jpg" alt="photo de la recherche">
-                        </figure>
-                        <p>catégories: <span>danse, spectacle</span></p>
-                    </div>
-                    <div class="contain-col">
-                        <div class="contain">
-                            <h2>la balle noire</h2>
-                            <p>publié le 19/07/17 par <span>sidonie</span></p>
-                        </div>
-                        <p>Et quia Montius inter dilancinantium manus spiritum efflaturus Epigonum et Eusebium nec professionem nec dignitatem ostendens aliquotiens increpabat, qui sint hi magna quaerebatur industria, et nequid intepesceret, Epigonus e Lycia philosophus ducitur et Eusebius ab Emissa Pittacas cognomento dilancinantium manus spiritum efflaturus Epigonum et Eusebium nec professionem nec dignitatem ostendens aliquotiens increpabat...
-                        </p>
-                        <a href="#">> lire article</a>
-                    </div>
-                </article>
+            <a id="crea" href="<?php echo $app['url_generator']->generate('newArticle', ["id" => $user->id]); ?>">> Créer un article</a>
+<?php
+    /*
+    *******************************************************************************
+    ******************************************************************************* 
+    **  RECUPERATION DES ARTICLES DU MEMBRE
+    *******************************************************************************
+    *******************************************************************************
+    */
+
+    $reqArticlesUsr = "SELECT * from article where id_user= $id";
+    $objetStatement = $app['db']->executeQuery($reqArticlesUsr);    
+    
+    if($resArticles = $objetStatement->fetchAll()){ 
+        foreach($resArticles as $tabArticle){                       
+            $article = new Article($tabArticle, $user, $urlRoot);                       
+            echo $article->getHtmlMini();
+        }
+    }               
+?>
             </section>
         </div>
 <!-- **************************************************************************************************************************************************************************BLOG MEMBRE***************************************************************** -->
