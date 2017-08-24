@@ -67,6 +67,13 @@ $app->match('/back-office/espace-admin/commentaire/delete', "\\route\\Back::dele
 ->bind('deleteCommentaire')
 ;
 
+$app->match('/back-office/espace-admin/ajax/{id}', "\\route\\Back::afficherUser")
+->bind('ajax')
+;
+$app->match('/back-office/espace-admin/modifUser/{id}', "\\route\\Back::modifUser")
+->bind('modifUser')
+;
+
 // Déconnexion de l'utilisateur
 $app
 ->get('/deconnexion', "\\route\\Back::deconnecter")

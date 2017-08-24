@@ -5,43 +5,86 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class Back extends RouteParent{		
 
-	function membre($numPage=1){						
-		if (null !== $this->request->get("traitementClass")){
-			$traitement = $this->request->get("traitementClass");
-			if($traitement == "updateUser"){
-				$trait = new \traitement\TraitementUpdate($this->request);					
-			} 				
+/**
+******************************************************************************
+**	GESTON DES UTILISATEURS
+******************************************************************************
+**/
+
+	function membre($numPage=1){
+		global $app;
+		// récup du $level depuis la session
+		$objSession = new Session;
+		$objSession->start();
+		if($objSession->get("niveau") > 1 && $objSession->get("niveau") < 10){
+			
+			$this->infosDetail["numPage"] = $numPage;
+			if (null !== $this->request->get("traitementClass")){
+				
+				$traitement = $this->request->get("traitementClass");				
+				if($traitement == "updateUser"){				
+					$trait = new \traitement\TraitementUpdate($this->request);					
+				} 				
+			}							
+			return $this->construireHtml(["header","section-membre-2", "footer"]);
+		}
+		else{
+			// https://silex.symfony.com/doc/2.0/usage.html#redirects
+			return $this->redirectToRoute($app["url_generator"]->generate("accueil"));
 		}					
-		$this->infosDetail["numPage"] = $numPage;
-		return $this->construireHtml(["header","section-membre-2", "footer"]);					
+	}	
+
+	//
+	//	Récupération du profil utilisateur
+	//
+	function afficherUser($id) {
+		global $app;
+		$objSession = new Session();		
+		$objSession->start();		
+
+		$infosUser = $app['db']->executeQuery("select * from user where id= $id")->fetch();		
+		$objSession->set("infosUser", $infosUser);
+		return $this->redirectToRoute("back-office/espace-admin");
 	}
 
-	
 	//
-	//	Creation d'article par un membre
+	// Gestion des actions à mener sur l'utilisateur
 	//
+	function modifUser($id){
+		$modif = $this->request->get("modifUser");
+		
+		if ($modif == 'Modifier')
+			$this->updateUser($id, 'admin');
 
-	function newArticle($id){
-				
-		return $this->construireHtml(["header","section-creation-article", "footer"]);				
+		elseif($modif == 'Supprimer')
+			$this->deleteUser($id);
+
+		return $this->redirectToRoute("back-office/espace-admin");
 	}
 
 	//
 	//	MAJ d'un membre
 	//
-
-	function updateUser($id){					
-		$trait = new \traitement\TraitementUpdate($this->request);		
-		return $this->construireHtml(["header","section-membre-2", "footer"]);				
+	function updateUser($id, $user=''){				
+		$trait = new \traitement\TraitementUpdate($this->request);				
+		if($user == "admin")
+			return $this->redirectToRoute("back-office/espace-admin");
+		else
+			return $this->construireHtml(["header","section-membre-2", "footer"]);				
 	}
 
-	
-	function AfficherProfil() {
-		global $app;
-		return $this->redirectToRoute("AfficherProfil");
+	//
+	//	Supression d'un membre
+	//
+	function deleteUser($id){
+		global $app;					
+		$app['db']->delete("user", ["id" => $id]);						
+		return $this->redirectToRoute("back-office/espace-admin");
 	}
 
-
+	//
+	//	Déconnexion du membre
+	//
 	function deconnecter()
  	{	 		
 		 
@@ -56,14 +99,27 @@ class Back extends RouteParent{
         $objSession->set("email", "");
         $objSession->set("niveau", "");
         $objSession->set("pseudo", "");
-        $objSession->set("id", "");
-		$objSession = null;
+		$objSession->set("id", "");
+		$objSession->clear();
+		
         // REDIRIGER VERS LA PAGE /login
         global $app;       
         // https://silex.symfony.com/doc/2.0/usage.html#redirects
         return $app->redirect($app["url_generator"]->generate("accueil")); 
     }
 
+/**
+******************************************************************************
+**	GESTON DES ARTICLES
+******************************************************************************
+**/
+
+	//
+	//	Creation d'article par un membre
+	//
+	function newArticle($id){		
+		return $this->construireHtml(["header","section-creation-article", "footer"]);				
+	}
 
 	//
 	//	MAJ d'un article
@@ -74,8 +130,8 @@ class Back extends RouteParent{
 		//->verifier qu'il n'y a pas de session ouverte...
 		$objSession->start();
 		$niveau = $objSession->get("niveau");		
-		dump($niveau);
-		if($niveau > 1 ){			
+		
+		if($niveau > 1){			
 			$trait = new \traitement\TraitementUpdate($this->request);							 				
 			$this->infosDetail["id"] = $id;
 			return $this->construireHtml([	"header",
@@ -92,7 +148,11 @@ class Back extends RouteParent{
 		}
 	}
 	
-
+/**
+******************************************************************************
+**	GESTON DES COMMENTAIRES
+******************************************************************************
+**/
 	//
 	//	Envoi d'un commentaire
 	//
@@ -136,6 +196,11 @@ class Back extends RouteParent{
 		}		
 	}
 
+/**
+******************************************************************************
+**	GESTON DE L'ADMINISTRATEUR
+******************************************************************************
+**/
 	//
 	//	Affichage de la page admin
 	//
@@ -150,8 +215,7 @@ class Back extends RouteParent{
 			$this->infosDetail["numPage"] = $numPage;			
 			if (null !== $this->request->get("traitementClass")){
 				$traitement = $this->request->get("traitementClass");
-				if($traitement == "updateAdmin"){
-					
+				if($traitement == "updateAdmin"){					
 					$trait = new \traitement\TraitementUpdate($this->request);
 				} 				
 			}

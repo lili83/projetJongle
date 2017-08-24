@@ -18,9 +18,9 @@ class TraitementUpdate
         $this->request =$request;
         
         // ON VERIFIE SI LE LEVEL EST SUFFISANT
-        if ($niveau >= 10){
+        if ($niveau >= 10){            
             $traitement = $this->request->get('traitementClass');            
-            $this->route = "espace-membre";
+            $this->route = "espace-admin";
              switch($traitement){                
                 case 'updateAdmin':{
                     $this
@@ -29,21 +29,33 @@ class TraitementUpdate
                         ->lireChamps("nom")
                         ->lireChamps("prenom")
                         ->lireChamps("pseudo")
-                        //->lireChamps("imgProfil")
+                        //->lireChamps("urlPhoto")
                         ->lireChamps("resume")                        
                         ->ajouterNameValeur("date_modification", date("Y-m-d H:i:s"))		
                         ->mettreAJour("user", $this->request->request->get("id"));                        
                     $this->route = "espace-admin";
                     break;
                }
+               case 'updateUser':{                
+                $this
+                    ->traiterForm("UpdateUser")
+                    ->lireChamps("nom")
+                    ->lireChamps("prenom")
+                    ->lireChamps("pseudo")
+                    //->lireChamps("urlPhoto")
+                    ->lireChamps("resume")                                            	
+                    ->ajouterNameValeur("date_modification", date("Y-m-d H:i:s"))		
+                    ->mettreAJour("user", $this->request->request->get("id"));                        
+                break;
+                }                
             }            
         }
-        else if ($niveau >0 && $niveau < 10){
+        else if ($niveau >1 && $niveau < 10){
             $traitement = $this->request->get('traitementClass');            
             $this->route = "espace-membre";
             
             switch($traitement){                
-                case 'updateUser':{
+                case 'updateUser':{                    
                     $this
                         ->traiterForm("UpdateUser")
                         ->lireChamps("nom")

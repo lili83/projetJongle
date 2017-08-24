@@ -3,8 +3,11 @@
 	if($objSession->get("niveau")>=10){
 		 $retour = $app['url_generator']->generate("back-office/espace-admin"); 
 	}
-	if($objSession->get("niveau")>0 && $objSession->get("niveau") <10){
+	elseif($objSession->get("niveau")>0 && $objSession->get("niveau") <10){
 		 $retour = $app["url_generator"]->generate("back-office/espace-membre");
+	}
+	else{
+		$retour = $app["url_generator"]->generate("blog");
 	}
 ?>
 
@@ -14,8 +17,7 @@
 	require_once("../src/class/article.php");	
 	
 	$pseudo = $objSession->get("pseudo");
-	$niveau = $objSession->get("niveau");
-	dump($objSession);
+	$niveau = $objSession->get("niveau");	
 	extract($this->infosDetail);
 	
 		

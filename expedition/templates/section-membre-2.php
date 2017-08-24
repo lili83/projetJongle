@@ -1,6 +1,8 @@
 <?php 
 use Symfony\Component\HttpFoundation\Session\Session;
 require_once("..\src\class\Article.php");
+use traitement\TraitementCategories;
+require_once("../src/traitement/TraitementCategories.php");
 global $app;
 
  ?>
@@ -70,6 +72,14 @@ global $app;
 						value="<?php echo $user->prenom; ?>"
 					>
 				</div>
+				<div class="contain">
+					<label>Photo du profil:</label>
+					<input 
+						type="file" 
+						name="imgProfil"
+						value="<?php echo $user->imgProfil; ?>"
+					>
+				</div>
 				<div class="contain-col">
 					<label>resumé:</label>
 					<textarea
@@ -79,8 +89,7 @@ global $app;
 					><?php echo $user->resume; ?></textarea>
 				</div> 
 				<button>Modifier</button>
-				<input type="hidden" name="traitementClass" value="
-				<?php 
+				<input type="hidden" name="traitementClass" value="<?php 
 					if ($niveau>=10) 
 						echo "updateAdmin";
 					elseif ($niveau>1 && $niveau<10) 
@@ -117,13 +126,13 @@ global $app;
 		</div>
 
 <?php
-	/*
-	*******************************************************************************
-	*******************************************************************************
-	**	AFFICHAGE DES ARTICLES DES AUTRES MEMBRES
-	*******************************************************************************
-	*******************************************************************************
-	*/
+/*
+*******************************************************************************
+*******************************************************************************
+**	AFFICHAGE DES ARTICLES DES AUTRES MEMBRES
+*******************************************************************************
+*******************************************************************************
+*/
 ?>
 		<div id="blog-membres">
 			<div class="contain">
@@ -148,10 +157,25 @@ global $app;
 			</div>
 
 			<section class="contain-col">
-
 <?php
 	//	Récupération des articles
-	$reqArticles = "select * from article";
+
+    //  Si une catégorie a été selectionnée, on ne prend que les articles 
+    //  de cette catégorie
+    $traitementCategories = new TraitementCategories($this->request);	
+	$categorie= $traitementCategories->tabInfos['categorie'];
+    $reqArticles = "";
+	if (isset($categorie) && $categorie != "categorie")
+	{
+		$reqArticles = "SELECT article.*, categorie.nom FROM article, categoriearticle, categorie
+						WHERE categoriearticle.id_article = article.id
+						AND categoriearticle.id_categorie = categorie.id
+						AND categorie.nom = '$categorie'";
+    }
+    else{
+	    $reqArticles = "select * from article";
+    }
+
 	$objetStatement = $app['db']->executeQuery($reqArticles);
 	if($tabArticles = $objetStatement->fetchAll()){
 		

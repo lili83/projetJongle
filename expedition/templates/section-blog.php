@@ -66,7 +66,7 @@ use traitement\TraitementCategories;
 		<nav>	
 			<ul>
 <?php
-	//calculer le nombre de pag même si elle ne sont pas complètes avec ceil 
+	//calculer le nombre de pages même si elle ne sont pas complètes avec ceil 
 	$nombreDePages=ceil($nbResultats/$nbArticles);		
 	if($nombreDePages>1)		
 	for($i=1 ; $i <= $nombreDePages; $i++) {		

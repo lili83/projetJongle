@@ -1,6 +1,4 @@
-<?php 
-dump($objSession);
-?>
+
 <section id="section_accueil_1">
 	<div id="accueil">
 		<figure id="logo-accueil">

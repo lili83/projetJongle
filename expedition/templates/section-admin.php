@@ -177,14 +177,6 @@ require_once("../src/traitement/TraitementCategories.php");
 		</div>
 <?php 
 	}
-
-/*
-*******************************************************************************
-*******************************************************************************
-**	AFFICHAGE DES ARTICLES DES AUTRES MEMBRES
-*******************************************************************************
-*******************************************************************************
-*/
 ?>
         <div id="tableau-de-bord">
             <section>
@@ -201,7 +193,7 @@ require_once("../src/traitement/TraitementCategories.php");
                             </tr>
                         </thead>
                         <tbody>
-                    <?php
+                    <?php                       
                         $reqEvenements = "SELECT * FROM user ORDER BY pseudo " ;
                         $objStmnt = $app['db']->executeQuery($reqEvenements, []);
                         $index=0;
@@ -216,7 +208,7 @@ require_once("../src/traitement/TraitementCategories.php");
         <td>$pseudo</td>
         <td>$nom</td>
         <td>$email</td>
-        <td><a href="#" class="fiche-profil"  id="$id">Accéder à la fiche</a></td>
+        <td><a href="{$app['url_generator']->generate('back-office/espace-admin')}/ajax/{$id}" class="fiche-profil"  id="$id">Accéder à la fiche</a></td>
         <input type="hidden" class="id"  value="$id"/>
     </tr>
 CODEHTML;
@@ -228,8 +220,8 @@ CODEHTML;
         <td>$pseudo</td>
         <td>$nom</td>
         <td>$email</td>
-        <td><a href="#" class="fiche-profil" id="$id">Accéder à la fiche</a></td>
-        <input type="hidden" class="id" value="$id"/>
+        <td><a href="{$app['url_generator']->generate('back-office/espace-admin')}/ajax/{$id}" class="fiche-profil" id="$id">Accéder à la fiche</a></td>
+        <input type="hidden" class="id" value="{$id}"/>
     </tr>
 CODEHTML;
                             }
@@ -241,7 +233,12 @@ CODEHTML;
                 </div>
             </section>
 
-            
+<?php
+if (null!=$objSession->get('infosUser') && $objSession->get('infosUser')!=""){
+    $infosUser = $objSession->get('infosUser');    
+    extract($infosUser);
+}
+?>
 
 
 
@@ -250,7 +247,7 @@ CODEHTML;
             <section>
                 <h2>Profil de <?php echo $pseudo; ?></h2>
                 <!-- FAIRE LA REQUETE EN AJAX -->
-                <form action="" method="post">
+                <form action="<?php echo $app['url_generator']->generate("modifUser", ["id"=>$id]);?>" method="post">
                     <div class="contain">
                         <label>pseudo:</label>
                         <input 
@@ -302,8 +299,10 @@ CODEHTML;
                             value="<?php echo $niveau; ?>"
                         >
                     </div>               
-                    <input type="submit" name="modifier" value="Modifier"/>
-                    <input type="submit" name="supprimer" value="Supprimer"/>
+                    <input type="submit" name="modifUser" value="Modifier"/>
+                    
+                    <input type="submit" name="modifUser" value="Supprimer"/>
+
                 </form>
             </section>
             <section>

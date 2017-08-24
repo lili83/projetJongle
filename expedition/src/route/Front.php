@@ -13,8 +13,7 @@ class Front extends RouteParent
 				&& 	$this->request->request->get('traitementClass')!=""){
 
 			$traitement = $this->request->request->get('traitementClass');	
-
-			dump($traitement);
+			
 			switch($traitement){
 
 				// formulaire de connexion			
@@ -145,7 +144,7 @@ class Front extends RouteParent
 *******************************************************************************
 */
 	function connexion(){		
-		dump($this->traitementFormHeader());
+	
 		$this->urlRedirection = $this->traitementFormHeader()->urlRedirection;		
 
 		if ($this->urlRedirection == "")			
