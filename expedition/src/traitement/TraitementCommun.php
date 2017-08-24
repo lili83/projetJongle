@@ -55,8 +55,11 @@ class TraitementCommun{
 		return $this;
 	}
 
-	
-
+	function supprimer($nomTable, $id){
+		global $app;		
+		$app['db']->delete("$nomTable", ["id"=>$id]);
+		return $this;
+	}
 
 	function traiterForm($traitement){
 		$this->traitement = $traitement;

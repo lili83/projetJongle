@@ -1,5 +1,4 @@
 <?php 
-
 namespace route;
 
 use Silex\Application;
@@ -37,13 +36,13 @@ class RouteParent{
 
 	protected function construireHtml($listePartPage){		
 		global $app;			
-		//$request = Request::createFromGlobals();
 		$urlRoot = $this->request->getBasePath();
+
 		//	--	TECHNIQUE DE BUFFERING
 		//	(Pour éviter l'echo direct, on "dévie" ce que l'on veut afficher 
 		//	 vers une zone temporaire.)		
 		ob_start();		
-		foreach ($listePartPage as $part) {
+		foreach ($listePartPage as $part) {			
 			require_once("$this->cheminTemplate/$part.php");
 		}
 		return ob_get_clean();	

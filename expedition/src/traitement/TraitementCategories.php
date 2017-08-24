@@ -1,7 +1,6 @@
 <?php 
 namespace traitement;
 class TraitementCategories extends TraitementCommun{
-
 	//
 	//	Récupération des infos du formulaire dès le constructeur
 	//
@@ -10,10 +9,6 @@ class TraitementCategories extends TraitementCommun{
 		$this
 			->traiterForm("Categories")			
 			->lireChamps("categorie");
-
-		return $this->tabInfos["categorie"];				
-			
+		return $this->tabInfos["categorie"];						
 	}
-
-
 }

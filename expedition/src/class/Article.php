@@ -29,12 +29,12 @@ class Article
         
          //  Si l'utilisateur n'est pas renseigné : on le recherche         
          if ($user == ""){            
-            $reqAuteur = "
-            SELECT * 
-            FROM user JOIN article 
-            ON article.id_user = user.id 
-            WHERE article.id= $this->id";	
-            
+            $reqAuteur = 
+<<<CODESQL
+SELECT * FROM user JOIN article ON article.id_user = user.id WHERE article.id= {$this->id}
+CODESQL;
+
+            $tabUser = $app['db']->executeQuery($reqAuteur)->fetch();
             $this->user = new User($app['db']->executeQuery($reqAuteur)->fetch());
             
         }
@@ -67,12 +67,21 @@ class Article
     <div>
 CODEHTML;
 
-        if (isset($this->user->urlPhoto) && $this->user->urlPhoto != ""){            
+       if (isset($this->user->urlPhoto) && $this->user->urlPhoto != ""){
             $codeHtml .= 
 <<<CODEHTML
-        <figure>
-            <img src="{$this->urlRoot}{$this->user->urlPhoto}" alt="Photo de profil">
-        </figure>
+                        <figure>
+                            <img src="{$this->urlRoot}{$this->user->urlPhoto}" alt="Photo de profil">
+                        </figure>
+CODEHTML;
+
+        }
+        else{
+         $codeHtml .= 
+<<<CODEHTML
+                        <figure>
+                            <img src="{$this->urlRoot}/assets/img/presentation/article_none.jpg" alt="Photo de profil">
+                        </figure>
 CODEHTML;
 
         }
@@ -111,12 +120,17 @@ CODEHTML;
     //  Récupération du code HTML du détail de l'article
     //
 
-    function getHtmlDetail(){
+    function getHtmlDetail($pseudo, $niveau){
         global $app;
-
-        $codeHtmlDetail = 
+        $codeHtmlDetail="";
+        if ($this->user->pseudo == $pseudo || $niveau >= 10)
+            $codeHtmlDetail = 
 <<<CODEHTML
                 <a href="{$app['url_generator']->generate("articleUpdate", ["id" => $this->id])}"> Modifier l'article </a>
+CODEHTML;
+
+        $codeHtmlDetail .= 
+<<<CODEHTML
                 <article class="contain-col">
                     <div class="contain">
                         <div>
@@ -135,6 +149,14 @@ CODEHTML;
 CODEHTML;
 
         }
+        else
+         $codeHtmlDetail .= 
+<<<CODEHTML
+                        <figure>
+                            <img src="{$this->urlRoot}/assets/img/presentation/article_none.jpg" alt="Photo de profil">
+                        </figure>
+CODEHTML;
+
         // On ajoute à l'URL des éventuelles images de l'article 
         // le vrai chemin du dossier des photos        
         $this->contenu = str_replace('<img src="', '<img src="'.$this->urlRoot, $this->contenu); 
@@ -158,6 +180,7 @@ CODEHTML;
 
         return $codeHtmlDetail;
     }
+   
 
     //
     //  Récupération du code HTML du formulaire de modification de l'article
@@ -172,7 +195,7 @@ CODEHTML;
                 
                 <form action = "{$app['url_generator']->generate('userUpdate')}" method = "POST">
                     
-                    <div class="contain">
+                    <div> class="contain">
                         <div>
                             <input type="text" value="{$this->titre}" placeholde="{$this->titre}">                            
                         </div>
@@ -200,21 +223,25 @@ CODEHTML;
         $codeHtmlDetail .= 
 <<<CODEHTML
                         </div>                        
-                    </div
+                    </div>
 
-                    <div class="contain">
-                        <label for ="resume">Résumé: </label>
-                        <textarea name="resume"                                 
-                                value="{$this->resume}"
+                    <div> class="contain">
+                        <label for ="resume">Résumé:</label> 
+                        <textarea  name="resume"                                 
+                                value="{$this->resume}
                                 placeholder="{$this->resume}">
                         </textarea>
                     </div>                
                     
-                    <div class="contain">                        
-                        <textarea name= "contenu"
-                                    value="{$this->contenu}"
+                    <div> class="contain">                        
+                        <textarea  name= "contenu"
+                                    id = "contenu"
+                                    value="{$this->contenu}
                                     placeholder="{$this->contenu}">
-                        </textarea>
+                        </teaxtarea>
+                        <script>
+                            CKEDITOR.replace('contenu');
+                        </script>
                     </div>                
 
                         <button type="submit">Modifier</button>
@@ -226,6 +253,5 @@ CODEHTML;
 CODEHTML;
 
         return $codeHtmlDetail;
-    }
-               
+    }               
 }

@@ -33,20 +33,45 @@ class Commentaire{
     }
 
     function getHtml(){
-        $codeHtml = '
+        $root = $this->urlRoot;
+        $imgDefaut = "$root/assets/img/presentation/article_none.jpg";
+        
+
+        $codeHtml =
+'        
         <article class="contain">
 			<div>
+';
+
+        if (isset($this->user->urlPhoto) && $this->user->urlPhoto != ""){
+            $codeHtml .= 
+'
+        <figure>
+            <img src="'.$this->urlRoot.$this->user->urlPhoto.'" alt="Photo de profil">
+        </figure>
+';
+        
+        }
+        else{
+            $codeHtml .= 
+'
                 <figure>
-                    <img src="'.$this->urlRoot.$this->user->urlPhoto.'">
+                    <img src="'.$imgDefaut.'">
                 </figure>
-                <p>'.$this->user->pseudo.'</p>
+';
+
+        }
+
+        $codeHtml .= 
+'       <p>'.$this->user->pseudo.'</p>
             </div>            
 		    <div>
 				<p>le '.$this->date_envoi.'</p>	
 				<h3>'.$this->titre.'</h3>
                 <p>« '.$this->texte.' »</p>
 			</div>
-        </article>';
+        </article>
+';
         
        return $codeHtml; 
     }

@@ -1,8 +1,8 @@
 <?php 
 use Symfony\Component\HttpFoundation\Session\Session;
-require_once("../src/class/Article.php");
-require_once ("../src/traitement/TraitementCategories.php");
+require_once("..\src\class\Article.php");
 use traitement\TraitementCategories;
+require_once("../src/traitement/TraitementCategories.php");
 
 
 ?>
@@ -21,16 +21,18 @@ use traitement\TraitementCategories;
     // Informations fournies par l'utilisateur
     // Si connecté, il peut les modifier à son gré
     // ** tests de sécurité : session started, email verified, id user and email and passwordhashed match 
-    //if (isset($_SESSION["email"]) && ($_SESSION["email"] != ""))
+    
     if($objSession->get('email') != ""){
         
         $email = $objSession->get('email');
         $reqInfosUsr = "SELECT * FROM USER WHERE EMAIL = '$email';";
         global $app;        
         $objetStatement = $app['db']->executeQuery($reqInfosUsr);
+
         if($infosUser = $objetStatement->fetch()){           
             extract($infosUser);
             $user = new User($infosUser);
+
 ?>              
                     <label>pseudo:</label>
                     <input 
@@ -79,7 +81,7 @@ use traitement\TraitementCategories;
                 >
                 <button>Modifier</button>
                 <input type="hidden" name="id" value="<?php echo $id;?>">
-                <input type="hidden" name="traitementClass" value="Update">
+                <input type="hidden" name="traitementClass" value="updateAdmin">
             </form>
 <?php
         } 
@@ -109,175 +111,104 @@ use traitement\TraitementCategories;
     }               
 ?>
             </section>
-        </div>
-<!-- **************************************************************************************************************************************************************************BLOG MEMBRE***************************************************************** -->
-        <div id="blog-membres">
-            <div class="contain">
-                <h1>nos recherches privées</h1>
-                <form action="" method="GET" class="contain">
-                    <select id="select" name="categorie" required>
-                        <option value="categorie">catégories</option>
-<?php
-    //  Récupération des catégories en BD
-    $reqCategories = "select * from categorie";
-    $objetStatement = $app['db']->executeQuery($reqCategories);
-    if($categories = $objetStatement->fetchAll()){
-        foreach($categories as $categorie){
-            echo '<option id="'.$categorie['id'].'" value="'.$categorie['nom'].'">'.$categorie['nom'].'</option>';
-        }
-    }
-?>
-                    </select>
-                    <button type="submit">> rechercher</button>
-                    <input type="hidden" name="traitementClass" value="Categories">
-                </form>
-            </div>
 
-            <section class="contain-col">
-
-<?php
-    //  Récupération des articles par catégories
-    $traitementCategories = new TraitementCategories($this->request);
-    $categorie= $traitementCategories->tabInfos['categorie'];
-    if (!isset($categorie)) {
-        // arrive sur la page
-        // onglet charte
-echo 
-<<<CODEHTML
-<script type="text/javascript">
-var ongletActif = "";
-</script>
-CODEHTML;
-        $nbArticles = 3;
-        $indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);        
-        $nbResultats = $app['db']->fetchColumn("SELECT COUNT(*) FROM article", []);
-        $objStmnt = $app['db']->executeQuery("SELECT * FROM ARTICLE LIMIT $indexDepart, $nbArticles", []);  
-        $reqArticles = "select * from article";
-        $objetStatement = $app['db']->executeQuery($reqArticles);
-        if($tabArticles = $objetStatement->fetchAll()){     
-            foreach($tabArticles as $infosArticle){         
-                $article = new Article($infosArticle,"", $urlRoot);     
-                echo $article->getHtmlMini($urlRoot);
-            }
-        }
-
-?>
-        <nav>   
-            <ul>
-<?php
-    //calculer le nombre de pag même si elle ne sont pas complètes avec ceil 
-    $nombreDePages=ceil($nbResultats/$nbArticles);      
-    for($i=1 ; $i <= $nombreDePages; $i++) {        
-        $urlPage = $app["url_generator"]->generate("back-office/espace-admin/page", ["numPage" => $i]);        
-        $uri        = $_SERVER["REQUEST_URI"];
-        $recherche  = parse_url($uri, PHP_URL_QUERY);
-        echo "<li><a href='$urlPage?$recherche'>$i</a></li>";
-    }
-?>
-            </ul>
-        </nav>
-<?php
-
-    } else {
-        // recherche
-        if ($categorie!= "categorie"){
-            // rechercher filtrée
-            // onglet membre
-echo 
-<<<CODEHTML
-<script type="text/javascript">
-var ongletActif = "blog-membres";
-</script>
-CODEHTML;
-            $nbArticles = 3;
-            $indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);        
-            $nbResultats = $app['db']->fetchColumn("SELECT COUNT(*) FROM article, categoriearticle, categorie
-                        WHERE categoriearticle.id_article = article.id
-                        AND categoriearticle.id_categorie = categorie.id
-                        AND categorie.nom = '$categorie'", []);
-
-            $objStmnt = $app['db']->executeQuery("SELECT * FROM article, categoriearticle, categorie
-                        WHERE categoriearticle.id_article = article.id
-                        AND categoriearticle.id_categorie = categorie.id
-                        AND categorie.nom = '$categorie' 
-                        LIMIT $indexDepart, $nbArticles", []);
-    
-
-            $reqArticles = "SELECT * FROM article, categoriearticle, categorie
-                        WHERE categoriearticle.id_article = article.id
-                        AND categoriearticle.id_categorie = categorie.id
-                        AND categorie.nom = '$categorie'";
-            $objetStatement = $app['db']->executeQuery($reqArticles);
-            if($tabArticles = $objetStatement->fetchAll()){
-        
-                foreach($tabArticles as $infosArticle){         
-                    $article = new Article($infosArticle,"", $urlRoot);         
-                    echo $article->getHtmlMini($urlRoot);
-                }
-            }
-?>
-        <nav>   
-            <ul>
-<?php
-    //calculer le nombre de pag même si elle ne sont pas complètes avec ceil 
-    $nombreDePages=ceil($nbResultats/$nbArticles);      
-    for($i=1 ; $i <= $nombreDePages; $i++) {        
-        $urlPage = $app["url_generator"]->generate("back-office/espace-admin/page", ["numPage" => $i]);
-        $uri        = $_SERVER["REQUEST_URI"];
-        $recherche  = parse_url($uri, PHP_URL_QUERY);
-        echo "<li><a href='$urlPage?$recherche'>$i</a></li>";
-        }
-?>
-            </ul>
-        </nav>
-<?php
-        } else {
-            // recherche toutes categories
-            // onglet membre
-echo 
-<<<CODEHTML
-<script type="text/javascript">
-var ongletActif = "blog-membres";
-</script>
-CODEHTML;
-        $nbArticles = 3;
-        $indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);        
-        $nbResultats = $app['db']->fetchColumn("SELECT COUNT(*) FROM article", []);
-        $objStmnt = $app['db']->executeQuery("SELECT * FROM ARTICLE LIMIT $indexDepart, $nbArticles", []);  
-        $reqArticles = "select * from article";
-        $objetStatement = $app['db']->executeQuery($reqArticles);
-        if($tabArticles = $objetStatement->fetchAll()){     
-            foreach($tabArticles as $infosArticle){         
-                $article = new Article($infosArticle,"", $urlRoot);     
-                echo $article->getHtmlMini($urlRoot);
-            }
-        }
-?>
-        <nav>   
-            <ul>
-<?php
-    //calculer le nombre de pag même si elle ne sont pas complètes avec ceil 
-    $nombreDePages=ceil($nbResultats/$nbArticles);      
-    for($i=1 ; $i <= $nombreDePages; $i++) {        
-        $urlPage = $app["url_generator"]->generate("back-office/espace-admin/page", ["numPage" => $i]);
-        $uri        = $_SERVER["REQUEST_URI"];
-        $recherche  = parse_url($uri, PHP_URL_QUERY);
-        echo "<li><a href='$urlPage?$recherche'>$i</a></li>";
-        }
-?>
-            </ul>
-        </nav>  
-<?php
-        }
-    }               
-?>
-            </section>                      
         </div>
 
-        
+        <div id="mes-articles">	
+			<section class="contain-col">
+<?php
+		} 
+	}
+/*
+*******************************************************************************
+*******************************************************************************	
+**	RECUPERATION DES ARTICLES DU MEMBRE
+*******************************************************************************
+*******************************************************************************
+*/
+	$reqArticlesUsr = "SELECT * from article where id_user= $id";
+	$objetStatement = $app['db']->executeQuery($reqArticlesUsr);	
+	
+    if($resArticles = $objetStatement->fetchAll()){	
+		
+		foreach($resArticles as $tabArticle){						
+			$article = new Article($tabArticle, $user, $urlRoot);						
+			echo $article->getHtmlMini();
+		}
+	}				
+?>
+			</section>
+		</div>
 
-<!-- ************************************************************************************************************************************************************************TABLEAU DE BORD******************************************************************* -->
+<?php
+/*
+*******************************************************************************
+*******************************************************************************
+**	AFFICHAGE DES ARTICLES DES AUTRES MEMBRES
+*******************************************************************************
+*******************************************************************************
+*/
+?>
+		<div id="blog-membres">
+			<div class="contain">
+				<h1>nos recherches privées</h1>
+				<form action="" method="GET" class="contain">
+					<select id="select" name="categorie" required>
+		                <option value="categorie">catégories</option>
+<?php
+	//	Récupération des catégories en BD
+	$reqCategories = "select * from categorie";
+	$objetStatement = $app['db']->executeQuery($reqCategories);
+	if($categories = $objetStatement->fetchAll()){
+		foreach($categories as $categorie){
+			echo '<option id="'.$categorie['id'].'" value="'.$categorie['nom'].'">'.$categorie['nom'].'</option>';
+		}
+	}
+?>
+		            </select>
+		            <button type="submit">> rechercher</button>
+		            <input type="hidden" name="traitementClass" value="Categories">
+				</form>
+			</div>
 
+
+
+			<section class="contain-col">
+
+
+<?php
+	//	Récupération des articles
+
+    //  Si une catégorie a été selectionnée, on ne prend que les articles 
+    //  de cette catégorie
+    $traitementCategories = new TraitementCategories($this->request);	
+	$categorie= $traitementCategories->tabInfos['categorie'];
+    $reqArticles = "";
+	if (isset($categorie) && $categorie != "categorie")
+	{
+		$reqArticles = "SELECT article.*, categorie.nom FROM article, categoriearticle, categorie
+						WHERE categoriearticle.id_article = article.id
+						AND categoriearticle.id_categorie = categorie.id
+						AND categorie.nom = '$categorie'";
+    }
+    else{
+	    $reqArticles = "select * from article";
+    }
+
+	$objetStatement = $app['db']->executeQuery($reqArticles);
+	if($tabArticles = $objetStatement->fetchAll()){
+		
+		foreach($tabArticles as $infosArticle){			
+			$article = new Article($infosArticle,"", $urlRoot);			
+			echo $article->getHtmlMini($urlRoot);
+		}
+				
+?>
+			</section>
+		</div>
+<?php 
+	}
+?>
         <div id="tableau-de-bord">
             <section>
                 <h2>Gestion des utilisateurs</h2>
@@ -293,7 +224,7 @@ CODEHTML;
                             </tr>
                         </thead>
                         <tbody>
-                    <?php
+                    <?php                       
                         $reqEvenements = "SELECT * FROM user ORDER BY pseudo " ;
                         $objStmnt = $app['db']->executeQuery($reqEvenements, []);
                         $index=0;
@@ -308,8 +239,8 @@ CODEHTML;
         <td>$pseudo</td>
         <td>$nom</td>
         <td>$email</td>
-        <td><a href="" class="fiche-profil" >Acceder à la fiche</a></td>
-        <input type="hidden" class="id" value="$id"/>
+        <td><a href="{$app['url_generator']->generate('back-office/espace-admin')}/ajax/{$id}" class="fiche-profil"  id="$id">Accéder à la fiche</a></td>
+        <input type="hidden" class="id"  value="$id"/>
     </tr>
 CODEHTML;
                             } else 
@@ -320,8 +251,8 @@ CODEHTML;
         <td>$pseudo</td>
         <td>$nom</td>
         <td>$email</td>
-        <td><a href="" class="fiche-profil">Acceder à la fiche</a></td>
-        <input type="hidden" class="id" value="$id"/>
+        <td><a href="{$app['url_generator']->generate('back-office/espace-admin')}/ajax/{$id}" class="fiche-profil" id="$id">Accéder à la fiche</a></td>
+        <input type="hidden" class="id" value="{$id}"/>
     </tr>
 CODEHTML;
                             }
@@ -333,7 +264,12 @@ CODEHTML;
                 </div>
             </section>
 
-
+<?php
+if (null!=$objSession->get('infosUser') && $objSession->get('infosUser')!=""){
+    $infosUser = $objSession->get('infosUser');    
+    extract($infosUser);
+}
+?>
 
 
 
@@ -342,7 +278,7 @@ CODEHTML;
             <section>
                 <h2>Profil de <?php echo $pseudo; ?></h2>
                 <!-- FAIRE LA REQUETE EN AJAX -->
-                <form action="" method="post">
+                <form action="<?php echo $app['url_generator']->generate("modifUser", ["id"=>$id]);?>" method="post">
                     <div class="contain">
                         <label>pseudo:</label>
                         <input 
@@ -394,8 +330,10 @@ CODEHTML;
                             value="<?php echo $niveau; ?>"
                         >
                     </div>               
-                    <input type="submit" name="modifier" value="Modifier"/>
-                    <input type="submit" name="supprimer" value="Supprimer"/>
+                    <input type="submit" name="modifUser" value="Modifier"/>
+                    
+                    <input type="submit" name="modifUser" value="Supprimer"/>
+
                 </form>
             </section>
             <section>
@@ -427,15 +365,15 @@ CODEHTML;
                     $objStmnt = $app['db']->executeQuery($reqEvenements, []);
                     while($tabLigne = $objStmnt->fetch()) 
                     {
-                        extract($tabLigne);
+                        //extract($tabLigne);
                         if ($index%2 == 0) 
                         {
                             echo
 <<<CODEHTML
         <tr class="color">
-            <td>$id_user</td>
-            <td>$texte</td>
-            <td><a href="">Supprimer</a></td>
+            <td>{$tabLigne["id_user"]}</td>
+            <td>{$tabLigne["texte"]}</td>
+            <td><a href="{$app['url_generator']->generate('deleteCommentaire', ["id" => $tabLigne["id"]])}">Supprimer</a></td>
         </tr>
 CODEHTML;
                         } else
@@ -443,9 +381,9 @@ CODEHTML;
                             echo
 <<<CODEHTML
         <tr>
-            <td>$id_user</td>
-            <td>$texte</td>
-            <td><a href="">Supprimer</a></td>
+            <td>{$tabLigne["id_user"]}</td>
+            <td>{$tabLigne["texte"]}</td>
+            <td><a href="{$app['url_generator']->generate('deleteCommentaire', ["id" => $tabLigne["id"]])}">Supprimer</a></td>
         </tr>
 CODEHTML;
                         }

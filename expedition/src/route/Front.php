@@ -1,19 +1,21 @@
 <?php 
 namespace route;
 use src\traitement;
-use Symfony\Component\HttpFoundation\Session\Session;	
+
 
 class Front extends RouteParent
 {
 
 	//	traitement des formulaires de le header (connexion et inscription)
 	function traitementFormHeader(){
-		//dump("coucou");
+		
 		if(isset(	$this->request->request)
 				&& 	$this->request->request->get('traitementClass')!=""){
+
 			$traitement = $this->request->request->get('traitementClass');	
-			//dump($this->request);
+			
 			switch($traitement){
+
 				// formulaire de connexion			
 				case "Connexion":{				
 					return new \traitement\TraitementConnexion($this->request);												
@@ -22,17 +24,7 @@ class Front extends RouteParent
 				// formulaire d'inscription
 				case "Inscription": {				
 					return new \traitement\TraitementInscription($this->request);
-				}
-
-				// formulaire d'envoi de commentaire
-				case "Commentaire": {											
-					return new \traitement\TraitementCommentaire($this->request);
-				}
-
-				// formulaire de mise à jour d'un article
-				case "UpdateArticle": {
-					return new \traitement\TraitementUpdate($this->request);				
-				}
+				}				
 			}
 		}
 	}
@@ -64,11 +56,9 @@ class Front extends RouteParent
 
 	function accueil(){	
 		return $this->construireHtml(["header", "section-accueil", "section-accueil_2", "section-accueil_3", "section-accueil_4", "footer"]);
-
 	}
 
-	function contact(){		
-	
+	function contact(){			
 		return $this->construireHtml(["header", "section-contact", "footer"]);		
 	}
 
@@ -98,7 +88,7 @@ class Front extends RouteParent
 	}
 
 	function article($id){
-		$this->urlRedirection = $this->traitementFormHeader();
+		//$this->urlRedirection = $this->traitementFormHeader();
 		if ($this->urlRedirection!=""){
 			global $app;
             return $app->redirect($this->urlRedirection);
@@ -108,20 +98,7 @@ class Front extends RouteParent
 			return $this->construireHtml(["header", "section-article","section-article_2", "section-article_3", "footer"]);
 		}
 	}
-
-	function articleUpdate($id){
-		$this->urlRedirection = $this->traitementFormHeader();		
-		
-		if ($this->urlRedirection!=""){		
-			$this->infosDetail["id"] = $id;				
-			return $this->construireHtml(["header", "section-article", "footer"]);
-		}
-		else{
-			$this->infosDetail["id"] = $id;				
-			return $this->construireHtml(["header", "section-article_update", "footer"]);
-		}
-	}
-
+	
 	//
 	//	Photos publiques
 	//
@@ -167,7 +144,7 @@ class Front extends RouteParent
 *******************************************************************************
 */
 	function connexion(){		
-		// dump($this->traitementFormHeader());
+	
 		$this->urlRedirection = $this->traitementFormHeader()->urlRedirection;		
 
 		if ($this->urlRedirection == "")			
@@ -184,28 +161,7 @@ class Front extends RouteParent
 		}		
 	}
 
-/*
-*******************************************************************************
-**	Envoi d'un commentaire
-*******************************************************************************
-*/
-	function commentaire(){			
-		
-		$this->urlRedirection = $this->traitementFormHeader()->urlRedirection;		
-		//dump($this->urlRedirection);
 
-		if ($this->urlRedirection == ""){			
-			
-			return $this->construireHtml([	"header", 
-											"section-membre-2", 
-											"footer"
-										]);	
-		}
-		else{
-			global $app;
-            return $app->redirect($this->urlRedirection);
-		}		
-	}
 	
 	
 }

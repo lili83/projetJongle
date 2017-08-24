@@ -10,19 +10,13 @@
 	WHERE commentaire.id_article = $id
 	ORDER BY date_envoi DESC";
 	$resCommentaires = $app['db']->executeQuery($reqGetComment)->fetchAll();
+	dump($resCommentaires);
 	if (isset($resCommentaires)){
 		foreach($resCommentaires as $infosCommentaire){
 			$commentaire = new Commentaire($infosCommentaire, $urlRoot);
 			echo $commentaire->getHtml();
 		}
 	}
-?>
-		<nav>	
-			<ul>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-			</ul>
-		</nav>
+?>		
 	</div>
 </section>

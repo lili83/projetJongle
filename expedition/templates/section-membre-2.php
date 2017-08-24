@@ -1,26 +1,17 @@
 <?php 
 use Symfony\Component\HttpFoundation\Session\Session;
-require_once("../src/class/Article.php");
-require_once ("../src/traitement/TraitementCategories.php");
+require_once("..\src\class\Article.php");
 use traitement\TraitementCategories;
-
-
+require_once("../src/traitement/TraitementCategories.php");
 global $app;
+
  ?>
 <section id="section_membre_2" class="contain-col maxWidht">
 	<div class="contain">
 		<span id="btn-profil">Mon profil</span>
-
-<?php
-if($objSession->get('niveau')>0) {
-
-?>
 		<span id="btn-mes-articles">Mes articles</span>
 		<span id="btn-blog-membres">Blog membres</span>	
-		<span id="btn-charte">charte</span>
-<?php
-	}
-?>	
+		<span id="btn-charte">charte</span>	
 	</div>
 
 <?php  
@@ -35,9 +26,10 @@ if($objSession->get('niveau')>0) {
 	// Informations fournies par l'utilisateur
 	// Si connecté, il peut les modifier à son gré
 	if($objSession->get('email') != ""){
+		
 		$email = $objSession->get('email');
 		$reqInfosUsr = "SELECT * FROM USER WHERE EMAIL = '$email'";
-		
+
 		$objetStatement = $app['db']->executeQuery($reqInfosUsr);
 		if($infosUser = $objetStatement->fetch()){			
 			extract($infosUser);
@@ -46,7 +38,7 @@ if($objSession->get('niveau')>0) {
 	
 	<section id="contenu">
 		<div id="profil">
-			<form action="<?php echo $app['url_generator']->generate('updateUser', ["id" => $user->id]); ?>" method="POST">
+			<form action="" method="POST">
 				<input type="hidden" name="id" value="<?php echo $user->id; ?>">
 				<div class="contain">			
 					<label>pseudo:</label>
@@ -80,6 +72,14 @@ if($objSession->get('niveau')>0) {
 						value="<?php echo $user->prenom; ?>"
 					>
 				</div>
+				<div class="contain">
+					<label>Photo du profil:</label>
+					<input 
+						type="file" 
+						name="imgProfil"
+						value="<?php echo $user->imgProfil; ?>"
+					>
+				</div>
 				<div class="contain-col">
 					<label>resumé:</label>
 					<textarea
@@ -89,33 +89,21 @@ if($objSession->get('niveau')>0) {
 					><?php echo $user->resume; ?></textarea>
 				</div> 
 				<button>Modifier</button>
-				<input type="hidden" name="traitementClass" value="UpdateUser">
+				<input type="hidden" name="traitementClass" value="<?php 
+					if ($niveau>=10) 
+						echo "updateAdmin";
+					elseif ($niveau>1 && $niveau<10) 
+						echo "updateUser";
+				?>">
 			</form>
 		</div>	
-<?php
-		} 
-	}
 
-$niveauUser= $objSession->get('niveau');
-if($niveauUser==0) {
-echo 
-<<<CODEHTML
-<script type="text/javascript">
-var ongletProfil = "profil";
-</script>
-CODEHTML;
-}
-
-
-if($objSession->get('niveau')>0) {
-
-
-?>
 
 		<div id="mes-articles">	
 			<section class="contain-col">
-			<a id="crea" href="<?php echo $app['url_generator']->generate('newArticle', ["id" => $user->id]); ?>">> Créer un article</a>
 <?php
+		} 
+	}
 	/*
 	*******************************************************************************
 	*******************************************************************************	
@@ -123,11 +111,11 @@ if($objSession->get('niveau')>0) {
 	*******************************************************************************
 	*******************************************************************************
 	*/
-
 	$reqArticlesUsr = "SELECT * from article where id_user= $id";
 	$objetStatement = $app['db']->executeQuery($reqArticlesUsr);	
 	
 	if($resArticles = $objetStatement->fetchAll()){	
+		
 		foreach($resArticles as $tabArticle){						
 			$article = new Article($tabArticle, $user, $urlRoot);						
 			echo $article->getHtmlMini();
@@ -138,16 +126,14 @@ if($objSession->get('niveau')>0) {
 		</div>
 
 <?php
-	/*
-	*******************************************************************************
-	*******************************************************************************
-	**	AFFICHAGE DES ARTICLES DES AUTRES MEMBRES
-	*******************************************************************************
-	*******************************************************************************
-	*/
-			
+/*
+*******************************************************************************
+*******************************************************************************
+**	AFFICHAGE DES ARTICLES DES AUTRES MEMBRES
+*******************************************************************************
+*******************************************************************************
+*/
 ?>
-
 		<div id="blog-membres">
 			<div class="contain">
 				<h1>nos recherches privées</h1>
@@ -171,147 +157,39 @@ if($objSession->get('niveau')>0) {
 			</div>
 
 			<section class="contain-col">
-
 <?php
-	//	Récupération des articles par catégories
-	$traitementCategories = new TraitementCategories($this->request);
+	//	Récupération des articles
+
+    //  Si une catégorie a été selectionnée, on ne prend que les articles 
+    //  de cette catégorie
+    $traitementCategories = new TraitementCategories($this->request);	
 	$categorie= $traitementCategories->tabInfos['categorie'];
-	if (!isset($categorie)) {
-		// arrive sur la page
-		// onglet charte
-echo 
-<<<CODEHTML
-<script type="text/javascript">
-var ongletActif = "";
-</script>
-CODEHTML;
-		$nbArticles = 3;
-		$indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);		
-		$nbResultats = $app['db']->fetchColumn("SELECT COUNT(*) FROM article", []);
-		$objStmnt = $app['db']->executeQuery("SELECT * FROM ARTICLE LIMIT $indexDepart, $nbArticles", []);	
-		$reqArticles = "select * from article";
-		$objetStatement = $app['db']->executeQuery($reqArticles);
-		if($tabArticles = $objetStatement->fetchAll()){		
-			foreach($tabArticles as $infosArticle){			
-				$article = new Article($infosArticle,"", $urlRoot);		
-				echo $article->getHtmlMini($urlRoot);
-			}
-		}
-
-?>
-		<nav>	
-			<ul>
-<?php
-	//calculer le nombre de pag même si elle ne sont pas complètes avec ceil 
-	$nombreDePages=ceil($nbResultats/$nbArticles);		
-	for($i=1 ; $i <= $nombreDePages; $i++) {		
-		$urlPage = $app["url_generator"]->generate("back-office/espace-membre/page", ["numPage" => $i]);		
-		$uri        = $_SERVER["REQUEST_URI"];
-    	$recherche  = parse_url($uri, PHP_URL_QUERY);
-		echo "<li><a href='$urlPage?$recherche'>$i</a></li>";
-	}
-?>
-			</ul>
-		</nav>
-<?php
-
-	} else {
-		// recherche
-		if ($categorie!= "categorie"){
-			// rechercher filtrée
-			// onglet membre
-echo 
-<<<CODEHTML
-<script type="text/javascript">
-var ongletActif = "blog-membres";
-</script>
-CODEHTML;
-			$nbArticles = 3;
-			$indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);		
-			$nbResultats = $app['db']->fetchColumn("SELECT COUNT(*) FROM article, categoriearticle, categorie
-						WHERE categoriearticle.id_article = article.id
-						AND categoriearticle.id_categorie = categorie.id
-						AND categorie.nom = '$categorie'", []);
-
-			$objStmnt = $app['db']->executeQuery("SELECT * FROM article, categoriearticle, categorie
-						WHERE categoriearticle.id_article = article.id
-						AND categoriearticle.id_categorie = categorie.id
-						AND categorie.nom = '$categorie' 
-						LIMIT $indexDepart, $nbArticles", []);
-	
-
-			$reqArticles = "SELECT * FROM article, categoriearticle, categorie
+    $reqArticles = "";
+	if (isset($categorie) && $categorie != "categorie")
+	{
+		$reqArticles = "SELECT article.*, categorie.nom FROM article, categoriearticle, categorie
 						WHERE categoriearticle.id_article = article.id
 						AND categoriearticle.id_categorie = categorie.id
 						AND categorie.nom = '$categorie'";
-			$objetStatement = $app['db']->executeQuery($reqArticles);
-			if($tabArticles = $objetStatement->fetchAll()){
+    }
+    else{
+	    $reqArticles = "select * from article";
+    }
+
+	$objetStatement = $app['db']->executeQuery($reqArticles);
+	if($tabArticles = $objetStatement->fetchAll()){
 		
-				foreach($tabArticles as $infosArticle){			
-					$article = new Article($infosArticle,"", $urlRoot);			
-					echo $article->getHtmlMini($urlRoot);
-				}
-			}
-?>
-		<nav>	
-			<ul>
-<?php
-	//calculer le nombre de pag même si elle ne sont pas complètes avec ceil 
-	$nombreDePages=ceil($nbResultats/$nbArticles);		
-	for($i=1 ; $i <= $nombreDePages; $i++) {		
-		$urlPage = $app["url_generator"]->generate("back-office/espace-membre/page", ["numPage" => $i]);
-		$uri        = $_SERVER["REQUEST_URI"];
-    	$recherche  = parse_url($uri, PHP_URL_QUERY);
-		echo "<li><a href='$urlPage?$recherche'>$i</a></li>";
+		foreach($tabArticles as $infosArticle){			
+			$article = new Article($infosArticle,"", $urlRoot);			
+			echo $article->getHtmlMini($urlRoot);
 		}
+				
 ?>
-			</ul>
-		</nav>
-<?php
-		} else {
-			// recherche toutes categories
-			// onglet membre
-echo 
-<<<CODEHTML
-<script type="text/javascript">
-var ongletActif = "blog-membres";
-</script>
-CODEHTML;
-		$nbArticles = 3;
-		$indexDepart = $nbArticles * ($this->lireValeur("numPage") - 1);		
-		$nbResultats = $app['db']->fetchColumn("SELECT COUNT(*) FROM article", []);
-		$objStmnt = $app['db']->executeQuery("SELECT * FROM ARTICLE LIMIT $indexDepart, $nbArticles", []);	
-		$reqArticles = "select * from article";
-		$objetStatement = $app['db']->executeQuery($reqArticles);
-		if($tabArticles = $objetStatement->fetchAll()){		
-			foreach($tabArticles as $infosArticle){			
-				$article = new Article($infosArticle,"", $urlRoot);		
-				echo $article->getHtmlMini($urlRoot);
-			}
-		}
-?>
-		<nav>	
-			<ul>
-<?php
-	//calculer le nombre de pag même si elle ne sont pas complètes avec ceil 
-	$nombreDePages=ceil($nbResultats/$nbArticles);		
-	for($i=1 ; $i <= $nombreDePages; $i++) {		
-		$urlPage = $app["url_generator"]->generate("back-office/espace-membre/page", ["numPage" => $i]);
-		$uri        = $_SERVER["REQUEST_URI"];
-    	$recherche  = parse_url($uri, PHP_URL_QUERY);
-		echo "<li><a href='$urlPage?$recherche'>$i</a></li>";
-		}
-?>
-			</ul>
-		</nav>	
-<?php
-		}
-	}				
-?>
-			</section>						
+			</section>
 		</div>
-<!-- *********************************************************************************************************************************************************************************CHARTE*****************************************************************************************************************************************
- -->
+<?php 
+	}
+?>
 
 		<div id="charte">
 			<div class="contain-col">
@@ -332,8 +210,5 @@ CODEHTML;
 				</article>
 			</div>
 		</div>
-<?php
-	}
-?>
 	</section>	
 </section>

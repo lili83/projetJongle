@@ -9,7 +9,7 @@ $objSession = new Session();
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>L'expédition</title>
-	<script type="text/javascript" src="<?php echo $urlRoot; ?>/assets/ckeditor/ckeditor.js"></script>
+	<link rel="shortcut icon" type="image/x-icon" href="<?php echo $urlRoot; ?>/assets/img/header/logo.png" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $urlRoot; ?>/assets/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo $urlRoot; ?>/assets/css/style_cel.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo $urlRoot; ?>/assets/css/style_nic.css">
@@ -18,6 +18,8 @@ $objSession = new Session();
 	<link rel='stylesheet' href='<?php echo $urlRoot; ?>/unitegallery/css/unite-gallery.css' type='text/css' />
 	<link rel='stylesheet' href='<?php echo $urlRoot; ?>/unitegallery/themes/default/ug-theme-default.css' type='text/css' /> 
 	<link rel='stylesheet' href='<?php echo $urlRoot; ?>/unitegallery/themes/video/skin-right-thumb.css' type='text/css' />
+	<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+	<script src="<?php echo $urlRoot; ?>/assets/js/ckeditor/ckeditor.js"></script>
 	<!-- linkp layer video 
 	<link href="http://vjs.zencdn.net/6.2.4/video-js.css" rel="stylesheet">-->
 </head>
@@ -60,19 +62,12 @@ $objSession = new Session();
 				<li><a href="<?php echo $app['url_generator']->generate('blog')?>">blog</a></li>
 				<?php 
 				// Si l'utilisateur est connecté : on affiche le lien vers l'espace membre			
-				if(($objSession->get('email') != "")&&($objSession->get('niveau') >= 0)&&($objSession->get('niveau') <10)){								
-				?>
-				<li><a href="<?php echo $app['url_generator']->generate('back-office/espace-membre');						
-				?>
-				">espace membre</a></li>
-				<?php 
-				} elseif (($objSession->get('email') != "")&&($objSession->get('niveau') >= 10))
-				{
-				?>
-				<li><a href="<?php echo $app['url_generator']->generate('back-office/espace-admin');						
-				?>
-				">espace admin</a></li>
-				<?php
+				if($objSession->get('email') != ""){
+					if ($objSession->get('niveau') >= 0 && $objSession->get('niveau') <10){				
+						echo '<li><a href="'.$app['url_generator']->generate('back-office/espace-membre').'">espace membre</a></li>';				 
+					}elseif($objSession->get('email') != "" && $objSession->get('niveau') >= 10){
+						echo '<li><a href="'.$app['url_generator']->generate('back-office/espace-admin').'">espace admnin</a></li>';				 
+					}
 				}
 				?>
 				<li><a href="<?php echo $app['url_generator']->generate('galerie')?>">galerie</a></li>

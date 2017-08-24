@@ -53,7 +53,6 @@ $app->get('/galerie/page/{numPage}', "\\route\\Front::galerie")
 $app->get('/blog',"\\route\\Front::blog")
 ->bind('blog')
 ;
-
 $app->get('/blog/page/{numPage}',"\\route\\Front::blog")
 ->bind('blog/page')
 ;
